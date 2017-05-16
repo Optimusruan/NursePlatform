@@ -6,7 +6,7 @@ import javax.persistence.*;
  * Created by Administrator on 2017/5/16.
  */
 @Entity
-@Table(name = "admin", schema = "nurseplatform", catalog = "")
+@Table(name = "admin", schema = "nurseplatform", catalog = "nurseplatform")
 public class AdminEntity {
     private Integer admId;
     private String admUname;
