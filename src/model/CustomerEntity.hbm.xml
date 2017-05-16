@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="model.CustomerEntity" table="customer" schema="nurseplatform">
+        <id name="cusId">
+            <column name="cus_id" sql-type="int(11)"/>
+        </id>
+        <property name="cusName">
+            <column name="cus_name" sql-type="varchar(20)" length="20"/>
+        </property>
+        <property name="cusIdno">
+            <column name="cus_idno" sql-type="varchar(30)" length="30"/>
+        </property>
+        <property name="cusContact">
+            <column name="cus_contact" sql-type="varchar(20)" length="20"/>
+        </property>
+        <property name="cusAdd">
+            <column name="cus_add" sql-type="varchar(200)" length="200"/>
+        </property>
+        <property name="cusPos">
+            <column name="cus_pos" sql-type="varchar(50)" length="50"/>
+        </property>
+        <property name="cusUname">
+            <column name="cus_uname" sql-type="varchar(10)" length="10"/>
+        </property>
+        <property name="cusPwd">
+            <column name="cus_pwd" sql-type="varchar(20)" length="20"/>
+        </property>
+        <property name="cusAvt">
+            <column name="cus_avt" sql-type="varchar(100)" length="100"/>
+        </property>
+    </class>
+</hibernate-mapping>

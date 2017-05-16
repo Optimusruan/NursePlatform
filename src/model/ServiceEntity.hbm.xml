@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="model.ServiceEntity" table="service" schema="nurseplatform">
+        <id name="svcId">
+            <column name="svc_id" sql-type="int(11)"/>
+        </id>
+        <property name="svcCusid">
+            <column name="svc_cusid" sql-type="int(11)"/>
+        </property>
+        <property name="svcNurid">
+            <column name="svc_nurid" sql-type="int(11)"/>
+        </property>
+        <property name="svcStatus">
+            <column name="svc_status" sql-type="int(11)"/>
+        </property>
+        <property name="svcPps">
+            <column name="svc_pps" sql-type="int(11)"/>
+        </property>
+        <property name="svcStart">
+            <column name="svc_start" sql-type="date"/>
+        </property>
+        <property name="svcEnd">
+            <column name="svc_end" sql-type="date"/>
+        </property>
+        <property name="svcComment">
+            <column name="svc_comment" sql-type="varchar(500)" length="500"/>
+        </property>
+        <property name="svcLevel">
+            <column name="svc_level" sql-type="int(11)"/>
+        </property>
+        <property name="svcDate">
+            <column name="svc_date" sql-type="date"/>
+        </property>
+        <property name="svcAble">
+            <column name="svc_able" sql-type="tinyint(1)"/>
+        </property>
+    </class>
+</hibernate-mapping>

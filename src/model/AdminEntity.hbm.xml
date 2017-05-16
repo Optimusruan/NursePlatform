@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="model.AdminEntity" table="admin" schema="nurseplatform">
+        <id name="admId">
+            <column name="adm_id" sql-type="int(11)"/>
+        </id>
+        <property name="admUname">
+            <column name="adm_uname" sql-type="varchar(10)" length="10"/>
+        </property>
+        <property name="admPwd">
+            <column name="adm_pwd" sql-type="varchar(20)" length="20"/>
+        </property>
+    </class>
+</hibernate-mapping>
