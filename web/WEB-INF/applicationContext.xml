@@ -5,13 +5,13 @@
     <!--hibernate-->
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://59.110.228.132:3306/NursePlatform"/>
+        <property name="url" value="jdbc:mysql://59.110.228.132:3306/NursePlatform?useUnicode=true&amp;characterEncoding=utf8"/>
+        <!--<![CDATA[jdbc:mysql://59.110.228.132:3306/NursePlatform?useUnicode=true&characterEncoding=utf8]]>-->
         <property name="username" value="root"/>
         <property name="password" value="root"/>
     </bean>
     <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
-        <!--<property name="configLocation" value="classpath:hibernate.cfg.xml"/>-->
         <property name="mappingResources">
             <list>
                 <value>model/CustomerEntity.hbm.xml</value>
@@ -27,5 +27,11 @@
                 </prop>
             </props>
         </property>
+    </bean>
+
+
+    <!--dao-->
+    <bean id="nurseInitDao" class="dao.NurseInitDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 </beans>

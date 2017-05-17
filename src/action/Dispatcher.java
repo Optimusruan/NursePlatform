@@ -1,9 +1,12 @@
 package action;
 
 import dao.NurseInitDao;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -16,8 +19,12 @@ import java.io.PrintWriter;
 public class Dispatcher {
     @RequestMapping("init")
     public void init(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        NurseInitDao nurseInitDao = new NurseInitDao();
+        ServletContext servletContext = request.getServletContext();
+        String str = servletContext.getRealPath("/");
+        ApplicationContext applicationContext = new FileSystemXmlApplicationContext(str+"WEB-INF/applicationContext.xml");
+        NurseInitDao nurseInitDao = (NurseInitDao) applicationContext.getBean("nurseInitDao");
+        nurseInitDao.run();
         PrintWriter printWriter = response.getWriter();
-        printWriter.print("aaaa");
+        printWriter.print("finish");
     }
 }
