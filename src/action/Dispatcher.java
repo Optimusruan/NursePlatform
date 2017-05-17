@@ -27,4 +27,9 @@ public class Dispatcher {
         PrintWriter printWriter = response.getWriter();
         printWriter.print("finish");
     }
+
+    @RequestMapping("CustomerRegister")
+    public String CustomerRegister(){
+        return "CustomerRegister";
+    }
 }
