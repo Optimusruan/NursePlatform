@@ -22,7 +22,7 @@
 <form:form>
     <div class="form-group">
         <label class="col-lg-3">姓名：</label>
-        <input class="col-lg-9 form-control">
+        <input class="col-lg-9 form-control ">
     </div>
 </form:form>
 
