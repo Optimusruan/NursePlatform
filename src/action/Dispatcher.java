@@ -28,8 +28,13 @@ public class Dispatcher {
         printWriter.print("finish");
     }
 
-    @RequestMapping("CustomerRegister")
-    public String CustomerRegister(){
-        return "CustomerRegister";
+    @RequestMapping("customerRegister")
+    public String customerRegister(){
+        return "customerRegister";
+    }
+
+    @RequestMapping("nurseRegister")
+    public String nurseRegister(){
+        return "nurseRegister";
     }
 }
