@@ -12,10 +12,10 @@
 <head>
     <title>客户注册</title>
 
-    <script src="assets/jquery-3.1.1.min.js"></script>
-    <script src="assets/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="assets/bootstrap-theme.min.css" />
-    <link rel="stylesheet" href="assets/bootstrap.min.css" />
+    <script src="assets/js/jquery-3.1.1.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="assets/css/bootstrap-theme.min.css" />
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
 
 </head>
 <body>
