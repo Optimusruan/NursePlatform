@@ -39,8 +39,8 @@
               <b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
-              <li><a href="CustomerRegister.jsp">客户</a></li>
-              <li><a href="NurseRegister.jsp">月嫂</a></li>
+              <li><a href="customerRegister.jsp">客户</a></li>
+              <li><a href="nurseRegister.jsp">月嫂</a></li>
             </ul>
           </li>
         </ul>
