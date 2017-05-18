@@ -18,6 +18,10 @@
 
 
     <style type="text/css">
+        body{
+            /*background:url(assets/img/pinkback.jpeg);*/
+            background-size: cover;
+        }
         .form-control{
             border: 0px solid transparent;
             box-shadow: none;
@@ -78,6 +82,7 @@
                     </div>
                     <div class="col-lg-11 col-lg-offset-1">
                         <input id="cus_add" class="form-control" name="cus_add" placeholder="详细地址" type="text">
+                        <input id="cus_pos" name="cus_pos" type="hidden" >
                     </div>
                     <div id="add-error" class="error"></div>
                 </div>
@@ -111,12 +116,31 @@
 <script src="assets/js/distpicker/distpicker.js"></script>
 <script src="assets/js/distpicker/main.js"></script>
 <script type="text/javascript">
+    //获取distpicker省市区的值放到详细地址的开头
     $("#cus_add").focus(function(){
         var option1=$("#province option:selected");  //获取选中的项
         var option2=$("#city option:selected");  //获取选中的项
         var option3=$("#district option:selected");  //获取选中的项
         halfAdd = option1.val()+option2.val()+option3.val();
         $("#cus_add").val(halfAdd);
+    });
+    //调用高德api获取详细地址坐标
+    $("#cus_add").blur(function(){
+        var add = $("#cus_add").val();
+        $.ajax({
+            url:"http://restapi.amap.com/v3/geocode/geo",
+            data:{
+                key:"907340d4068b2e15e4e5ddd40c48c1e4",
+                address:add
+            },
+            type:"json",
+            dataType:'JSONP',
+            success:function(data){
+                var geocodes = data.geocodes[0];
+                var location = geocodes.location;
+                $("#cus_pos").val(location);
+            }
+        })
     })
 </script>
 </body>
