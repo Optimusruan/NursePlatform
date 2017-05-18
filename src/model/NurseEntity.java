@@ -6,7 +6,7 @@ import javax.persistence.*;
  * Created by Administrator on 2017/5/16.
  */
 @Entity
-@Table(name = "nurse", schema = "nurseplatform", catalog = "nurseplatform")
+@Table(name = "nurse", schema = "nurseplatform", catalog = "")
 public class NurseEntity {
     private Integer nurId;
     private String nurName;
@@ -46,7 +46,7 @@ public class NurseEntity {
     }
 
     @Basic
-    @Column(name = "nur_idno", nullable = false, length = 30)
+    @Column(name = "nur_idno", nullable = true, length = 30)
     public String getNurIdno() {
         return nurIdno;
     }
@@ -56,7 +56,7 @@ public class NurseEntity {
     }
 
     @Basic
-    @Column(name = "nur_contact", nullable = false, length = 20)
+    @Column(name = "nur_contact", nullable = true, length = 20)
     public String getNurContact() {
         return nurContact;
     }
@@ -66,7 +66,7 @@ public class NurseEntity {
     }
 
     @Basic
-    @Column(name = "nur_add", nullable = false, length = 200)
+    @Column(name = "nur_add", nullable = true, length = 200)
     public String getNurAdd() {
         return nurAdd;
     }
@@ -76,7 +76,7 @@ public class NurseEntity {
     }
 
     @Basic
-    @Column(name = "nur_pos", nullable = false, length = 50)
+    @Column(name = "nur_pos", nullable = true, length = 50)
     public String getNurPos() {
         return nurPos;
     }
@@ -106,7 +106,7 @@ public class NurseEntity {
     }
 
     @Basic
-    @Column(name = "nur_avt", nullable = false, length = 100)
+    @Column(name = "nur_avt", nullable = true, length = 100)
     public String getNurAvt() {
         return nurAvt;
     }
@@ -116,7 +116,7 @@ public class NurseEntity {
     }
 
     @Basic
-    @Column(name = "nur_rpt", nullable = false, precision = 0)
+    @Column(name = "nur_rpt", nullable = true, precision = 0)
     public Double getNurRpt() {
         return nurRpt;
     }
@@ -126,7 +126,7 @@ public class NurseEntity {
     }
 
     @Basic
-    @Column(name = "nur_rank", nullable = false)
+    @Column(name = "nur_rank", nullable = true)
     public Integer getNurRank() {
         return nurRank;
     }
@@ -136,7 +136,7 @@ public class NurseEntity {
     }
 
     @Basic
-    @Column(name = "nur_age", nullable = false)
+    @Column(name = "nur_age", nullable = true)
     public Integer getNurAge() {
         return nurAge;
     }
@@ -146,7 +146,7 @@ public class NurseEntity {
     }
 
     @Basic
-    @Column(name = "nur_status", nullable = false)
+    @Column(name = "nur_status", nullable = true)
     public Integer getNurStatus() {
         return nurStatus;
     }
@@ -156,7 +156,7 @@ public class NurseEntity {
     }
 
     @Basic
-    @Column(name = "nur_origin", nullable = false, length = 10)
+    @Column(name = "nur_origin", nullable = true, length = 10)
     public String getNurOrigin() {
         return nurOrigin;
     }
@@ -166,7 +166,7 @@ public class NurseEntity {
     }
 
     @Basic
-    @Column(name = "nur_edu", nullable = false, length = 10)
+    @Column(name = "nur_edu", nullable = true, length = 10)
     public String getNurEdu() {
         return nurEdu;
     }
@@ -176,7 +176,7 @@ public class NurseEntity {
     }
 
     @Basic
-    @Column(name = "nur_price", nullable = false)
+    @Column(name = "nur_price", nullable = true)
     public Integer getNurPrice() {
         return nurPrice;
     }

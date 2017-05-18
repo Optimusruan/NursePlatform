@@ -7,7 +7,7 @@ import java.sql.Date;
  * Created by Administrator on 2017/5/16.
  */
 @Entity
-@Table(name = "service", schema = "nurseplatform", catalog = "nurseplatform")
+@Table(name = "service", schema = "nurseplatform", catalog = "")
 public class ServiceEntity {
     private Integer svcId;
     private Integer svcCusid;
