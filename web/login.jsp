@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://www.springframework.org/tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: Administrator
@@ -27,6 +28,13 @@
             padding-top: 11%;
             padding-bottom: 11%;
         }
+        .divideLine{
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .firstInput{
+            margin-top:15px;
+        }
     </style>
 </head>
 <body>
@@ -34,21 +42,21 @@
 <div class="login-container">
     <div class="block">
         <form action="" class="form-horizontal">
-            <div class="form-group">
-                <label for="username" class="control-label col-sm-2"><i class="fa fa-user"
-                                                                        style="font-size: 1.25em"></i></label>
+            <div class="form-group firstInput">
+                <label for="username" class="control-label col-sm-2"><i class="fa fa-user" style="font-size: 1.5em"></i></label>
                 <div class="col-sm-10">
                     <input type="text" id="username" name="username" class="form-control" placeholder="用户名"/>
                 </div>
             </div>
             <div class="form-group">
-                <label for="password" class="control-label col-sm-2"><i class="fa fa-key" style="font-size: 1.25em"></i></label>
+                <label for="password" class="control-label col-sm-2"><i class="fa fa-key" style="font-size: 1.5em"></i></label>
                 <div class="col-sm-10">
                     <input type="password" id="password" name="password" class="form-control" placeholder="密码"/>
                 </div>
             </div>
+            <div class="divideLine">----------选择用户类型----------</div>
             <div class="form-group">
-                <label for="userType" class="control-label col-sm-2"><i class="fa fa-cog" style="font-size: 1.25em"></i></label>
+                <label for="userType" class="control-label col-sm-2"><i class="fa fa-cog" style="font-size: 1.5em"></i></label>
                 <div class="col-sm-10">
                     <select name="userType" id="userType" class="form-control">
                         <option value="nurse">月嫂</option>
@@ -58,7 +66,7 @@
             </div>
         </form>
         <button id="sm" class="btn btn-success" style="width: 100%">登陆</button>
-
+        <%--<button id="test" class="btn btn-warning">测试</button>--%>
     </div>
 </div>
 <div class="panel-footer" style="background: #bbb;text-align:center;font-size: 1.5em;"> 2016-2018 CopyRight@Biu</div>
@@ -66,5 +74,36 @@
 
 <script src="assets/js/jquery-3.1.1.min.js"></script>
 <script src="assets/js/bootstrap.min.js"></script>
+<script>
+    $("#sm").on("click",function () {
+        $.ajax({
+            url:"login",
+            data:{
+                username:$("#username").val(),
+                password:$("#password").val(),
+                userType:$("#userType").val()
+            },
+            success:function (data) {
+                if(data=="error")
+                {
+                    alert("用户名或密码错误");
+                    history.back();
+                }
+                else {
+                    alert("登陆成功,id="+data);
+//                    window.location.href="";
+                }
+            }
+        })
+    });
+//    $("#test").on("click",function () {
+//        $.ajax({
+//            url:"test",
+//            success:function (data) {
+//
+//            }
+//        })
+//    })
+</script>
 </body>
 </html>

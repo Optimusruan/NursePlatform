@@ -30,11 +30,11 @@ public class Dispatcher {
 
     @RequestMapping("customerRegister")
     public String customerRegister(){
-        return "CustomerRegister";
+        return "customerRegister";
     }
 
     @RequestMapping("nurseRegister")
     public String nurseRegister(){
-        return "NurseRegister";
+        return "nurseRegister";
     }
 }
