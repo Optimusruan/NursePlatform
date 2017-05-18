@@ -35,5 +35,4 @@
     <bean id="nurseInitDao" class="dao.NurseInitDao">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
-
 </beans>

@@ -12,9 +12,9 @@
     <title>$Title$</title>
   </head>
   <body>
-  <form action="<c:url value="init"/>" method="post">
-    <input type="submit" value="执行">
-  </form>
-
+  <%--<form action="<c:url value="init"/>" method="post">--%>
+    <%--<input type="submit" value="执行">--%>
+  <%--</form>--%>
+  <a href="login.jsp">登陆</a>
   </body>
 </html>
