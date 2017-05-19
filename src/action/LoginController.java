@@ -1,6 +1,5 @@
 package action;
 
-import dao.LoginDao;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -27,8 +26,8 @@ public class LoginController {
         ServletContext servletContext = request.getServletContext();
         String str = servletContext.getRealPath("/");
         ApplicationContext applicationContext = new FileSystemXmlApplicationContext(str+"WEB-INF/applicationContext.xml");
-        LoginDao loginDao = (LoginDao) applicationContext.getBean("loginDao");
-        int id = LoginService.checkLogin(userType,username,password,loginDao);
+        LoginService loginService = (LoginService) applicationContext.getBean("loginService");
+        int id = loginService.checkLogin(userType,username,password);
         if (id==-1)
         {
             PrintWriter printWriter = response.getWriter();

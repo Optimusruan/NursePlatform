@@ -37,4 +37,12 @@
     <bean id="loginDao" class="dao.LoginDao">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
+    <bean id="nurseDao" class="dao.NurseDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <!--service-->
+    <bean id="loginService" class="service.LoginService">
+        <property name="loginDao" ref="loginDao"/>
+    </bean>
 </beans>
