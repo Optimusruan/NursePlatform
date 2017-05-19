@@ -6,6 +6,8 @@
       <root url="jar://$PROJECT_DIR$/lib/spring-webmvc-portlet-4.3.8.RELEASE.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/spring-web-4.3.8.RELEASE.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/spring-webmvc-4.3.8.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/standard.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jstl.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

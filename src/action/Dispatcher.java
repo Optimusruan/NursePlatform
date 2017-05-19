@@ -41,8 +41,16 @@ public class Dispatcher {
     }
 
     @RequestMapping("nurseDetail")
-    public String nurseDetail(@RequestParam("id") String id, Map model) {
-        model.put("id",id);
-        return "/nurseDetail";
+    public String nurseDetail(@RequestParam("id") String id, Map model, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        if(request.getSession().getAttribute("id")!=null&&request.getSession().getAttribute("id").toString().equals(id))
+        {
+            model.put("id",id);
+            return "/nurseDetail";
+        }
+        else{
+            PrintWriter printWriter = response.getWriter();
+            printWriter.print("<script>window.location.href='login.jsp';</script>");
+            return null;
+        }
     }
 }

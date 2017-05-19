@@ -12,6 +12,7 @@
     <title></title>
 </head>
 <body>
-    <output>{$id}</output>
+    <%=session.getAttribute("id")%>
+    <c:out value="${id}"></c:out>
 </body>
 </html>
