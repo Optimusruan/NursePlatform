@@ -45,4 +45,7 @@
     <bean id="loginService" class="service.LoginService">
         <property name="loginDao" ref="loginDao"/>
     </bean>
+    <bean id="nurseService" class="service.NurseService">
+        <property name="nurseDao" ref="nurseDao"/>
+    </bean>
 </beans>
