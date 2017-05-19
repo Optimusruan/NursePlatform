@@ -59,7 +59,7 @@
                 <div class="col-sm-10">
                     <select name="userType" id="userType" class="form-control">
                         <option value="nurse">月嫂</option>
-                        <option value="custom">客户</option>
+                        <option value="customer">客户</option>
                     </select>
                 </div>
             </div>
@@ -86,7 +86,7 @@
                 if(data=="error")
                 {
                     alert("用户名或密码错误");
-                    history.back();
+                    window.location.href="login.jsp";
                 }
                 else {
 //                    $("#loginForm").submit();

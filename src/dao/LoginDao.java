@@ -32,7 +32,7 @@ public class LoginDao {
             }
             session.close();
         }
-        else if(userType.equals("custom"))
+        else if(userType.equals("customer"))
         {
             Query query =session.createQuery("from CustomerEntity where cusUname=? and cusPwd=?");
             query.setParameter(0,username);
