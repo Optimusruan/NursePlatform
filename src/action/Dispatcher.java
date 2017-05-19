@@ -5,12 +5,14 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2017/5/17.
@@ -36,5 +38,11 @@ public class Dispatcher {
     @RequestMapping("nurseRegister")
     public String nurseRegister(){
         return "nurseRegister";
+    }
+
+    @RequestMapping("nurseDetail")
+    public String nurseDetail(@RequestParam("id") String id, Map model) {
+        model.put("id",id);
+        return "/nurseDetail";
     }
 }

@@ -5,6 +5,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import service.LoginService;
 
 import javax.servlet.ServletContext;
@@ -39,6 +40,10 @@ public class LoginController {
             PrintWriter printWriter = response.getWriter();
             printWriter.print(id);
         }
+    }
+    @RequestMapping("loginSystem")
+    public String loginSystem(@RequestParam("userType") String userType,HttpServletRequest request){
+        return "redirect:"+userType+"Detail?id="+ request.getSession().getAttribute("id");
     }
     @RequestMapping("test")
     public void test(HttpServletRequest request) {
