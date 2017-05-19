@@ -40,7 +40,7 @@
 <div class="panel-heading" style="font-size: 2em">育婴平台</div>
 <div class="login-container">
     <div class="block">
-        <form action="/loginSystem" class="form-horizontal" method="post" id="loginForm">
+        <form action="loginSystem" class="form-horizontal" method="post" id="loginForm">
             <div class="form-group firstInput">
                 <label for="username" class="control-label col-sm-2"><i class="fa fa-user" style="font-size: 1.5em"></i></label>
                 <div class="col-sm-10">
@@ -59,7 +59,7 @@
                 <div class="col-sm-10">
                     <select name="userType" id="userType" class="form-control">
                         <option value="nurse">月嫂</option>
-                        <option value="custom">客户</option>
+                        <option value="customer">客户</option>
                     </select>
                 </div>
             </div>
@@ -86,11 +86,10 @@
                 if(data=="error")
                 {
                     alert("用户名或密码错误");
-                    history.back();
+                    window.location.href="login.jsp";
                 }
                 else {
-//                    $("#loginForm").submit();
-                    alert("登陆成功,id="+data);
+                    alert("登陆成功");
                     window.location.href="/nurse/loginSystem?userType="+$("#userType").val();
                 }
             }

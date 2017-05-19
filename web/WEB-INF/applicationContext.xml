@@ -40,9 +40,19 @@
     <bean id="nurseDao" class="dao.NurseDao">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
+    <bean id="customerDao" class="dao.CustomerDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
 
     <!--service-->
     <bean id="loginService" class="service.LoginService">
         <property name="loginDao" ref="loginDao"/>
+    </bean>
+    <bean id="nurseService" class="service.NurseService">
+        <property name="nurseDao" ref="nurseDao"/>
+    </bean>
+    <bean id="customerService" class="service.CustomerService">
+        <property name="customerDao" ref="customerDao"/>
     </bean>
 </beans>
