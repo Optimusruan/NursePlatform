@@ -32,7 +32,7 @@
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager" inherit-compiler-output="false">
+  <component name="NewModuleRootManager">
     <output url="file:///production/NursePlatform" />
     <output-test url="file:///test/NursePlatform" />
     <exclude-output />
