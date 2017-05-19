@@ -16,6 +16,10 @@ public class NurseService {
 
         NurseEntity nurseEntity = nurseDao.getModel(id);
         nurseEntity.setNurIdno("验证通过");
+        nurseEntity.setNurContact("");
         return nurseEntity;
+    }
+    public NurseEntity getDetailByHome(String id){
+        return nurseDao.getModel(id);
     }
 }

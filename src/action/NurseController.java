@@ -24,15 +24,15 @@ public class NurseController {
         String str = servletContext.getRealPath("/");
         return new FileSystemXmlApplicationContext(str+"WEB-INF/applicationContext.xml");
     }
-    @RequestMapping("nurseDetail")
-    public String nurseDetail(@RequestParam("id") String id, Map model, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    @RequestMapping("nurseHome")
+    public String nurseHome(@RequestParam("id") String id, Map model, HttpServletRequest request, HttpServletResponse response) throws IOException {
         if(request.getSession().getAttribute("id")!=null&&request.getSession().getAttribute("id").toString().equals(id))
         {
             ApplicationContext applicationContext = getApplicationContext(request);
 //            model.put("id",id);
             NurseService nurseService = (NurseService) applicationContext.getBean("nurseService");
-            model.put("info",nurseService.getDetail(id));
-            return "nurseDetail";
+            model.put("info",nurseService.getDetailByHome(id));
+            return "nurseHome";
         }
         else{
             PrintWriter printWriter = response.getWriter();
@@ -40,4 +40,13 @@ public class NurseController {
             return null;
         }
     }
+    @RequestMapping("nurseDetail")
+    public String nurseDetail(@RequestParam("id") String id,Map model,HttpServletRequest request)
+    {
+        ApplicationContext applicationContext = getApplicationContext(request);
+        NurseService nurseService = (NurseService) applicationContext.getBean("nurseService");
+        model.put("info",nurseService.getDetail(id));
+        return "nurseDetail";
+    }
+
 }
