@@ -80,6 +80,9 @@ public class RegisterController {
             }
             printWriter.print(id);
             printWriter.print(details.toString());
+
+            request.getSession().setAttribute("id", id);
+            //redirect
         }
     }
     @RequestMapping("customerRegister")

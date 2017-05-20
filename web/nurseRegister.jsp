@@ -166,7 +166,7 @@
     $(".odistp").blur(function(){
         var oprovince = $("#oprovince option:selected");
         var ocity = $("#ocity option:selected");
-        $("#nur_origin").val(oprovince.val()+ocity.val());
+        $("#nur_origin").val(oprovince.val() + "|" + ocity.val());
     });
     //调用高德api获取详细地址坐标
     $("#nur_add").blur(function(){

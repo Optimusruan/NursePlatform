@@ -26,7 +26,7 @@ public class CustomerController {
         return (CustomerService) applicationContext.getBean("customerService");
     }
     @RequestMapping("customerHome")
-    public String nurseHome(@RequestParam("id") String id, Map model, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public String customerHome(@RequestParam("id") String id, Map model, HttpServletRequest request, HttpServletResponse response) throws IOException {
         if(request.getSession().getAttribute("id")!=null&&request.getSession().getAttribute("id").toString().equals(id))
         {
             CustomerService customerService = getCustomerService(request);
@@ -40,7 +40,7 @@ public class CustomerController {
         }
     }
     @RequestMapping("customerDetail")
-    public String nurseDetail(@RequestParam("id") String id,Map model,HttpServletRequest request)
+    public String customerDetail(@RequestParam("id") String id,Map model,HttpServletRequest request)
     {
         CustomerService customerService = getCustomerService(request);
         model.put("info",customerService.getDetail(id));
