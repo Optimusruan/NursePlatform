@@ -71,9 +71,9 @@
         </div>
         <div>
             <ul class="nav navbar-nav navbar-left">
-                <li class="active"><a href="#home">首页</a></li>
+                <li class="active"><a href="#myCarousel">首页</a></li>
                 <li><a href="#services">服务介绍</a></li>
-                <li><a href="#oneday">月嫂的一天</a></li>
+                <li><a href="#nurses">优秀月嫂展示</a></li>
                 <li><a href="#about">关于我们</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -88,7 +88,7 @@
     </div>
 </nav>
 <div class="bloke">
-    <div id="myCarousel" class="carousel slide" name="home">
+    <div id="myCarousel" class="carousel slide">
         <!-- 轮播（Carousel）指标 -->
         <ol class="carousel-indicators">
             <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -136,7 +136,7 @@
 
         });
     </script>
-    <div class="table-responsive" name="services" style="width: 100%;height: 100%">
+    <div class="table-responsive" id="services" style="width: 100%;height: 100%">
         <table class="table">
             <thead>
             <tr colspan="5">
@@ -185,26 +185,9 @@
     </div>
 
 
-    <div name="oneday">
-        <h2>一天的工作</h2>
-        <div class="am">
-            <div class="circle" style="background: yellow; margin: 0 45%;">
-                <i class="fa fa-bars fa-4x" aria-hidden="true"></i>
-            </div>
-            <h3>上午</h3>
-        </div>
-        <div class="pm">
-            <div class="circle" style="background: deepskyblue;margin: 0 45%;">
-                <i class="fa fa-sun-o fa-4x" aria-hidden="true"></i>
-            </div>
-            <h3>上午</h3>
-        </div>
-        <div class="eve">
-            <div class="circle" style="background: rebeccapurple ;margin: 0 45%;">
-                <i class="fa fa-moon-o fa-4x" aria-hidden="true"></i>
-            </div>
-            <h3>上午</h3>
-        </div>
+    <div id="nurses">
+        <h2>优秀月嫂展示</h2>
+        <div style="float: right;"><a href="searchNurse.jsp">查看更多 ></a></div>
     </div>
 </div>
 </body>
