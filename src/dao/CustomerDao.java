@@ -23,4 +23,13 @@ public class CustomerDao {
         CustomerEntity customerEntity = (CustomerEntity) query.getSingleResult();
         return customerEntity;
     }
+
+    public int getMaxId()
+    {
+        Session session = sessionFactory.openSession();
+        org.hibernate.query.Query query = session.createQuery("select max(cusId) from CustomerEntity");
+        int maxId = (Integer)query.uniqueResult();
+
+        return maxId + 1;
+    }
 }

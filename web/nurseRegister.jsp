@@ -10,6 +10,7 @@
 <head>
     <title>月嫂注册</title>
 
+    <meta charset="utf-8">
     <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
     <link rel="stylesheet" href="assets/font-awesome-4.7.0/css/font-awesome.min.css">
 
@@ -40,7 +41,7 @@
         <h1>Register Now!月嫂注册</h1>
         <br>
         <div class="card-panel col-lg-6 col-lg-offset-3">
-            <form class="register-form" method="post" action="">
+            <form class="register-form" method="post" action="register">
                 <div class="row form-group margin">
                     <i class="col-lg-1 fa fa-user prefix"></i>
                     <div class="col-lg-11">
@@ -138,6 +139,7 @@
                 </div>
                 <div class="row">
                     <div class="input-field col" id="bt">
+                        <input name="usertype" value="nur" type="hidden">
                         <button class="btn col-lg-2 col-lg-offset-3" id="submit_btn">注册</button>
                         <p class="">&nbsp已有账号? <a href="login.jsp" class="btn">登录</a></p>
                     </div>
@@ -164,7 +166,7 @@
     $(".odistp").blur(function(){
         var oprovince = $("#oprovince option:selected");
         var ocity = $("#ocity option:selected");
-        $("#nur_origin").val(oprovince.val()+ocity.val());
+        $("#nur_origin").val(oprovince.val() + "|" + ocity.val());
     });
     //调用高德api获取详细地址坐标
     $("#nur_add").blur(function(){

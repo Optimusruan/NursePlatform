@@ -31,14 +31,4 @@ public class Dispatcher {
         printWriter.print("finish");
     }
 
-    @RequestMapping("customerRegister")
-    public String customerRegister(){
-        return "customerRegister";
-    }
-
-    @RequestMapping("nurseRegister")
-    public String nurseRegister(){
-        return "nurseRegister";
-    }
-
 }

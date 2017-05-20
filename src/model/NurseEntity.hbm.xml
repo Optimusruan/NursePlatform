@@ -5,23 +5,23 @@
 <hibernate-mapping>
 
     <class name="model.NurseEntity" table="nurse" schema="nurseplatform">
-        <id name="nurId">
+        <id name="nurId" >
             <column name="nur_id" sql-type="int(11)"/>
         </id>
         <property name="nurName">
             <column name="nur_name" sql-type="varchar(20)" length="20"/>
         </property>
         <property name="nurIdno">
-            <column name="nur_idno" sql-type="varchar(30)" length="30" not-null="true"/>
+            <column name="nur_idno" sql-type="varchar(30)" length="30"/>
         </property>
         <property name="nurContact">
-            <column name="nur_contact" sql-type="varchar(20)" length="20" not-null="true"/>
+            <column name="nur_contact" sql-type="varchar(20)" length="20" />
         </property>
         <property name="nurAdd">
-            <column name="nur_add" sql-type="varchar(200)" length="200" not-null="true"/>
+            <column name="nur_add" sql-type="varchar(200)" length="200"/>
         </property>
         <property name="nurPos">
-            <column name="nur_pos" sql-type="varchar(50)" length="50" not-null="true"/>
+            <column name="nur_pos" sql-type="varchar(50)" length="50"/>
         </property>
         <property name="nurUname">
             <column name="nur_uname" sql-type="varchar(10)" length="10"/>
@@ -30,28 +30,28 @@
             <column name="nur_pwd" sql-type="varchar(20)" length="20"/>
         </property>
         <property name="nurAvt">
-            <column name="nur_avt" sql-type="varchar(100)" length="100" not-null="true"/>
+            <column name="nur_avt" sql-type="varchar(100)" length="100"/>
         </property>
         <property name="nurRpt">
-            <column name="nur_rpt" sql-type="double" precision="-1" not-null="true"/>
+            <column name="nur_rpt" sql-type="double" precision="-1" />
         </property>
         <property name="nurRank">
-            <column name="nur_rank" sql-type="int(11)" not-null="true"/>
+            <column name="nur_rank" sql-type="int(11)"/>
         </property>
         <property name="nurAge">
-            <column name="nur_age" sql-type="int(11)" not-null="true"/>
+            <column name="nur_age" sql-type="int(11)"/>
         </property>
         <property name="nurStatus">
-            <column name="nur_status" sql-type="int(11)" not-null="true"/>
+            <column name="nur_status" sql-type="int(11)"/>
         </property>
         <property name="nurOrigin">
-            <column name="nur_origin" sql-type="varchar(10)" length="10" not-null="true"/>
+            <column name="nur_origin" sql-type="varchar(10)" length="10"/>
         </property>
         <property name="nurEdu">
-            <column name="nur_edu" sql-type="varchar(10)" length="10" not-null="true"/>
+            <column name="nur_edu" sql-type="varchar(10)" length="10"/>
         </property>
         <property name="nurPrice">
-            <column name="nur_price" sql-type="int(11)" not-null="true"/>
+            <column name="nur_price" sql-type="int(11)" />
         </property>
     </class>
 </hibernate-mapping>

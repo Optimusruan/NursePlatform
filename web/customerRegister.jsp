@@ -46,7 +46,7 @@
         <h1>Register Now!客戶注册</h1>
         <br>
         <div class="card-panel col-lg-6 col-lg-offset-3">
-            <form:form class="register-form" method="post" action="">
+            <form class="register-form" method="post" action="register">
                 <div class="row form-group margin">
                     <i class="col-lg-1 fa fa-user prefix"></i>
                     <div class="col-lg-11">
@@ -101,11 +101,12 @@
                 </div>
                 <div class="row">
                     <div class="input-field col" id="bt">
+                        <input name="usertype" value="cus" type="hidden">
                         <button class="btn col-lg-2 col-lg-offset-3" id="submit_btn">注册</button>
                         <p class="">&nbsp已有账号? <a href="login.jsp" class="btn">登录</a></p>
                     </div>
                 </div>
-            </form:form>
+            </form>
         </div>
     </div>
 </div>
