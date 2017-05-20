@@ -41,5 +41,12 @@ public class NurseDao {
         query.setMaxResults(size);
         return query.list();
     }
+    //优秀月嫂查询
+    public List getExcellentNurses(int size){
+        Session session = sessionFactory.openSession();
+        Query query= session.createQuery("from NurseEntity where nurRank=5");
+        query.setMaxResults(size);
+        return query.list();
+    }
 
 }

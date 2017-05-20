@@ -30,4 +30,7 @@ public class NurseService {
     public List getNurseListByPage(int current,int size){
         return nurseDao.getNurseListByPage(current,size);
     }
+    public List getExcellentNurses(int size){
+        return nurseDao.getExcellentNurses(size);
+    }
 }

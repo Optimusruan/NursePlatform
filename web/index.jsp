@@ -38,11 +38,6 @@
             padding: 10px;
         }
 
-        i {
-            width: 60px;
-            height: 60px;
-        }
-
         #myCarousel {
             height: 400px;
             width: 80%;
@@ -60,28 +55,73 @@
             width: 100%;
             height: 400px;
         }
+        #istop{
+            background-color: lightyellow;
+            position: fixed;
+            width: 50px;
+            bottom: 40px;
+            right: 20px;
+            border: 8px double #DCFCE9;
+            text-align: center;
+        }
+
+        hr{
+            height:10px;
+            border:none;
+            border-top: 1px dashed lightpink;
+        }
+        #nurselist{
+            position: relative;
+        }
+        .itemContainer{
+            float:left;
+            margin: 10px;
+            padding: 10px;
+            width: 420px;
+            height: 300px;
+        }
+        .rank{
+            border-radius: 40px;
+            background: #FFB6C1;
+            margin: 10px;
+            padding: 5px;
+            width: 80px;
+            height: 30px;
+        }
+        .itemImg ,.itemInfo{
+            width: 180px;
+            height: 280px;
+            padding: 5px;
+            text-align:left;
+        }
+
 
     </style>
 </head>
 <body>
-<nav class="navbar navbar-default " role="navigation" style="background: lightpink;">
+<div id="istop"><a href="#top"><i class="fa  fa-chevron-up fa-2x" aria-hidden="true"></i>返回顶部</a></div>
+<nav id="top" class="navbar navbar-default " role="navigation" style="background: lightpink;">
     <div class="container-fluid">
         <div class="navbar-header">
             <a class="navbar-brand">NursePlatform</a>
         </div>
         <div>
             <ul class="nav navbar-nav navbar-left">
-                <li class="active"><a href="#myCarousel">首页</a></li>
+                <li><a href="#myCarousel">首页</a></li>
                 <li><a href="#services">服务介绍</a></li>
                 <li><a href="#nurses">优秀月嫂展示</a></li>
                 <li><a href="#about">关于我们</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a href="login.jsp">登录</a>
+                    <button type="button" class="btn btn-default navbar-btn" style="background-color: lightyellow">
+                        <a href="login.jsp">登录</a>
+                    </button>
                 </li>
                 <li>
-                    <a href="register.jsp">注册</a>
+                    <button type="button" class="btn btn-default navbar-btn"  style="background-color: lightyellow">
+                        <a href="register.jsp">注册</a>
+                    </button>
                 </li>
             </ul>
         </div>
@@ -140,7 +180,7 @@
         <table class="table">
             <thead>
             <tr colspan="5">
-                <h2>服务介绍</h2>
+                <h2>服务介绍</h2><hr>
             </tr>
             </thead>
             <tbody>
@@ -181,14 +221,37 @@
             </tr>
             </tbody>
         </table>
-        <hr>
+
     </div>
 
 
     <div id="nurses">
         <h2>优秀月嫂展示</h2>
-        <div style="float: right;"><a href="searchNurse.jsp">查看更多 ></a></div>
+        <div style="float: right;"><a href="searchNurse.jsp">查看更多 ></a></div><hr>
+        <div id="nurselist">
+
+        </div>
+    </div>
+    <div id="about">
+        <h2>关于我们</h2><hr>
+        <p>NursePlatform 实现了：</p>
+        <p>1.月嫂与客户直接沟通，省去中介费</p>
+        <p>2.根据客户要求智能匹配月嫂</p>
+        <p>3.按条件精确查找月嫂</p>
+        <p>4.月嫂与客户双向选择</p>
     </div>
 </div>
 </body>
+<script>
+    $.ajax({
+        url:"excellentNurses",
+        data:{
+            size:6
+            //偶数
+        },
+        success:function (data) {
+            $("#nurselist").html(data);
+        }
+    })
+</script>
 </html>

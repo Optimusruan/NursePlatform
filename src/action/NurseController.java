@@ -55,5 +55,12 @@ public class NurseController {
         model.put("info",nurseService.getNurseListByPage(Integer.parseInt(current),Integer.parseInt(size)));
         return "ajaxLoadView/nurseList";
     }
+    @RequestMapping("excellentNurses")
+    public String excellentNurses(Map model,HttpServletRequest request){
+        NurseService nurseService = getNurseService(request);
+        String size =  request.getParameter("size");
+        model.put("info",nurseService.getExcellentNurses(Integer.parseInt(size)));
+        return "ajaxLoadView/nurseList";
+    }
 
 }
