@@ -27,8 +27,12 @@
             height:auto;
         }
         .pageNavi{
-            position: absolute;
-            right: 0;
+            text-align: center;
+        }
+        .morePage{
+            display: inline-block;
+            text-align: center;
+            margin: 20px 0;
         }
     </style>
 </head>
@@ -39,7 +43,7 @@
         <img src="assets/img/loading.gif" alt="" width="300">
     </div>
     <div class="row">
-        <nav aria-label="Page navigation" class="pageNavi">
+        <nav aria-label="Page navigation" class="pageNavi col-lg-6">
             <ul class="pagination">
                 <li class="pre">
                     <a href="#" aria-label="Previous">
@@ -56,6 +60,7 @@
                 </li>
             </ul>
         </nav>
+        <div class="morePage col-lg-6">共{}页，跳转到 <input type="number" id="inputPage" pattern="[0-9]"> 页<button id="toPage">确定</button></div>
     </div>
     <%--<input type="hidden" id="maxPage" value="<c:out value="${maxPage}"/>"/>--%>
     <input type="hidden" id="maxPage" value="3"/>
