@@ -26,6 +26,15 @@ public class NurseDao {
         session.close();
         return nurseEntity;
     }
+    public int getMaxId()
+    {
+        Session session = sessionFactory.openSession();
+        Query query = session.createQuery("select max(nurId) from NurseEntity");
+        int maxId = (Integer)query.uniqueResult();
+
+        return maxId + 1;
+    }
+
     //全部查询
     public List getNurseList(){
         Session session = sessionFactory.openSession();
