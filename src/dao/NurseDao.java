@@ -3,8 +3,9 @@ package dao;
 import model.NurseEntity;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 
-import javax.persistence.Query;
+import java.util.List;
 
 
 /**
@@ -13,16 +14,32 @@ import javax.persistence.Query;
 public class NurseDao {
     private SessionFactory sessionFactory;
 
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
     public NurseEntity getModel(String id)
     {
         Session session = sessionFactory.openSession();
         Query query = session.createQuery("from NurseEntity where nurId=?");
         query.setParameter(0,Integer.parseInt(id));
         NurseEntity nurseEntity = (NurseEntity) query.getSingleResult();
+        session.close();
         return nurseEntity;
     }
-
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+    //全部查询
+    public List getNurseList(){
+        Session session = sessionFactory.openSession();
+        List list = session.createQuery("from NurseEntity").list();
+        session.close();
+        return list;
     }
+    //分页查询
+    public List getNurseListByPage(int current,int size){
+        Session session = sessionFactory.openSession();
+        Query query= session.createQuery("from NurseEntity ");
+        query.setFirstResult((current-1)*size);
+        query.setMaxResults(size);
+        return query.list();
+    }
+
 }

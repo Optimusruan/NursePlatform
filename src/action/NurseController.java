@@ -19,18 +19,17 @@ import java.util.Map;
  */
 @Controller
 public class NurseController {
-    private ApplicationContext getApplicationContext(HttpServletRequest request){
+    private NurseService getNurseService(HttpServletRequest request){
         ServletContext servletContext = request.getServletContext();
         String str = servletContext.getRealPath("/");
-        return new FileSystemXmlApplicationContext(str+"WEB-INF/applicationContext.xml");
+        ApplicationContext applicationContext = new FileSystemXmlApplicationContext(str+"WEB-INF/applicationContext.xml");
+        return (NurseService) applicationContext.getBean("nurseService");
     }
     @RequestMapping("nurseHome")
     public String nurseHome(@RequestParam("id") String id, Map model, HttpServletRequest request, HttpServletResponse response) throws IOException {
         if(request.getSession().getAttribute("id")!=null&&request.getSession().getAttribute("id").toString().equals(id))
         {
-            ApplicationContext applicationContext = getApplicationContext(request);
-//            model.put("id",id);
-            NurseService nurseService = (NurseService) applicationContext.getBean("nurseService");
+            NurseService nurseService = getNurseService(request);
             model.put("info",nurseService.getDetailByHome(id));
             return "nurseHome";
         }
@@ -43,10 +42,18 @@ public class NurseController {
     @RequestMapping("nurseDetail")
     public String nurseDetail(@RequestParam("id") String id,Map model,HttpServletRequest request)
     {
-        ApplicationContext applicationContext = getApplicationContext(request);
-        NurseService nurseService = (NurseService) applicationContext.getBean("nurseService");
+        NurseService nurseService =getNurseService(request);
         model.put("info",nurseService.getDetail(id));
         return "nurseDetail";
+    }
+
+    @RequestMapping("nurseList")
+    public String nurseList(Map model,HttpServletRequest request){
+        NurseService nurseService = getNurseService(request);
+        String current = request.getParameter("current");
+        String size =  request.getParameter("size");
+        model.put("info",nurseService.getNurseListByPage(Integer.parseInt(current),Integer.parseInt(size)));
+        return "ajaxLoadView/nurseList";
     }
 
 }

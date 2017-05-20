@@ -19,17 +19,17 @@ import java.util.Map;
  */
 @Controller
 public class CustomerController {
-    private ApplicationContext getApplicationContext(HttpServletRequest request){
+    private CustomerService getCustomerService(HttpServletRequest request){
         ServletContext servletContext = request.getServletContext();
         String str = servletContext.getRealPath("/");
-        return new FileSystemXmlApplicationContext(str+"WEB-INF/applicationContext.xml");
+        ApplicationContext applicationContext = new FileSystemXmlApplicationContext(str+"WEB-INF/applicationContext.xml");
+        return (CustomerService) applicationContext.getBean("customerService");
     }
     @RequestMapping("customerHome")
     public String nurseHome(@RequestParam("id") String id, Map model, HttpServletRequest request, HttpServletResponse response) throws IOException {
         if(request.getSession().getAttribute("id")!=null&&request.getSession().getAttribute("id").toString().equals(id))
         {
-            ApplicationContext applicationContext = getApplicationContext(request);
-            CustomerService customerService = (CustomerService) applicationContext.getBean("customerService");
+            CustomerService customerService = getCustomerService(request);
             model.put("info",customerService.getDetailByHome(id));
             return "customerHome";
         }
@@ -42,8 +42,7 @@ public class CustomerController {
     @RequestMapping("customerDetail")
     public String nurseDetail(@RequestParam("id") String id,Map model,HttpServletRequest request)
     {
-        ApplicationContext applicationContext = getApplicationContext(request);
-        CustomerService customerService = (CustomerService) applicationContext.getBean("customerService");
+        CustomerService customerService = getCustomerService(request);
         model.put("info",customerService.getDetail(id));
         return "customerDetail";
     }

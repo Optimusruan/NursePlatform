@@ -3,6 +3,8 @@ package service;
 import dao.NurseDao;
 import model.NurseEntity;
 
+import java.util.List;
+
 /**
  * Created by Administrator on 2017/5/19.
  */
@@ -21,5 +23,11 @@ public class NurseService {
     }
     public NurseEntity getDetailByHome(String id){
         return nurseDao.getModel(id);
+    }
+    public List getNurseList(){
+        return nurseDao.getNurseList();
+    }
+    public List getNurseListByPage(int current,int size){
+        return nurseDao.getNurseListByPage(current,size);
     }
 }

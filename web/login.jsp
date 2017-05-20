@@ -52,7 +52,7 @@
                 <div class="col-sm-10">
                     <input type="password" id="password" name="password" class="form-control" placeholder="密码"/>
                 </div>
-            </div>
+            </div>`
             <div class="divideLine">----------选择用户类型----------</div>
             <div class="form-group">
                 <label for="userType" class="control-label col-sm-2"><i class="fa fa-cog" style="font-size: 1.5em"></i></label>
