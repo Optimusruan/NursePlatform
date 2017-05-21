@@ -31,6 +31,7 @@ public class LoginDao {
                 id = nurseEntity.getNurId();
             }
             session.close();
+            sessionFactory.close();
         }
         else if(userType.equals("customer"))
         {
@@ -44,6 +45,7 @@ public class LoginDao {
                 id = customerEntity.getCusId();
             }
             session.close();
+            sessionFactory.close();
         }
         return id;
     }

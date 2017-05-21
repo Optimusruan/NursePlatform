@@ -75,6 +75,7 @@ public class RegisterDao {
         tx.commit();
 
         session.close();
+        sessionFactory.close();
         if(id==1){
             id = nurId;
         }
@@ -122,7 +123,7 @@ public class RegisterDao {
         tx.commit();
 
         session.close();
-
+        sessionFactory.close();
         return id;
     }
 }

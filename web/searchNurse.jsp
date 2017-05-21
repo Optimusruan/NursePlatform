@@ -40,6 +40,14 @@
             text-align: center;
             margin: 20px 0;
         }
+        #toPage{
+            background: #fff;
+            border-color: #ddd;
+        }
+        #toPage:hover{
+            border-color: deeppink;
+            color: deeppink;
+        }
     </style>
 </head>
 <body>
@@ -52,12 +60,12 @@
         <nav aria-label="Page navigation" class="pageNavi col-lg-6">
             <ul class="pagination">
                 <li class="pre">
-                    <a href="" aria-label="Previous">
+                    <a href="#" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
                 <li class="post">
-                    <a href="" aria-label="Next">
+                    <a href="#" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
                 </li>
@@ -65,7 +73,7 @@
         </nav>
         <div class="morePage col-lg-6">
             <span>共 <c:out value="${maxPage}"/> 页，跳转到 <input type="number" id="inputPage" pattern="[0-9]"> 页</span>
-            <button id="toPage">确定</button>
+            <button id="toPage" class="btn">确定</button>
         </div>
     </div>
     <input type="hidden" id="maxPage" value="<c:out value="${maxPage}"/>"/>
@@ -142,7 +150,7 @@
     function load(temp) {
         if(ajaxLocker) {
             ajaxLocker = false;
-            $(".nurseList").html("<img src=\"assets/img/loading.gif\" alt=\"\" width=\"300\">")
+//            $(".nurseList").html("<img src=\"assets/img/loading.gif\" alt=\"\" width=\"300\">")
             $.ajax({
                 url: "nurseList",
                 data: {
@@ -156,12 +164,14 @@
                     checkPre();
                     if(now<6)
                     {
+                        $(".active").removeClass("active");
                         $(".allNurse:eq("+(temp-1)+")").addClass("active");
                     }
                     ajaxLocker = true;
 
                 },
-                error:function () {
+                error:function (xhr) {
+                    console.log(xhr);
                   ajaxLocker=true;
                 }
             });

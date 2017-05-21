@@ -24,6 +24,7 @@ public class NurseDao {
         query.setParameter(0,Integer.parseInt(id));
         NurseEntity nurseEntity = (NurseEntity) query.getSingleResult();
         session.close();
+        sessionFactory.close();
         return nurseEntity;
     }
     public int getMaxId()
@@ -31,7 +32,8 @@ public class NurseDao {
         Session session = sessionFactory.openSession();
         Query query = session.createQuery("select max(nurId) from NurseEntity");
         int maxId = (Integer)query.uniqueResult();
-
+        session.close();
+        sessionFactory.close();
         return maxId + 1;
     }
 
@@ -40,6 +42,7 @@ public class NurseDao {
         Session session = sessionFactory.openSession();
         List list = session.createQuery("from NurseEntity").list();
         session.close();
+        sessionFactory.close();
         return list;
     }
     //分页查询
@@ -48,14 +51,20 @@ public class NurseDao {
         Query query= session.createQuery("from NurseEntity ");
         query.setFirstResult((current-1)*size);
         query.setMaxResults(size);
-        return query.list();
+        List list = query.list();
+        session.close();
+        sessionFactory.close();
+        return list;
     }
     //优秀月嫂查询
     public List getExcellentNurses(int size){
         Session session = sessionFactory.openSession();
         Query query= session.createQuery("from NurseEntity where nurRank=5");
         query.setMaxResults(size);
-        return query.list();
+        List list  = query.list();
+        session.close();
+        sessionFactory.close();
+        return list;
     }
 
 }
