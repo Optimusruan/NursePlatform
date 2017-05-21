@@ -52,7 +52,7 @@ public class RegisterController {
             details.put("nurUname",request.getParameter("nur_uname").trim());
             details.put("nurPwd",request.getParameter("nur_pwd").trim());
 //            details.put("nurAvt",request.getParameter("nur_avt").trim());
-//            details.put("nurRank",request.getParameter("nur_rank").trim());
+            details.put("nurRank",request.getParameter("nur_rank").trim());
             details.put("nurAge",request.getParameter("nur_age").trim());
             details.put("nurPrice",request.getParameter("nur_price").trim());
             details.put("nurEdu",request.getParameter("nur_edu").trim());

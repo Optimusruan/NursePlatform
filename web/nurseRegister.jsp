@@ -120,6 +120,12 @@
                     <div id="add-error" class="error"></div>
                 </div>
                 <div class="row form-group margin">
+                    <i class="col-lg-1 fa fa-star prefix"></i>
+                    <div class="col-lg-11">
+                        <input id="nur_rank" class="form-control" name="nur_rank" placeholder="等级" type="number"  value="<c:out value="${info.nurRank}"></c:out>" />
+                    </div>
+                </div>
+                <div class="row form-group margin">
                     <i class="col-lg-1 fa fa-money prefix"></i>
                     <div class="col-lg-11">
                         <input id="nur_price" class="form-control" name="nur_price" placeholder="期望价格（每日）" type="number"  value="<c:out value="${info.nurPrice}"></c:out>" />

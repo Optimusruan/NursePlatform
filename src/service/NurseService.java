@@ -51,4 +51,8 @@ public class NurseService {
         }
 
     }
+
+    public List getNurseServices(String id) {
+        return nurseDao.getNurseService(id);
+    }
 }
