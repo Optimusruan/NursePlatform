@@ -105,7 +105,6 @@
         {
             now--;
             load(now);
-
         }
     });
     $(".post").on("click",function(){

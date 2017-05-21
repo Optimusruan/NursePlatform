@@ -60,7 +60,7 @@ public class NurseController {
         NurseService nurseService = getNurseService(request);
         String size =  request.getParameter("size");
         model.put("info",nurseService.getExcellentNurses(Integer.parseInt(size)));
-        return "ajaxLoadView/nurseList";
+        return "ajaxLoadView/showNurse";
     }
 
 }
