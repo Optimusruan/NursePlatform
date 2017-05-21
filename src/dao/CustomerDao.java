@@ -22,7 +22,6 @@ public class CustomerDao {
         query.setParameter(0,Integer.parseInt(id));
         CustomerEntity customerEntity = (CustomerEntity) query.getSingleResult();
         session.close();
-        sessionFactory.close();
         return customerEntity;
     }
 
@@ -32,7 +31,6 @@ public class CustomerDao {
         org.hibernate.query.Query query = session.createQuery("select max(cusId) from CustomerEntity");
         int maxId = (Integer)query.uniqueResult();
         session.close();
-        sessionFactory.close();
         return maxId + 1;
     }
 }

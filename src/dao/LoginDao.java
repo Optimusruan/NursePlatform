@@ -45,7 +45,6 @@ public class LoginDao {
                 id = customerEntity.getCusId();
             }
             session.close();
-            sessionFactory.close();
         }
         return id;
     }

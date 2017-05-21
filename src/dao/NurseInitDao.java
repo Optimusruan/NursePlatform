@@ -67,7 +67,6 @@ public class NurseInitDao{
             transaction.commit();
         }
         session.close();
-        sessionFactory.close();
 //        System.out.println(randomIndex1+","+randomIndex2+","+randomIndex3);
         System.out.println("size:" + lengthOfNameDict);
 

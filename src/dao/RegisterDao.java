@@ -121,9 +121,7 @@ public class RegisterDao {
         session.save(customer);
         id = customer.getCusId();
         tx.commit();
-
         session.close();
-        sessionFactory.close();
         return id;
     }
 }

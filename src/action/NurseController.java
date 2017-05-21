@@ -53,6 +53,7 @@ public class NurseController {
         NurseService nurseService = getNurseService(request);
         String current = request.getParameter("current");
         model.put("info",nurseService.getNurseListByPage(Integer.parseInt(current),SIZE));
+        model.put("maxPage",nurseService.getMaxPage(SIZE));
         return "ajaxLoadView/nurseList";
     }
     @RequestMapping("excellentNurses")
@@ -65,8 +66,6 @@ public class NurseController {
     @RequestMapping("searchNurse")
     public String searchNurse(Map model,HttpServletRequest request)
     {
-        NurseService nurseService = getNurseService(request);
-        model.put("maxPage",nurseService.getMaxPage(SIZE));
         return "searchNurse";
     }
 }
