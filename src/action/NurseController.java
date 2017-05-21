@@ -22,6 +22,11 @@ import java.util.Map;
 public class NurseController {
     public static int SIZE = 15;
     private NurseService getNurseService(HttpServletRequest request){
+        try {
+            request.setCharacterEncoding("UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         ServletContext servletContext = request.getServletContext();
         String str = servletContext.getRealPath("/");
         ApplicationContext applicationContext = new FileSystemXmlApplicationContext(str+"WEB-INF/applicationContext.xml");
@@ -49,15 +54,12 @@ public class NurseController {
         return "nurseDetail";
     }
 
-    @RequestMapping("nurseList")
+    @RequestMapping(value = "nurseList")
     public String nurseList(Map model,HttpServletRequest request) throws UnsupportedEncodingException {
-
         NurseService nurseService = getNurseService(request);
         String cond = request.getParameter("cond");
         String current = request.getParameter("current");
-        String nurseName = request.getParameter("nurseName");
-        byte b[] =nurseName.getBytes("ISO-8859-1");
-        nurseName = new String(b);
+        String nurseName = new String(request.getParameter("nurseName").getBytes("ISO-8859-1"),"utf-8");
         model.put("info",nurseService.getNurseListByPage(Integer.parseInt(current),SIZE,cond,nurseName));
         model.put("maxPage",nurseService.getMaxPage(SIZE,cond,nurseName));
         model.put("cond",cond);

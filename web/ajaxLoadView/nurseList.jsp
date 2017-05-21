@@ -7,8 +7,9 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<div class="row">
 <c:forEach items="${info}" var="item">
-    <div class="itemContainer nurseList row">
+    <div class="itemContainer nurseList">
         <a href="nurseDetail?id=<c:out value="${item.nurId}"/>">
             <div class="itemImg">
                 <c:choose>
@@ -33,6 +34,7 @@
         </a>
     </div>
 </c:forEach>
+</div>
 <div class="row pageNavi">
     <nav aria-label="Page navigation" class="pageNavi col-lg-6">
         <ul class="pagination">
