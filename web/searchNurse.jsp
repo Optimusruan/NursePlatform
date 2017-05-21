@@ -99,7 +99,7 @@
         for (var i = 1; i < 5; i++) {
                 str = str + "<li class=\"allNurse\"><a href=\"#\">" + (i + 1) + "</a></li>";
         }
-        str += "<li class='disabled more'><a href=''>....</a></li>";
+        str += "<li class='disabled more'><a href='#' onclick='return false;' >....</a></li>";
         $(".pre").after(str);
     }
 
@@ -187,18 +187,25 @@
 
     }
 
+    //处理直接页数跳转
     $("#toPage").on("click", function () {
         var page = $("#inputPage").val();
         if (page != "" && page > 0 && page <= maxPage) {
             load(page);
         }
     });
+
+    //重新加载分页的导航栏
     function loadPageNavigation() {
-//        alert(now);
         if(now>=4&&now<=5){
             $(".more").remove();
-            $(".allNurse:last").after( "<li class=\"allNurse\"><a href=\"#\">"+(Number(now)+2)+"</a></li>");
-            $(".allNurse:last").after("<li class='disabled more'><a href=''>....</a></li>");
+            $(".allNurse").remove();
+            str = "";
+            for(var i=1;i<=Number(now)+2;i++){
+                str += "<li class=\"allNurse\"><a href=\"#\">" + i+ "</a></li>";
+            }
+            $(".pre").after(str);
+            $(".allNurse:last").after("<li class='disabled more'><a href='#' onclick='return false;' >....</a></li>");
         }
         if(now>5){
             $(".more").remove();
@@ -207,7 +214,7 @@
             for(var i = 0;i<2;i++){
                 str += "<li class=\"allNurse\"><a href=\"#\">" + (i + 1) + "</a></li>";
             }
-            str += "<li class='disabled more'><a href=''>....</a></li>";
+            str += "<li class='disabled more'><a href='#' onclick='return false;' >....</a></li>";
             if(now<maxPage-2) {
                 for (var i = Number(now) - 2; i <= Number(now) + 2; i++) {
                     if (i == now) {
@@ -217,7 +224,7 @@
                         str += "<li class=\"allNurse\"><a href=\"#\">" + i + "</a></li>";
                     }
                 }
-                str += "<li class='disabled more'><a href=''>....</a></li>";
+                str += "<li class='disabled more'><a href='#' onclick='return false;' >....</a></li>";
             }
             else {
                 for (var i = maxPage - 4; i <= maxPage; i++) {
@@ -231,6 +238,7 @@
             }
             $(".pre").after(str);
         }
+        //给新生成所有按钮绑定事件
         $(".allNurse").each(function () {
             $(this).on("click", function () {
                 $(this).addClass("active").siblings().removeClass("active");
