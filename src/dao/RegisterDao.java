@@ -33,10 +33,10 @@ public class RegisterDao {
         if (details.get("nurAdd") != null) {
             nurse.setNurAdd((String) details.get("nurAdd"));
         }
-        if (details.get("nurAge") != null) {
+        if (details.get("nurAge") != null && !details.get("nurAge").equals("")) {
             nurse.setNurAge(Integer.parseInt(details.get("nurAge").toString()));
         }
-        if (details.get("nurAvt") != null && details.get("nurAvt").equals("")) {
+        if (details.get("nurAvt") != null && !details.get("nurAvt").equals("")) {
             nurse.setNurAvt((String) details.get("nurAvt"));
         }
         if (details.get("nurContact") != null) {
@@ -57,7 +57,7 @@ public class RegisterDao {
         if (details.get("nurPos") != null) {
             nurse.setNurPos((String) details.get("nurPos"));
         }
-        if (details.get("nurPrice") != null) {
+        if (details.get("nurPrice") != null && !details.get("nurPrice").equals("")) {
             nurse.setNurPrice(Integer.parseInt(details.get("nurPrice").toString()));
         }
         if (details.get("nurUname") != null) {
@@ -66,9 +66,10 @@ public class RegisterDao {
         if (details.get("nurPwd") != null) {
             nurse.setNurPwd((String) details.get("nurPwd"));
         }
-        if (details.get("nurRank") != null) {
+        if (details.get("nurRank") != null && !details.get("nurRank").equals("")) {
             nurse.setNurRank(Integer.parseInt(details.get("nurRank").toString()));
         }
+
 
         session.save(nurse);
         id = nurse.getNurId();

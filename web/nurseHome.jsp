@@ -13,9 +13,27 @@
     <link rel="stylesheet" href="assets/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="assets/font-awesome-4.7.0/css/font-awesome.min.css">
 </head>
+<style>
+    .status0{
+        background-color:#f06292 ;
+    }
+    .status1{
+        background-color:#f48fb1 ;
+    }
+    .status2{
+        background-color:#f8bbd0 ;
+    }
+    .status3{
+        background-color:#ff5177 ;
+    }
+    .status4{
+        background-color:#e91e63 ;
+    }
+
+</style>
 <body>
-<%--<%=session.getAttribute("id")%>--%>
-<%--<c:out value="${id}"></c:out>--%>
+<%=session.getAttribute("id")%>
+<c:out value="${id}"></c:out>
 <div class="container">
     <div class="panel">
         <div class="panel-heading">我的信息</div>
@@ -41,7 +59,7 @@
             <div class="col-lg-6">
                 <div class="row"><img src="" alt=""></div>
                 <div class="row" style="text-align: center">
-                    <button id="modify" class="btn btn-warning" style="width: 50%;">修改信息</button>
+                    <a href="nurseRegister?opt=mod" id="modify" class="btn btn-warning" style="width: 50%;">修改信息</a>
                 </div>
             </div>
         </div>
@@ -58,12 +76,53 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>test</td>
-                <td>test</td>
-                <td>test</td>
-                <td>test</td>
-            </tr>
+            <c:forEach var="svc" items="${services}">
+                <c:if test="${svc.svcPps}==0">
+                    <tr class="status0">
+                        <td><c:out value="${svc.svcStart}"></c:out>~<c:out value="${svc.svcEnd}"</td>
+                        <td><c:out value="${svc.svcStatus}"></c:out></td>
+                        <td>待处理</td>
+                        <td>
+                            <a class="btn btn-sm btn-default" href="">同意</a>
+                            <a class="btn btn-sm btn-danger" href="">拒绝</a>
+                        </td>
+                    </tr>
+                </c:if>
+                <c:if test="${svc.svcPps}==1">
+                    <tr class="status1">
+                        <td><c:out value="${svc.svcStart}"></c:out>~<c:out value="${svc.svcEnd}"</td>
+                        <td><c:out value="${svc.svcStatus}"></c:out></td>
+                        <td>已同意等待客户处理</td>
+                        <td></td>
+                    </tr>
+                </c:if>
+                <c:if test="${svc.svcPps}==2">
+                    <tr class="status2">
+                        <td><c:out value="${svc.svcStart}"></c:out>~<c:out value="${svc.svcEnd}"</td>
+                        <td><c:out value="${svc.svcStatus}"></c:out></td>
+                        <td>已拒绝</td>
+                        <td></td>
+                    </tr>
+                </c:if>
+                <c:if test="${svc.svcPps}==3">
+                    <tr class="status3">
+                        <td><c:out value="${svc.svcStart}"></c:out>~<c:out value="${svc.svcEnd}"</td>
+                        <td><c:out value="${svc.svcStatus}"></c:out></td>
+                        <td>已被客户取消</td>
+                        <td></td>
+                    </tr>
+                </c:if>
+                <c:if test="${svc.svcPps}==4">
+                    <tr class="status4">
+                        <td><c:out value="${svc.svcStart}"></c:out>~<c:out value="${svc.svcEnd}"</td>
+                        <td><c:out value="${svc.svcStatus}"></c:out></td>
+                        <td>已成交</td>
+                        <td>
+                            <a class="btn btn-sm">查看评价</a>
+                        </td>
+                    </tr>
+                </c:if>
+            </c:forEach>
             </tbody>
         </table>
     </div>

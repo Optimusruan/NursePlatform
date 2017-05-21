@@ -38,6 +38,7 @@ public class NurseController {
         {
             NurseService nurseService = getNurseService(request);
             model.put("info",nurseService.getDetailByHome(id));
+            model.put("services",nurseService.getNurseServices(id));
             return "nurseHome";
         }
         else{

@@ -4,6 +4,7 @@ import dao.NurseDao;
 import model.NurseEntity;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2017/5/19.
@@ -14,22 +15,23 @@ public class NurseService {
     public void setNurseDao(NurseDao nurseDao) {
         this.nurseDao = nurseDao;
     }
-
-    public NurseEntity getDetail(String id) {
+    public NurseEntity getDetail(String id){
 
         NurseEntity nurseEntity = nurseDao.getModel(id);
         nurseEntity.setNurIdno("验证通过");
         nurseEntity.setNurContact("");
         return nurseEntity;
     }
-
-    public NurseEntity getDetailByHome(String id) {
+    public NurseEntity getDetailByHome(String id){
         return nurseDao.getModel(id);
     }
 
     public List getNurseList(String cond,String nurseName) {
         return nurseDao.getNurseList(cond,nurseName);
+    public boolean updateNurse(String id, Map details){
+        return nurseDao.updateNurse(id,details);
     }
+
 
     public List getNurseListByPage(int current, int size, String cond, String nurseName) {
         if (cond.equals("") && nurseName.equals("")) {
@@ -53,5 +55,9 @@ public class NurseService {
             return sum / size + 1;
         }
 
+    }
+
+    public List getNurseServices(String id) {
+        return nurseDao.getNurseService(id);
     }
 }

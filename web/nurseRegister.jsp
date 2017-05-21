@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: hp
@@ -38,34 +39,35 @@
 <body>
 <div class="register-container container">
     <div class="block">
-        <h1>Register Now!月嫂注册</h1>
+        <h1><c:out value="${title}"></c:out></h1>
         <br>
         <div class="card-panel col-lg-6 col-lg-offset-3">
             <form class="register-form" method="post" action="register">
                 <div class="row form-group margin">
                     <i class="col-lg-1 fa fa-user prefix"></i>
                     <div class="col-lg-11">
-                        <input id="nur_name" class="form-control" name="nur_name" placeholder="姓名"  type="text"></div>
+                        <input id="nur_name" class="form-control" name="nur_name" placeholder="姓名" type="text" value="<c:out value="${info.nurName}"></c:out>" >
+                    </div>
                     <div id="name-error" class="error"></div>
                 </div>
                 <div class="row form-group margin">
                     <i class="col-lg-1 fa fa-address-card prefix"></i>
                     <div class="col-lg-11">
-                        <input id="nur_idno" class="form-control" name="nur_idno" placeholder="身份证号" type="number">
+                        <input id="nur_idno" class="form-control" name="nur_idno" placeholder="身份证号" type="number"  value="<c:out value="${info.nurIdno}"></c:out>" >
                     </div>
                     <div id="idno-error" class="error"></div>
                 </div>
                 <div class="row form-group margin">
                     <i class="col-lg-1 fa fa-phone prefix"></i>
                     <div class="col-lg-11">
-                        <input id="nur_contact" class="form-control" name="nur_contact" placeholder="联系方式" type="number">
+                        <input id="nur_contact" class="form-control" name="nur_contact" placeholder="联系方式" type="number" value="<c:out value="${info.nurContact}"></c:out>" />
                     </div>
                     <div id="contact-error" class="error"></div>
                 </div>
                 <div class="row form-group margin">
                     <i class="col-lg-1 fa fa-question prefix"></i>
                     <div class="col-lg-11">
-                        <input id="nur_age" class="form-control" name="nur_age" placeholder="年龄" type="number">
+                        <input id="nur_age" class="form-control" name="nur_age" placeholder="年龄" type="number"  value="<c:out value="${info.nurAge}"></c:out>" />
                     </div>
                 </div>
                 <div class="row form-group margin">
@@ -73,7 +75,7 @@
                     <div class="col-lg-11">
                         <label>学历</label>
                         <div>
-                            <select id="nur_edu" class="form-control distp" name="nur_edu">
+                            <select id="nur_edu" class="form-control distp" name="nur_edu"  value="<c:out value="${info.nurEdu}"></c:out>" />
                                 <option value="高中">高中</option>
                                 <option value="初中">初中</option>
                                 <option value="小学">小学</option>
@@ -112,21 +114,27 @@
                         </script>
                     </div>
                     <div class="col-lg-11 col-lg-offset-1">
-                        <input id="nur_add" class="form-control" name="nur_add" placeholder="详细地址" type="text">
+                        <input id="nur_add" class="form-control" name="nur_add" placeholder="详细地址" type="text" value="<c:out value="${info.nurAdd}"></c:out>"/>
                         <input id="nur_pos" name="nur_pos" type="hidden" >
                     </div>
                     <div id="add-error" class="error"></div>
                 </div>
                 <div class="row form-group margin">
+                    <i class="col-lg-1 fa fa-star prefix"></i>
+                    <div class="col-lg-11">
+                        <input id="nur_rank" class="form-control" name="nur_rank" placeholder="等级" type="number"  value="<c:out value="${info.nurRank}"></c:out>" />
+                    </div>
+                </div>
+                <div class="row form-group margin">
                     <i class="col-lg-1 fa fa-money prefix"></i>
                     <div class="col-lg-11">
-                        <input id="nur_price" class="form-control" name="nur_price" placeholder="期望价格（每日）" type="number">
+                        <input id="nur_price" class="form-control" name="nur_price" placeholder="期望价格（每日）" type="number"  value="<c:out value="${info.nurPrice}"></c:out>" />
                     </div>
                 </div>
                 <div class="row form-group margin">
                     <i class="col-lg-1 fa fa-user prefix"></i>
                     <div class="col-lg-11">
-                        <input id="nur_uname" class="form-control invalid" name="nur_uname" placeholder="用户名" type="text">
+                        <input id="nur_uname" class="form-control invalid" name="nur_uname" placeholder="用户名" type="text" value="<c:out value="${info.nurUname}"></c:out>" />
                     </div>
                     <div id="user-error" class="error error-username"></div>
                 </div>
@@ -139,9 +147,10 @@
                 </div>
                 <div class="row">
                     <div class="input-field col" id="bt">
-                        <input name="usertype" value="nur" type="hidden">
-                        <button class="btn col-lg-2 col-lg-offset-3" id="submit_btn">注册</button>
-                        <p class="">&nbsp已有账号? <a href="login.jsp" class="btn">登录</a></p>
+                        <input name="opt" value="<c:out value="${opt}"></c:out>" type="hidden">
+                        <input name="usertype" value="nurse" type="hidden">
+                        <button class="btn col-lg-2 col-lg-offset-3" id="submit_btn"><c:out value="${act}"></c:out></button>
+                        <p <c:out value="${display}"></c:out>>&nbsp已有账号? <a href="login.jsp" class="btn">登录</a></p>
                     </div>
                 </div>
             </form>

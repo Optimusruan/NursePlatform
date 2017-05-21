@@ -20,10 +20,10 @@ public class RegisterService {
         RegisterDao registerDao = (RegisterDao)ctx.getBean("registerDao");
         int id = 0;
         if(userType != null && details != null) {
-            if (userType.equals("nur") || userType == "nur") {
+            if (userType.equals("nurse") || userType == "nurse") {
                 id = -1;
                 id = registerDao.nurseRegister(details);
-            } else if (userType.equals("cus") || userType ==  "cus") {
+            } else if (userType.equals("customer") || userType == "customer") {
                 id = registerDao.customerRegister(details);
             }
         }

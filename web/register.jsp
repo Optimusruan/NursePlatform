@@ -48,13 +48,13 @@
     <div class="page-header" style="font-size: 2em;">选择要注册的用户类型</div>
     <div class="row ">
         <div class="col-lg-6 register-type">
-            <a href="nurseRegister.jsp">
+            <a href="nurseRegister?opt=reg">
                 <div class="row register-icon"><i class="fa fa-user-md"></i></div>
                 <div class="row register-title">我是月嫂</div>
             </a>
         </div>
         <div class="col-lg-6 register-type">
-            <a href="customerRegister.jsp">
+            <a href="customerRegister?opt=reg">
                 <div class="row register-icon"><i class="fa fa-user"></i></div>
                 <div class="row register-title">我是用户</div>
             </a>
