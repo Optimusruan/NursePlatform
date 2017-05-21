@@ -3,6 +3,8 @@ package service;
 import dao.CustomerDao;
 import model.CustomerEntity;
 
+import java.util.List;
+
 /**
  * Created by Administrator on 2017/5/19.
  */
@@ -22,5 +24,8 @@ public class CustomerService {
 
     public void setCustomerDao(CustomerDao customerDao) {
         this.customerDao = customerDao;
+    }
+    public List getCustomerServices(String id) {
+        return customerDao.getCostomerService(id);
     }
 }

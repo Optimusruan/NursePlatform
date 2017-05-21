@@ -5,6 +5,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import javax.persistence.Query;
+import java.util.List;
 
 /**
  * Created by Administrator on 2017/5/19.
@@ -32,5 +33,12 @@ public class CustomerDao {
         int maxId = (Integer)query.uniqueResult();
         session.close();
         return maxId + 1;
+    }
+    public List getCostomerService(String id) {
+        Session session = sessionFactory.openSession();
+        org.hibernate.query.Query query = session.createQuery("from ServiceEntity where svcNurid=" + id);
+        List list = query.list();
+        session.close();
+        return list;
     }
 }

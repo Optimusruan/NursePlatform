@@ -176,63 +176,64 @@
 
         });
     </script>
-    <div class="table-responsive" id="services" style="width: 100%;height: 100%">
-        <table class="table">
-            <thead>
-            <tr colspan="5">
-                <h2>服务介绍</h2><hr>
-            </tr>
-            </thead>
-            <tbody>
-            <tr align="center">
-                <td>
-                    <div class="circle"><i class="fa fa-book fa-4x" aria-hidden="true"></i></div>
-                    <p>产妇专业护理</p></td>
-                <td>
-                    <div class="circle"><i class="fa fa-female fa-4x" aria-hidden="true"></i></div>
-                    <p>产妇产后恢复</p></td>
-                <td>
-                    <div class="circle"><i class="fa fa-coffee fa-4x" aria-hidden="true"></i></div>
-                    <p>产妇生活护理</p></td>
-                <td>
-                    <div class="circle"><i class="fa fa-heartbeat fa-4x" aria-hidden="true"></i></div>
-                    <p>产妇心理护理</p></td>
-                <td>
-                    <div class="circle"><i class="fa fa-medkit fa-4x" aria-hidden="true"></i></div>
-                    <p>产妇疾病预防</p></td>
+    <div class="panel">
+        <div class="table-responsive" id="services" style="width: 100%;height: 100%">
+            <table class="table">
+                <thead>
+                <tr colspan="5">
+                    <h2>服务介绍</h2><hr>
+                </tr>
+                </thead>
+                <tbody>
+                <tr align="center">
+                    <td>
+                        <div class="circle"><i class="fa fa-book fa-4x" aria-hidden="true"></i></div>
+                        <p>产妇专业护理</p></td>
+                    <td>
+                        <div class="circle"><i class="fa fa-female fa-4x" aria-hidden="true"></i></div>
+                        <p>产妇产后恢复</p></td>
+                    <td>
+                        <div class="circle"><i class="fa fa-coffee fa-4x" aria-hidden="true"></i></div>
+                        <p>产妇生活护理</p></td>
+                    <td>
+                        <div class="circle"><i class="fa fa-heartbeat fa-4x" aria-hidden="true"></i></div>
+                        <p>产妇心理护理</p></td>
+                    <td>
+                        <div class="circle"><i class="fa fa-medkit fa-4x" aria-hidden="true"></i></div>
+                        <p>产妇疾病预防</p></td>
 
-            </tr>
-            <tr align="center">
-                <td>
-                    <div class="circle"><i class="fa fa-pencil-square-o fa-4x" aria-hidden="true"></i></div>
-                    <p>产妇带教培训</p></td>
-                <td>
-                    <div class="circle"><i class="fa fa-bed fa-4x" aria-hidden="true"></i></div>
-                    <p>新生儿生活照料</p></td>
-                <td>
-                    <div class="circle"><i class="fa fa-umbrella fa-4x" aria-hidden="true"></i></div>
-                    <p>新生儿疾病预防</p></td>
-                <td>
-                    <div class="circle"><i class="fa fa-child fa-4x" aria-hidden="true"></i></div>
-                    <p>新生儿早期促进</p></td>
-                <td>
-                    <div class="circle"><i class="fa fa-stethoscope fa-4x" aria-hidden="true"></i></div>
-                    <p>新生儿健康护理</p></td>
-            </tr>
-            </tbody>
-        </table>
+                </tr>
+                <tr align="center">
+                    <td>
+                        <div class="circle"><i class="fa fa-pencil-square-o fa-4x" aria-hidden="true"></i></div>
+                        <p>产妇带教培训</p></td>
+                    <td>
+                        <div class="circle"><i class="fa fa-bed fa-4x" aria-hidden="true"></i></div>
+                        <p>新生儿生活照料</p></td>
+                    <td>
+                        <div class="circle"><i class="fa fa-umbrella fa-4x" aria-hidden="true"></i></div>
+                        <p>新生儿疾病预防</p></td>
+                    <td>
+                        <div class="circle"><i class="fa fa-child fa-4x" aria-hidden="true"></i></div>
+                        <p>新生儿早期促进</p></td>
+                    <td>
+                        <div class="circle"><i class="fa fa-stethoscope fa-4x" aria-hidden="true"></i></div>
+                        <p>新生儿健康护理</p></td>
+                </tr>
+                </tbody>
+            </table>
 
+        </div>
     </div>
 
-
-    <div id="nurses">
+    <div id="nurses" class="panel">
         <h2>优秀月嫂展示</h2>
         <div style="float: right;"><a href="searchNurse">查看更多 ></a></div><hr>
         <div id="nurselist">
 
         </div>
     </div>
-    <div id="about">
+    <div id="about" class="panel">
         <h2>关于我们</h2><hr>
         <p>NursePlatform 实现了：</p>
         <p>1.月嫂与客户直接沟通，省去中介费</p>

@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -20,6 +22,11 @@ import java.util.Map;
 @Controller
 public class CustomerController {
     private CustomerService getCustomerService(HttpServletRequest request){
+        try {
+            request.setCharacterEncoding("UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         ServletContext servletContext = request.getServletContext();
         String str = servletContext.getRealPath("/");
         ApplicationContext applicationContext = new FileSystemXmlApplicationContext(str+"WEB-INF/applicationContext.xml");
@@ -31,6 +38,7 @@ public class CustomerController {
         {
             CustomerService customerService = getCustomerService(request);
             model.put("info",customerService.getDetailByHome(id));
+            model.put("services",customerService.getCustomerServices(id));
             return "customerHome";
         }
         else{

@@ -83,7 +83,28 @@ public class RegisterController {
         return "redirect:"+userType+"Home?id="+ request.getSession().getAttribute("id");
     }
     @RequestMapping("customerRegister")
-    public String customerRegister(){
+    public String customerRegister(@RequestParam("opt") String opt,Map model,HttpServletRequest request, HttpServletResponse response){
+        if(opt == "mod" || opt.equals("mod")){
+            model.put("title","Modify 客户信息修改");
+            model.put("opt","mod");
+            model.put("act","修改");
+            model.put("display"," style=display:none ");
+
+            if(request.getSession().getAttribute("id")!=null){
+                //根据id获取model修改信息
+                String id = (request.getSession().getAttribute("id").toString());
+                ServletContext servletContext = request.getServletContext();
+                String str = servletContext.getRealPath("/");
+                ApplicationContext applicationContext = new FileSystemXmlApplicationContext(str+"WEB-INF/applicationContext.xml");
+                NurseService nurseService= (NurseService) applicationContext.getBean("nurseService");
+
+                model.put("info",nurseService.getDetailByHome(id));
+            }
+        }else if(opt == "reg" || opt.equals("reg")){
+            model.put("title","Register 用户注册");
+            model.put("opt","reg");
+            model.put("act","注册");
+        }
         return "customerRegister";
     }
 

@@ -29,6 +29,20 @@
     .status4{
         background-color:#e91e63 ;
     }
+    .panel-heading{
+        width: auto;
+        height: auto;
+        text-align: center;
+        background: #FFB6C1;
+        color:grey;
+        border-radius: 10px;
+        margin: 10px;
+        padding: 10px;
+    }
+    a{
+        font-size: 2em;
+        color: white;
+    }
 
 </style>
 <body>
@@ -36,98 +50,136 @@
 <c:out value="${id}"></c:out>
 <div class="container">
     <div class="panel">
-        <div class="panel-heading">我的信息</div>
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="row">
-                    <label class="col-lg-3 label-info">姓名</label>
-                    <div class="col-lg-9"><c:out value="${info.nurName}"/></div>
-                </div>
-                <div class="row">
-                    <label class="col-lg-3">身份证</label>
-                    <div class="col-lg-9"><c:out value="${info.nurIdno}"/></div>
-                </div>
-                <div class="row">
-                    <label class="col-lg-3">年龄</label>
-                    <div class="col-lg-9"><c:out value="${info.nurAge}"/></div>
-                </div>
-                <div class="row">
-                    <label class="col-lg-3">学历</label>
-                    <div class="col-lg-9"><c:out value="${info.nurEdu}"/></div>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="row"><img src="" alt=""></div>
-                <div class="row" style="text-align: center">
-                    <a href="nurseRegister?opt=mod" id="modify" class="btn btn-warning" style="width: 50%;">修改信息</a>
+        <div class="panel-heading">
+            <a href="">我的信息</a>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-lg-3"></div>
+                <div class="col-lg-3"><<img src="" alt=""></div>
+                <div class="col-lg-6">
+                    <div class="row">
+                        <label class="col-lg-3">姓名</label>
+                        <div class="col-lg-9"><c:out value="${info.nurName}"/></div>
+                    </div>
+                    <div class="row">
+                        <label class="col-lg-3">身份证</label>
+                        <div class="col-lg-9"><c:out value="${info.nurIdno}"/></div>
+                    </div>
+                    <div class="row">
+                        <label class="col-lg-3">年龄</label>
+                        <div class="col-lg-9"><c:out value="${info.nurAge}"/></div>
+                    </div>
+                    <div class="row">
+                        <label class="col-lg-3">学历</label>
+                        <div class="col-lg-9"><c:out value="${info.nurEdu}"/></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12" style="text-align: center">
+                            <a href="nurseRegister?opt=mod" id="modify" class="btn btn-warning" style="width: 50%;">修改信息</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="panel">
         <div class="panel-heading">我的服务</div>
-        <table class="table">
-            <thead>
-            <tr>
-                <th>服务时间</th>
-                <th>服务状态</th>
-                <th>预约状态</th>
-                <th>操作</th>
-            </tr>
-            </thead>
-            <tbody>
-            <c:forEach var="svc" items="${services}">
-                <c:if test="${svc.svcPps}==0">
-                    <tr class="status0">
-                        <td><c:out value="${svc.svcStart}"></c:out>~<c:out value="${svc.svcEnd}"</td>
-                        <td><c:out value="${svc.svcStatus}"></c:out></td>
-                        <td>待处理</td>
-                        <td>
-                            <a class="btn btn-sm btn-default" href="">同意</a>
-                            <a class="btn btn-sm btn-danger" href="">拒绝</a>
-                        </td>
+            <div class="panel-body">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th style="display: none">服务对象</th>
+                        <th>开始时间</th>
+                        <th>结束时间</th>
+                        <th>预约状态</th>
+                        <th>操作</th>
                     </tr>
-                </c:if>
-                <c:if test="${svc.svcPps}==1">
-                    <tr class="status1">
-                        <td><c:out value="${svc.svcStart}"></c:out>~<c:out value="${svc.svcEnd}"</td>
-                        <td><c:out value="${svc.svcStatus}"></c:out></td>
-                        <td>已同意等待客户处理</td>
-                        <td></td>
-                    </tr>
-                </c:if>
-                <c:if test="${svc.svcPps}==2">
-                    <tr class="status2">
-                        <td><c:out value="${svc.svcStart}"></c:out>~<c:out value="${svc.svcEnd}"</td>
-                        <td><c:out value="${svc.svcStatus}"></c:out></td>
-                        <td>已拒绝</td>
-                        <td></td>
-                    </tr>
-                </c:if>
-                <c:if test="${svc.svcPps}==3">
-                    <tr class="status3">
-                        <td><c:out value="${svc.svcStart}"></c:out>~<c:out value="${svc.svcEnd}"</td>
-                        <td><c:out value="${svc.svcStatus}"></c:out></td>
-                        <td>已被客户取消</td>
-                        <td></td>
-                    </tr>
-                </c:if>
-                <c:if test="${svc.svcPps}==4">
-                    <tr class="status4">
-                        <td><c:out value="${svc.svcStart}"></c:out>~<c:out value="${svc.svcEnd}"</td>
-                        <td><c:out value="${svc.svcStatus}"></c:out></td>
-                        <td>已成交</td>
-                        <td>
-                            <a class="btn btn-sm">查看评价</a>
-                        </td>
-                    </tr>
-                </c:if>
-            </c:forEach>
-            </tbody>
-        </table>
+                    </thead>
+                    <tbody>
+                    <c:forEach var="svc" items="${services}">
+                        <c:if test="${svc.svcPps}==0">
+                            <tr class="status0">
+                                <td style="display: none"><c:out value="${svc.svcCusid}"></c:out></td>
+                                <td><c:out value="${svc.svcStart}"></c:out></td>
+                                <td><c:out value="${svc.svcEnd}"></c:out></td>
+                                <td><c:out value="${svc.svcStatus}"></c:out></td>
+                                <td>待处理</td>
+                                <td>
+                                    <a href="#"class="btn btn-success btn-sm" >同意服务</a>
+                                    <a href="#" class="btn btn-danger btn-sm" >拒绝服务</a>
+                                </td>
+                            </tr>
+                        </c:if>
+                        <c:if test="${svc.svcPps}==1">
+                            <tr class="status1">
+                                <td style="display: none"><c:out value="${svc.svcCusid}"></c:out></td>
+                                <td><c:out value="${svc.svcStart}"></c:out></td>
+                                <td><c:out value="${svc.svcEnd}"></c:out></td>
+                                <td><c:out value="${svc.svcStatus}"></c:out></td>
+                                <td>已同意等待客户处理</td>
+                                <td></td>
+                            </tr>
+                        </c:if>
+                        <c:if test="${svc.svcPps}==2">
+                            <tr class="status2">
+                                <td style="display: none"><c:out value="${svc.svcCusid}"></c:out></td>
+                                <td><c:out value="${svc.svcStart}"></c:out></td>
+                                <td><c:out value="${svc.svcEnd}"></c:out></td>
+                                <td><c:out value="${svc.svcStatus}"></c:out></td>
+                                <td>已拒绝</td>
+                                <td></td>
+                            </tr>
+                        </c:if>
+                        <c:if test="${svc.svcPps}==3">
+                            <tr class="status3">
+                                <td style="display: none"><c:out value="${svc.svcCusid}"></c:out></td>
+                                <td><c:out value="${svc.svcStart}"></c:out></td>
+                                <td><c:out value="${svc.svcEnd}"></c:out></td>
+                                <td><c:out value="${svc.svcStatus}"></c:out></td>
+                                <td>已被客户取消</td>
+                                <td></td>
+                            </tr>
+                        </c:if>
+                        <c:if test="${svc.svcPps}==4">
+                            <tr class="status4">
+                                <td style="display: none"><c:out value="${svc.svcCusid}"></c:out></td>
+                                <td><c:out value="${svc.svcStart}"></c:out></td>
+                                <td><c:out value="${svc.svcEnd}"></c:out></td>
+                                <td><c:out value="${svc.svcStatus}"></c:out></td>
+                                <td>已成交</td>
+                                <td>
+                                    <a class="btn btn-success btn-sm">查看评价</a>
+                                </td>
+                            </tr>
+                        </c:if>
+                    </c:forEach>
+                    </tbody>
+                </table>
+            </div>
     </div>
 </div>
 <script src="assets/js/jquery-3.1.1.min.js"></script>
 <script src="assets/js/bootstrap.min.js"></script>
 </body>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $(".panel").each(function(){
+            $(this).children(".panel-body").hide();
+        });
+
+        $(".panel-heading").each(function(){
+            $(this).click(function(){
+
+                if($(this).parents(".panel").children(".panel-body").css("display") != "none"){
+                    $(this).parents(".panel").children(".panel-body").slideUp();
+                }else{
+                    $(this).parents(".panel").children(".panel-body").slideDown();
+                }
+            });
+
+        });
+
+    });
+</script>
 </html>
