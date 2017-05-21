@@ -113,7 +113,7 @@
                 data: {
                     current: temp,
                     cond:$("#cond").val(),
-                    name:$("#nurseName").val();
+                    name:$("#nurseName").val()
                 },
                 success: function (data) {
                     $("#list").html(data);

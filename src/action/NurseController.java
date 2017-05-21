@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
 /**
@@ -49,12 +50,16 @@ public class NurseController {
     }
 
     @RequestMapping("nurseList")
-    public String nurseList(Map model,HttpServletRequest request){
+    public String nurseList(Map model,HttpServletRequest request) throws UnsupportedEncodingException {
+
         NurseService nurseService = getNurseService(request);
         String cond = request.getParameter("cond");
         String current = request.getParameter("current");
-        model.put("info",nurseService.getNurseListByPage(Integer.parseInt(current),SIZE,cond));
-        model.put("maxPage",nurseService.getMaxPage(SIZE));
+        String nurseName = request.getParameter("nurseName");
+        byte b[] =nurseName.getBytes("ISO-8859-1");
+        nurseName = new String(b);
+        model.put("info",nurseService.getNurseListByPage(Integer.parseInt(current),SIZE,cond,nurseName));
+        model.put("maxPage",nurseService.getMaxPage(SIZE,cond,nurseName));
         model.put("cond",cond);
         return "ajaxLoadView/nurseList";
     }

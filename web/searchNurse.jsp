@@ -16,12 +16,15 @@
         .itemContainer {
             float: left;
             margin: 15px;
+            background: #ddd;
         }
 
         .itemInfo {
             padding: 10px;
         }
-
+        .itemImg{
+            margin: 10px;
+        }
         .nurseList a:link, .nurseList a:visited {
             color: black;
             text-decoration: none;
@@ -61,13 +64,17 @@
         }
         .search input{
             height: 36px;
+            width: 600px;
             border: 2px solid #dddddd;
         }
     </style>
 </head>
 <body>
-<div class="container" style="margin: 0 auto;width: 960px;position: relative">
-    <div class="search row"><input type="text" id="nurseName" placeholder="输入月嫂名字"/> <button class=" btn fa fa-search" id="search" style="height: auto"></button></div>
+<div class="container" style="margin: 0 auto;width: 1000px;position: relative">
+    <div class="search row">
+        <input type="text" id="nurseName" value="" placeholder="输入月嫂名字"/>
+        <button class=" btn fa fa-search" id="search" style="height: auto"></button>
+    </div>
     <div class="row" id="condition">筛选条件</div>
     <div class="row" id="list">
         <img src="assets/img/loading.gif" alt="" width="300">
@@ -84,12 +91,27 @@
     $.ajax({
         url: "nurseList",
         data: {
-            current: 1
+            current: 1,
+            nurseName:$("#nurseName").val(),
+            cond:""
         },
         success: function (data) {
             $("#list").html(data);
         }
     });
+    $("#search").on("click",function(){
+        $.ajax({
+            url: "nurseList",
+            data: {
+                current: 1,
+                nurseName:$("#nurseName").val(),
+                cond:""
+            },
+            success: function (data) {
+                $("#list").html(data);
+            }
+        });
+    })
 
 </script>
 </body>

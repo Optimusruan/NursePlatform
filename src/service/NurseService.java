@@ -27,26 +27,30 @@ public class NurseService {
         return nurseDao.getModel(id);
     }
 
-    public List getNurseList() {
-        return nurseDao.getNurseList();
+    public List getNurseList(String cond,String nurseName) {
+        return nurseDao.getNurseList(cond,nurseName);
     }
 
-    public List getNurseListByPage(int current, int size,String cond) {
-        return nurseDao.getNurseListByPage(current, size,cond);
+    public List getNurseListByPage(int current, int size, String cond, String nurseName) {
+        if (cond.equals("") && nurseName.equals("")) {
+            return nurseDao.getNurseListByPage(current, size);
+        } else {
+            return nurseDao.getNurseListByPageAndCond(current, size, cond, nurseName);
+        }
     }
 
     public List getExcellentNurses(int size) {
         return nurseDao.getExcellentNurses(size);
     }
 
-    public int getMaxPage(int size) {
-        List list = nurseDao.getNurseList();
+    public int getMaxPage(int size, String cond, String nurseName) {
+        List list = nurseDao.getNurseList(cond, nurseName);
         int sum = list.size();
         list.clear();
         if (sum % size == 0) {
             return sum / size;
         } else {
-            return sum /size + 1;
+            return sum / size + 1;
         }
 
     }
