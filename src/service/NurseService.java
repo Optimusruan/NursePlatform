@@ -31,8 +31,8 @@ public class NurseService {
         return nurseDao.getNurseList();
     }
 
-    public List getNurseListByPage(int current, int size) {
-        return nurseDao.getNurseListByPage(current, size);
+    public List getNurseListByPage(int current, int size,String cond) {
+        return nurseDao.getNurseListByPage(current, size,cond);
     }
 
     public List getExcellentNurses(int size) {

@@ -44,7 +44,7 @@ public class NurseDao {
         return list;
     }
     //分页查询
-    public List getNurseListByPage(int current,int size){
+    public List getNurseListByPage(int current,int size,String cond){
         Session session = sessionFactory.openSession();
         Query query= session.createQuery("from NurseEntity ");
         query.setFirstResult((current-1)*size);

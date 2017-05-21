@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:forEach items="${info}" var="item">
-    <div class="itemContainer nurseList">
+    <div class="itemContainer nurseList row">
         <a href="nurseDetail?id=<c:out value="${item.nurId}"/>">
             <div class="itemImg">
                 <c:choose>
@@ -48,12 +48,14 @@
             </li>
         </ul>
     </nav>
+    <input type="hidden" id="cond" value="<c:out value="${cond}"/>"/>
     <input type="hidden" id="maxPage" value="<c:out value="${maxPage}"/>"/>
     <div class="morePage col-lg-6">
         <span>共 <c:out value="${maxPage}"/> 页，跳转到 <input type="number" id="inputPage" pattern="[0-9]"> 页</span>
         <button id="toPage" class="btn">确定</button>
     </div>
 </div>
+
 <script>
     var now = 1;
     var maxPage = $("#maxPage").val();
@@ -103,17 +105,18 @@
 
     //加载内容
     function load(temp) {
-        alert(temp)
         if(ajaxLocker) {
             ajaxLocker = false;
 //            $(".nurseList").html("<img src=\"assets/img/loading.gif\" alt=\"\" width=\"300\">")
             $.ajax({
                 url: "nurseList",
                 data: {
-                    current: temp
+                    current: temp,
+                    cond:$("#cond").val(),
+                    name:$("#nurseName").val();
                 },
                 success: function (data) {
-                    $(".nurseList").html(data);
+                    $("#list").html(data);
                     now = temp;
                     loadPageNavigation();
                     checkPost();

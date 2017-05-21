@@ -48,10 +48,26 @@
             border-color: deeppink;
             color: deeppink;
         }
+        .search{
+            text-align: center;
+            margin-top: 10px;
+        }
+        .search button{
+            margin-left: -36px;
+            font-size: 1.5em;
+            padding: 5px;
+            margin-top: -3px;
+            border-radius: 0;
+        }
+        .search input{
+            height: 36px;
+            border: 2px solid #dddddd;
+        }
     </style>
 </head>
 <body>
 <div class="container" style="margin: 0 auto;width: 960px;position: relative">
+    <div class="search row"><input type="text" id="nurseName" placeholder="输入月嫂名字"/> <button class=" btn fa fa-search" id="search" style="height: auto"></button></div>
     <div class="row" id="condition">筛选条件</div>
     <div class="row" id="list">
         <img src="assets/img/loading.gif" alt="" width="300">
