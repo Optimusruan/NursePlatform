@@ -101,7 +101,7 @@
                 </div>
                 <div class="row">
                     <div class="input-field col" id="bt">
-                        <input name="usertype" value="cus" type="hidden">
+                        <input name="usertype" value="customer" type="hidden">
                         <button class="btn col-lg-2 col-lg-offset-3" id="submit_btn">注册</button>
                         <p class="">&nbsp已有账号? <a href="login.jsp" class="btn">登录</a></p>
                     </div>

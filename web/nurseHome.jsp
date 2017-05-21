@@ -14,8 +14,8 @@
     <link rel="stylesheet" href="assets/font-awesome-4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-<%--<%=session.getAttribute("id")%>--%>
-<%--<c:out value="${id}"></c:out>--%>
+<%=session.getAttribute("id")%>
+<c:out value="${id}"></c:out>
 <div class="container">
     <div class="panel">
         <div class="panel-heading">我的信息</div>
@@ -41,7 +41,7 @@
             <div class="col-lg-6">
                 <div class="row"><img src="" alt=""></div>
                 <div class="row" style="text-align: center">
-                    <button id="modify" class="btn btn-warning" style="width: 50%;">修改信息</button>
+                    <a href="nurseRegister?opt=mod" id="modify" class="btn btn-warning" style="width: 50%;">修改信息</a>
                 </div>
             </div>
         </div>

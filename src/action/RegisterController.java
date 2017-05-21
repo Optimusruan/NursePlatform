@@ -4,6 +4,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import service.NurseService;
 import service.RegisterService;
 
 import javax.servlet.ServletContext;
@@ -22,7 +24,7 @@ import java.util.Map;
 @Controller
 public class RegisterController {
     @RequestMapping(value = "register")
-    public void Register(HttpServletRequest request, HttpServletResponse response){
+    public String Register(HttpServletRequest request, HttpServletResponse response){
         Map details = new HashMap();
         try {
             request.setCharacterEncoding("UTF-8");
@@ -30,68 +32,84 @@ public class RegisterController {
             e.printStackTrace();
         }
         String userType = request.getParameter("usertype");
-        if(userType == "cus" || userType.equals("cus")){
-            details.put("cusName",request.getParameter("cus_name"));
-            details.put("cusIdno",request.getParameter("cus_idno"));
-            details.put("cusContact",request.getParameter("cus_contact"));
-            details.put("cusAdd",request.getParameter("cus_add"));
-            details.put("cusPos",request.getParameter("cus_pos"));
-            details.put("cusUname",request.getParameter("cus_uname"));
-            details.put("cusPwd",request.getParameter("cus_pwd"));
-            details.put("cusAvt",request.getParameter("cus_avt"));
-        }else if(userType == "nur" || userType.equals("nur")){
-            details.put("nurName",request.getParameter("nur_name"));
-            details.put("nurIdno",request.getParameter("nur_idno"));
-            details.put("nurContact",request.getParameter("nur_contact"));
-            details.put("nurAdd",request.getParameter("nur_add"));
-            details.put("nurPos",request.getParameter("nur_pos"));
-            details.put("nurUname",request.getParameter("nur_uname"));
-            details.put("nurPwd",request.getParameter("nur_pwd"));
-            details.put("nurAvt",request.getParameter("nur_avt"));
-            details.put("nurRank",request.getParameter("nur_rank"));
-            details.put("nurAge",request.getParameter("nur_age"));
-            details.put("nurPrice",request.getParameter("nur_price"));
-            details.put("nurEdu",request.getParameter("nur_edu"));
+        String opt = request.getParameter("opt");
+
+        if(userType == "customer" || userType.equals("customer")){
+            details.put("cusName",request.getParameter("cus_name").trim());
+            details.put("cusIdno",request.getParameter("cus_idno").trim());
+            details.put("cusContact",request.getParameter("cus_contact").trim());
+            details.put("cusAdd",request.getParameter("cus_add").trim());
+            details.put("cusPos",request.getParameter("cus_pos").trim());
+            details.put("cusUname",request.getParameter("cus_uname").trim());
+            details.put("cusPwd",request.getParameter("cus_pwd").trim());
+         //   details.put("cusAvt",request.getParameter("cus_avt").trim());
+        }else if(userType == "nurse" || userType.equals("nurse")){
+            details.put("nurName",request.getParameter("nur_name").trim());
+            details.put("nurIdno",request.getParameter("nur_idno").trim());
+            details.put("nurContact",request.getParameter("nur_contact").trim());
+            details.put("nurAdd",request.getParameter("nur_add").trim());
+            details.put("nurPos",request.getParameter("nur_pos").trim());
+            details.put("nurUname",request.getParameter("nur_uname").trim());
+            details.put("nurPwd",request.getParameter("nur_pwd").trim());
+//            details.put("nurAvt",request.getParameter("nur_avt").trim());
+//            details.put("nurRank",request.getParameter("nur_rank").trim());
+            details.put("nurAge",request.getParameter("nur_age").trim());
+            details.put("nurPrice",request.getParameter("nur_price").trim());
+            details.put("nurEdu",request.getParameter("nur_edu").trim());
         }
         ServletContext servletContext = request.getServletContext();
         String str = servletContext.getRealPath("/");
-        ApplicationContext applicationContext = new FileSystemXmlApplicationContext(str+"WEB-INF/applicationContext.xml");
-        RegisterService registerService= (RegisterService) applicationContext.getBean("registerService");
-        int id = registerService.register(userType,details);
+        ApplicationContext applicationContext = new FileSystemXmlApplicationContext(str + "WEB-INF/applicationContext.xml");
 
-        if (id == -1)
-        {
-            PrintWriter printWriter = null;
-            try {
-                printWriter = response.getWriter();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            printWriter.println("error");
+        //注册
+        if(opt == "reg" || opt.equals("reg")) {
+            RegisterService registerService = (RegisterService) applicationContext.getBean("registerService");
+            int id = registerService.register(userType, details);
+            request.getSession().setAttribute("id",id);
         }
-        else
-        {
-            request.getSession().setAttribute("id", id);
-            PrintWriter printWriter = null;
-            try {
-                printWriter = response.getWriter();
-            } catch (IOException e) {
-                e.printStackTrace();
+        //修改
+        else if(opt == "mod" || opt.equals("mod")){
+            //月嫂信息修改
+            if(userType == "nurse" || userType.equals("nurse")){
+                NurseService nurseService = (NurseService) applicationContext.getBean("nurseService");
+                nurseService.updateNurse(request.getSession().getAttribute("id").toString(),details);
             }
-            printWriter.print(id);
-            printWriter.print(details.toString());
+// else if(userType == "customer" || userType.equals("customer")){
+//                //客户信息修改
+//
+//           }
+        }
 
-            request.getSession().setAttribute("id", id);
-            //redirect
-        }
+        return "redirect:"+userType+"Home?id="+ request.getSession().getAttribute("id");
     }
     @RequestMapping("customerRegister")
     public String customerRegister(){
-        return "/customerRegister";
+        return "customerRegister";
     }
 
     @RequestMapping("nurseRegister")
-    public String nurseRegister(){
-        return "/nurseRegister";
+    public String nurseRegister(@RequestParam("opt") String opt,Map model,HttpServletRequest request, HttpServletResponse response){
+        if(opt == "mod" || opt.equals("mod")){
+            model.put("title","Modify 月嫂信息修改");
+            model.put("opt","mod");
+            model.put("act","修改");
+            model.put("display"," style=display:none ");
+
+            if(request.getSession().getAttribute("id")!=null){
+                //根据id获取model修改信息
+                String id = (request.getSession().getAttribute("id").toString());
+                ServletContext servletContext = request.getServletContext();
+                String str = servletContext.getRealPath("/");
+                ApplicationContext applicationContext = new FileSystemXmlApplicationContext(str+"WEB-INF/applicationContext.xml");
+                NurseService nurseService= (NurseService) applicationContext.getBean("nurseService");
+
+                model.put("info",nurseService.getDetailByHome(id));
+            }
+        }else if(opt == "reg" || opt.equals("reg")){
+            model.put("title","Register 月嫂注册");
+            model.put("opt","reg");
+            model.put("act","注册");
+        }
+        return "nurseRegister";
     }
 }
