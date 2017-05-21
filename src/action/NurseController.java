@@ -53,7 +53,7 @@ public class NurseController {
         NurseService nurseService = getNurseService(request);
         String cond = request.getParameter("cond");
         String current = request.getParameter("current");
-        model.put("info",nurseService.getNurseListByPage(Integer.parseInt(current),SIZE));
+        model.put("info",nurseService.getNurseListByPage(Integer.parseInt(current),SIZE,cond));
         model.put("maxPage",nurseService.getMaxPage(SIZE));
         model.put("cond",cond);
         return "ajaxLoadView/nurseList";
