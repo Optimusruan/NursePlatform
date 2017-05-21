@@ -27,7 +27,8 @@ public class NurseService {
     }
 
     public List getNurseList(String cond,String nurseName) {
-        return nurseDao.getNurseList(cond,nurseName);
+        return nurseDao.getNurseList(cond, nurseName);
+    }
     public boolean updateNurse(String id, Map details){
         return nurseDao.updateNurse(id,details);
     }
