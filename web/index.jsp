@@ -227,7 +227,7 @@
 
     <div id="nurses">
         <h2>优秀月嫂展示</h2>
-        <div style="float: right;"><a href="searchNurse.jsp">查看更多 ></a></div><hr>
+        <div style="float: right;"><a href="searchNurse">查看更多 ></a></div><hr>
         <div id="nurselist">
 
         </div>

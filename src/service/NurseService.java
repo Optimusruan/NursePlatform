@@ -14,23 +14,40 @@ public class NurseService {
     public void setNurseDao(NurseDao nurseDao) {
         this.nurseDao = nurseDao;
     }
-    public NurseEntity getDetail(String id){
+
+    public NurseEntity getDetail(String id) {
 
         NurseEntity nurseEntity = nurseDao.getModel(id);
         nurseEntity.setNurIdno("验证通过");
         nurseEntity.setNurContact("");
         return nurseEntity;
     }
-    public NurseEntity getDetailByHome(String id){
+
+    public NurseEntity getDetailByHome(String id) {
         return nurseDao.getModel(id);
     }
-    public List getNurseList(){
+
+    public List getNurseList() {
         return nurseDao.getNurseList();
     }
-    public List getNurseListByPage(int current,int size){
-        return nurseDao.getNurseListByPage(current,size);
+
+    public List getNurseListByPage(int current, int size) {
+        return nurseDao.getNurseListByPage(current, size);
     }
-    public List getExcellentNurses(int size){
+
+    public List getExcellentNurses(int size) {
         return nurseDao.getExcellentNurses(size);
+    }
+
+    public int getMaxPage(int size) {
+        List list = nurseDao.getNurseList();
+        int sum = list.size();
+        list.clear();
+        if (sum % size == 0) {
+            return sum / size;
+        } else {
+            return sum /size + 1;
+        }
+
     }
 }

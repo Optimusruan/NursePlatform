@@ -19,6 +19,7 @@ import java.util.Map;
  */
 @Controller
 public class NurseController {
+    public static int SIZE = 15;
     private NurseService getNurseService(HttpServletRequest request){
         ServletContext servletContext = request.getServletContext();
         String str = servletContext.getRealPath("/");
@@ -51,8 +52,7 @@ public class NurseController {
     public String nurseList(Map model,HttpServletRequest request){
         NurseService nurseService = getNurseService(request);
         String current = request.getParameter("current");
-        String size =  request.getParameter("size");
-        model.put("info",nurseService.getNurseListByPage(Integer.parseInt(current),Integer.parseInt(size)));
+        model.put("info",nurseService.getNurseListByPage(Integer.parseInt(current),SIZE));
         return "ajaxLoadView/nurseList";
     }
     @RequestMapping("excellentNurses")
@@ -62,5 +62,11 @@ public class NurseController {
         model.put("info",nurseService.getExcellentNurses(Integer.parseInt(size)));
         return "ajaxLoadView/showNurse";
     }
-
+    @RequestMapping("searchNurse")
+    public String searchNurse(Map model,HttpServletRequest request)
+    {
+        NurseService nurseService = getNurseService(request);
+        model.put("maxPage",nurseService.getMaxPage(SIZE));
+        return "searchNurse";
+    }
 }
