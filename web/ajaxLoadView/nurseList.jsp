@@ -57,7 +57,7 @@
         <button id="toPage" class="btn">确定</button>
     </div>
 </div>
-
+<script src="assets/js/layer/layer.js"></script>
 <script>
     var now = 1;
     var maxPage = $("#maxPage").val();
@@ -109,7 +109,7 @@
     function load(temp) {
         if(ajaxLocker) {
             ajaxLocker = false;
-//            $(".nurseList").html("<img src=\"assets/img/loading.gif\" alt=\"\" width=\"300\">")
+            $(".nurseList").html("<img src=\"assets/img/loading.gif\" alt=\"\" width=\"170\" height='290'>")
             $.ajax({
                 url: "nurseList",
                 data: {
@@ -123,7 +123,7 @@
                     loadPageNavigation();
                     checkPost();
                     checkPre();
-                    if(now<6)
+                    if(Number(now)<6)
                     {
                         $(".active").removeClass("active");
                         $(".allNurse:eq("+(temp-1)+")").addClass("active");
@@ -142,7 +142,7 @@
     //判断是否到头
     function checkPre() {
 
-        if (now == 1) {
+        if (Number(now) == 1) {
             $(".pre").addClass("disabled");
         }
         else $(".pre").removeClass("disabled");
@@ -161,14 +161,14 @@
     //处理直接页数跳转
     $("#toPage").on("click", function () {
         var page = $("#inputPage").val();
-        if (page != "" && page > 0 && page <= maxPage) {
+        if (page != "" && Number(page) > 0 && Number(page) <= maxPage) {
             load(page);
         }
     });
 
     //重新加载分页的导航栏
     function loadPageNavigation() {
-        if(now>=4&&now<=5){
+        if(Number(now)>=4&&Number(now)<=5){
             $(".more").remove();
             $(".allNurse").remove();
             str = "";
@@ -178,7 +178,7 @@
             $(".pre").after(str);
             $(".allNurse:last").after("<li class='disabled more'><a href='#' onclick='return false;' >....</a></li>");
         }
-        if(now>5){
+        if(Number(now)>5){
             $(".more").remove();
             $(".allNurse").remove();
             str = "";
@@ -186,9 +186,9 @@
                 str += "<li class=\"allNurse\"><a href=\"#\">" + (i + 1) + "</a></li>";
             }
             str += "<li class='disabled more'><a href='#' onclick='return false;' >....</a></li>";
-            if(now<maxPage-2) {
+            if(Number(now)<maxPage-2) {
                 for (var i = Number(now) - 2; i <= Number(now) + 2; i++) {
-                    if (i == now) {
+                    if (i == Number(now)) {
                         str += "<li class=\"allNurse  active\"><a href=\"#\">" + i + "</a></li>";
                     }
                     else {
@@ -199,7 +199,7 @@
             }
             else {
                 for (var i = maxPage - 4; i <= maxPage; i++) {
-                    if (i == now) {
+                    if (i == Number(now)) {
                         str += "<li class=\"allNurse  active\"><a href=\"#\">" + i + "</a></li>";
                     }
                     else {

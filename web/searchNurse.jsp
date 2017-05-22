@@ -46,10 +46,15 @@
         #toPage{
             background: #fff;
             border-color: #ddd;
+
         }
         #toPage:hover{
             border-color: deeppink;
             color: deeppink;
+        }
+        .morePage>span>input{
+            border: 1px solid deeppink;
+            outline:deeppink;
         }
         .search{
             text-align: center;
@@ -61,11 +66,35 @@
             padding: 5px;
             margin-top: -3px;
             border-radius: 0;
+            color: white;
+            background: deeppink;
+        }
+        .search button:hover{
+            color: white;
         }
         .search input{
             height: 36px;
             width: 600px;
-            border: 2px solid #dddddd;
+            border: 2px solid deeppink;
+            outline:deeppink;
+        }
+        .search input:focus{
+            border: 2px solid deeppink;
+        }
+        .pagination>.active>a{
+            background: deeppink;
+            border-color: deeppink;
+            color: white;
+        }
+        .pagination>.active>a:hover{
+            background: deeppink;
+            border-color: deeppink;
+        }
+        .pagination>li>a{
+            color: deeppink;
+        }
+        .pagination>li>a:focus, .pagination>li>a:hover, .pagination>li>span:focus, .pagination>li>span:hover{
+            color: deeppink;
         }
     </style>
 </head>
