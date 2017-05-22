@@ -187,11 +187,10 @@
     </script>
     <div class="panel">
         <div class="table-responsive" id="services" style="width: 100%;height: 100%">
-            <table class="table">
+            <table class="table" style="border: 0">
                 <thead>
                 <tr colspan="5">
                     <h2>服务介绍</h2>
-                    <hr>
                 </tr>
                 </thead>
                 <tbody>
