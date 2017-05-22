@@ -24,7 +24,7 @@
         }
 
         .bloke {
-            width: 80%;
+            width:80%;
             margin: 0 10% 0 10%;
             text-align: center;
         }
@@ -40,8 +40,8 @@
 
         #myCarousel {
             height: 400px;
-            width: 80%;
-            margin: 0 10%;
+            width: 100%;
+            margin: 0;
             text-align: center;
         }
 
@@ -55,7 +55,8 @@
             width: 100%;
             height: 400px;
         }
-        #istop{
+
+        #istop {
             background-color: lightyellow;
             position: fixed;
             width: 50px;
@@ -65,22 +66,26 @@
             text-align: center;
         }
 
-        hr{
-            height:10px;
-            border:none;
+        hr {
+            height: 10px;
+            border: none;
             border-top: 1px dashed lightpink;
         }
-        #nurselist{
+
+        #nurselist {
             position: relative;
         }
-        .itemContainer{
-            float:left;
-            margin: 10px;
+
+        .itemContainer {
+            float: left;
             padding: 10px;
-            width: 420px;
-            height: 300px;
+            margin: 10px;
+            width: 364px;
+            height: 280px;
+            /*background: pink;*/
         }
-        .rank{
+
+        .rank {
             border-radius: 40px;
             background: #FFB6C1;
             margin: 10px;
@@ -88,40 +93,47 @@
             width: 80px;
             height: 30px;
         }
-        .itemImg ,.itemInfo{
-            width: 180px;
-            height: 280px;
+
+        .itemImg, .itemInfo {
+            width: 160px;
+            height: 240px;
             padding: 5px;
-            text-align:left;
+            text-align: left;
         }
 
+        .navbar a:link, .navbar a:visited {
+            color: white;
+        }
 
+        .navbar span {
+            color: white;
+        }
+        .nav>li>a:focus, .nav>li>a:hover{
+            background: white;
+            color: deeppink;
+        }
     </style>
 </head>
 <body>
 <div id="istop"><a href="#top"><i class="fa  fa-chevron-up fa-2x" aria-hidden="true"></i>返回顶部</a></div>
-<nav id="top" class="navbar navbar-default " role="navigation" style="background: lightpink;">
+<nav id="top" class="navbar" role="navigation" style="background: #E91E63;">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand">NursePlatform</a>
+            <span class="navbar-brand">NursePlatform</span>
         </div>
         <div>
-            <ul class="nav navbar-nav navbar-left">
-                <li><a href="#myCarousel">首页</a></li>
+            <ul class="nav navbar-nav navbar-left" style="font-weight: bold">
+                <li><a href="index.jsp">首页</a></li>
                 <li><a href="#services">服务介绍</a></li>
-                <li><a href="#nurses">优秀月嫂展示</a></li>
+                <li><a href="#nurses">月嫂</a></li>
                 <li><a href="#about">关于我们</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <button type="button" class="btn btn-default navbar-btn" style="background-color: lightyellow">
                         <a href="login.jsp">登录</a>
-                    </button>
                 </li>
                 <li>
-                    <button type="button" class="btn btn-default navbar-btn"  style="background-color: lightyellow">
                         <a href="register.jsp">注册</a>
-                    </button>
                 </li>
             </ul>
         </div>
@@ -159,10 +171,7 @@
 
     <!-- 控制按钮 -->
 
-    <div style="text-align:center;">
-        <input type="button" class="btn prev-slide" value="上一张" style="background: lightpink">
-        <input type="button" class="btn next-slide" value="下一张" style="background: lightpink">
-    </div>
+
     <script>
         $(function () {
             // 循环轮播到上一个项目
@@ -181,7 +190,8 @@
             <table class="table">
                 <thead>
                 <tr colspan="5">
-                    <h2>服务介绍</h2><hr>
+                    <h2>服务介绍</h2>
+                    <hr>
                 </tr>
                 </thead>
                 <tbody>
@@ -225,32 +235,37 @@
 
         </div>
     </div>
+    <div class="row">
+        <div id="nurses" class="panel">
+            <h2>优秀月嫂展示</h2>
+            <div style="float: right;"><a href="searchNurse">查看更多 ></a></div>
+            <hr>
+            <div id="nurselist">
 
-    <div id="nurses" class="panel">
-        <h2>优秀月嫂展示</h2>
-        <div style="float: right;"><a href="searchNurse">查看更多 ></a></div><hr>
-        <div id="nurselist">
-
+            </div>
         </div>
     </div>
-    <div id="about" class="panel">
-        <h2>关于我们</h2><hr>
-        <p>NursePlatform 实现了：</p>
-        <p>1.月嫂与客户直接沟通，省去中介费</p>
-        <p>2.根据客户要求智能匹配月嫂</p>
-        <p>3.按条件精确查找月嫂</p>
-        <p>4.月嫂与客户双向选择</p>
+    <div class="row">
+        <div id="about" class="panel">
+            <h2>关于我们</h2>
+            <hr>
+            <p>NursePlatform 实现了：</p>
+            <p>1.月嫂与客户直接沟通，省去中介费</p>
+            <p>2.根据客户要求智能匹配月嫂</p>
+            <p>3.按条件精确查找月嫂</p>
+            <p>4.月嫂与客户双向选择</p>
+        </div>
     </div>
 </div>
 </body>
 <script>
     $.ajax({
-        url:"excellentNurses",
-        data:{
-            size:6
+        url: "excellentNurses",
+        data: {
+            size: 8
             //偶数
         },
-        success:function (data) {
+        success: function (data) {
             $("#nurselist").html(data);
         }
     })
