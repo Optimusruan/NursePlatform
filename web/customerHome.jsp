@@ -50,20 +50,24 @@
                 <div class="col-lg-3"><img src="" alt=""></div>
                 <div class="col-lg-6">
                     <div class="row">
-                        <div class="col-lg-3"><label>姓名</label></div>
+                        <div class="col-lg-3"><label>姓名:</label></div>
                         <div class="col-lg-9"><c:out value="${info.cusName}"/></div>
                     </div>
                     <div class="row">
-                        <label class="col-lg-3">身份证</label>
-                        <div class="col-lg-9"><c:out value="${info.cusIdno}"/></div>
-                    </div>
-                    <div class="row">
-                        <label class="col-lg-3">登录名</label>
+                        <label class="col-lg-3">登录名:</label>
                         <div class="col-lg-9"><c:out value="${info.cusUname}"/></div>
                     </div>
                     <div class="row">
-                        <label class="col-lg-3">联系方式</label>
+                        <label class="col-lg-3">身份证:</label>
+                        <div class="col-lg-9"><c:out value="${info.cusIdno}"/></div>
+                    </div>
+                    <div class="row">
+                        <label class="col-lg-3">联系方式:</label>
                         <div class="col-lg-9"><c:out value="${info.cusContact}"/></div>
+                    </div>
+                    <div class="row">
+                        <label class="col-lg-3">地址:</label>
+                        <div class="col-lg-9"><c:out value="${info.cusAdd}"/></div>
                     </div>
                     <div class="row">
                         <div class="col-lg-12" style="text-align: center">
