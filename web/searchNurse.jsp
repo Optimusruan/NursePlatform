@@ -96,6 +96,57 @@
         .pagination>li>a:focus, .pagination>li>a:hover, .pagination>li>span:focus, .pagination>li>span:hover{
             color: deeppink;
         }
+        .condition{
+            margin:15px 0;
+        }
+        .condition-container{
+            border: 1px solid #ddd;
+            margin-top: -1px;
+        }
+        .condition-head{
+            background: #D3D4D3;
+            font-weight: bold;
+            font-size: 1.1em;
+            float: left;
+            padding: 8px 15px;
+        }
+        .condition-info{
+            padding: 8px 15px;
+            float: left;
+        }
+        .condition-item>a:link,.condition-item>a:visited{
+            color: deeppink;
+            text-decoration: none;
+        }
+        .hide{
+            display: none;
+        }
+        .add>a:link,.add>a:hover,.add>a:visited{
+            text-decoration: none;
+            color: deeppink;
+            border: 1px solid deeppink;
+        }
+        .add>a{
+            display: block;
+            float: left;
+            margin: 4px 10px;
+        }
+        .add>a>i{
+            background: deeppink;
+            color: white;
+            display: inline-block;
+            font-size: 1.25em;
+            padding: 5px;
+        }
+        .add>a>span{
+            padding: 3px 6px;
+            display: inline-block;
+        }
+        .deeppink{
+            background: deeppink;
+            color: white;
+            font-weight: normal;
+        }
     </style>
 </head>
 <body>
@@ -104,11 +155,56 @@
         <input type="text" id="nurseName" value="" placeholder="输入月嫂名字"/>
         <button class=" btn fa fa-search" id="search" style="height: auto"></button>
     </div>
-    <div class="row" id="condition">筛选条件</div>
-    <div class="row" id="list">
-        <img src="assets/img/loading.gif" alt="" width="300">
-    </div>
+    <div class="condition row " id="condition" >
+        <div class="condition-container row">
+            <div class="condition-head deeppink">筛 选 条 件</div>
+            <div class="">
+                <div class="add" id="allCondition">
 
+                </div>
+            </div>
+        </div>
+        <div class="condition-container row" data-id="level" id="level">
+            <div class="condition-head">星 级</div>
+            <div class="condition-info">
+                <div class="condition-item"><a href="" onclick="return false;">一星</a></div>
+            </div>
+            <div class="condition-info">
+                <div class="condition-item"><a href="" onclick="return false;">二星</a> </div>
+            </div>
+            <div class="condition-info">
+                <div class="condition-item"><a href="" onclick="return false;">三星</a></div>
+            </div>
+            <div class="condition-info">
+                <div class="condition-item"><a href="" onclick="return false;">四星</a></div>
+            </div>
+            <div class="condition-info">
+                <div class="condition-item"><a href="" onclick="return false;">五星</a></div>
+            </div>
+        </div>
+        <div class="condition-container row" data-id="price" id="price">
+            <div class="condition-head">价 格</div>
+            <div class="condition-info">
+                <div class="condition-item"><a href="" onclick="return false;">test1</a></div>
+            </div>
+            <div class="condition-info">
+                <div class="condition-item"><a href="" onclick="return false;">test2</a> </div>
+            </div>
+            <div class="condition-info">
+                <div class="condition-item"><a href="" onclick="return false;">test3</a></div>
+            </div>
+            <div class="condition-info">
+                <div class="condition-item"><a href="" onclick="return false;">test4</a></div>
+            </div>
+            <div class="condition-info">
+                <div class="condition-item"><a href="" onclick="return false;">test5</a></div>
+            </div>
+        </div>
+    </div>
+    <div class="row" id="list">
+        <img src="assets/img/loading.gif" alt="" style="left: 350px;position: absolute;" width="300">
+    </div>
+    <input type="hidden" id="cond" value="<c:out value="${cond}"/>"/>
     <input type="hidden" id="current" value="1"/>
     <%--<input type="hidden" id="maxPage" value="3"/>--%>
 </div>
@@ -129,6 +225,7 @@
         }
     });
     $("#search").on("click",function(){
+        $(".nurseList").html("<img src=\"assets/img/loading.gif\" alt=\"\" width=\"170\" height='290'>")
         $.ajax({
             url: "nurseList",
             data: {
@@ -142,6 +239,19 @@
         });
     })
 
+    $(".condition-item>a").each(function () {
+        $(this).on("click",function () {
+            var content = $(this).text();
+            var id = $(this).parent().parent().parent().attr("data-id");
+            $(this).parent().parent().parent().addClass("hide");
+            $("#allCondition").append("<a href='#' onclick='del(this);return false;' data-id="+ id +"><span>"+content+"</span><i class='fa fa-close'></i></a>");
+        })
+    })
+    function del(obj) {
+        var id = obj.getAttribute("data-id");
+        $("#"+id).removeClass("hide");
+        obj.remove();
+    }
 </script>
 </body>
 </html>

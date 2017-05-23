@@ -20,7 +20,7 @@ import java.util.Map;
  */
 @Controller
 public class NurseController {
-    public static int SIZE = 15;
+    public static int SIZE = 20;
     private NurseService getNurseService(HttpServletRequest request){
         try {
             request.setCharacterEncoding("UTF-8");

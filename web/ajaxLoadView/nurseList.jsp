@@ -14,7 +14,7 @@
             <div class="itemImg">
                 <c:choose>
                     <c:when test="${item.nurAvt!=null}">
-                        <img src="<c:out value="${item.nurAvt}"/> " alt="">
+                        <img src="<c:out value="${item.nurAvt}"/>"  alt="">
                     </c:when>
                     <c:otherwise>
                         <img src="assets/img/home1.jpg" alt="" width="150" height="200">
@@ -28,7 +28,11 @@
                 </div>
                 <div>
                     <label>星级</label>
-                    <span><c:out value="${item.nurRank}"/></span>
+                    <span>
+                        <c:forEach begin="1" step="1" end="${item.nurRank}">
+                            <i class="fa fa-star"></i>
+                        </c:forEach>
+                    </span>
                 </div>
             </div>
         </a>
@@ -39,18 +43,17 @@
     <nav aria-label="Page navigation" class="pageNavi col-lg-6">
         <ul class="pagination">
             <li class="pre">
-                <a href="#" aria-label="Previous">
+                <a href="#" aria-label="Previous"  onclick="return false;">
                     <span aria-hidden="true">&laquo;</span>
                 </a>
             </li>
             <li class="post">
-                <a href="#" aria-label="Next">
+                <a href="#" aria-label="Next"  onclick="return false;">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
             </li>
         </ul>
     </nav>
-    <input type="hidden" id="cond" value="<c:out value="${cond}"/>"/>
     <input type="hidden" id="maxPage" value="<c:out value="${maxPage}"/>"/>
     <div class="morePage col-lg-6">
         <span>共 <c:out value="${maxPage}"/> 页，跳转到 <input type="number" id="inputPage" pattern="[0-9]"> 页</span>
@@ -84,6 +87,7 @@
         str += "<li class='disabled more'><a href='#' onclick='return false;' >....</a></li>";
         $(".pre").after(str);
     }
+
     //点击分页按钮加载该页内容
     $(".allNurse").each(function () {
         $(this).on("click", function () {
