@@ -18,8 +18,7 @@
             width: auto;
             height: auto;
             text-align: center;
-            background: #FFB6C1;
-            color:grey;
+            background: #E91E63;
             border-radius: 10px;
             margin: 10px;
             padding: 10px;
@@ -28,23 +27,30 @@
             font-size: 2em;
             color: white;
         }
+        a:hover {
+            color: lightyellow;
+            text-decoration:none;
+        }
+        .panel-heading:hover{
+            background: #EC2D6E;
+        }
     </style>
 </head>
 <body>
-<%=session.getAttribute("id")%>
-<c:out value="${id}"></c:out>
+<%--<%=session.getAttribute("id")%>--%>
+<%--<c:out value="${id}"></c:out>--%>
 <div class="container">
     <div class="panel">
         <div class="panel-heading">
-            <a href="">我的信息</a>
+            <a>我的信息</a>
         </div>
         <div class="panel-body">
             <div class="row">
                 <div class="col-lg-3"></div>
-                <div class="col-lg-3"><<img src="" alt=""></div>
+                <div class="col-lg-3"><img src="" alt=""></div>
                 <div class="col-lg-6">
                     <div class="row">
-                        <label class="col-lg-3">姓名</label>
+                        <div class="col-lg-3"><label>姓名</label></div>
                         <div class="col-lg-9"><c:out value="${info.cusName}"/></div>
                     </div>
                     <div class="row">
@@ -76,10 +82,10 @@
             <table class="table">
                 <thead>
                 <tr >
-                    <th style="display: none">预约对象</th>
+                    <th>预约对象</th>
                     <th>开始时间</th>
                     <th>结束时间</th>
-                    <th style="display: none">价格（/天）</th>
+                    <%--<th>价格（/天）</th>--%>
                     <th>预约状态</th>
                     <th>操作</th>
                 </tr>
@@ -88,10 +94,10 @@
                 <c:forEach var="svc" items="${services}">
                     <c:if test="${svc.svcPps}==1">
                         <tr class="status1">
-                            <td style="display: none"><c:out value="${svc.svcNurid}"></c:out></td>
+                            <td><a href="#"><c:out value="${svc.svcNurid}"></c:out></a></td>
                             <td><c:out value="${svc.svcStart}"></c:out></td>
                             <td><c:out value="${svc.svcEnd}"></c:out></td>
-                            <td><c:out value="${svc.svcEnd}"></c:out></td>
+                            <%--<td><c:out value="${svc.svcEnd}"></c:out></td>--%>
                             <td><c:out value="${svc.svcStatus}"></c:out></td>
                             <td>待处理</td>
                             <td>
@@ -149,7 +155,7 @@
     </div>
     <div class="panel">
         <div class="panel-heading">
-            <a href="">我的要求</a>
+            <a href="searchNurse.jsp">筛选月嫂</a>
         </div>
         <div class="panel-body">
         </div>
