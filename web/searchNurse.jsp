@@ -9,7 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>月嫂列表</title>
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/font-awesome-4.7.0/css/font-awesome.min.css">
     <style>
@@ -291,6 +291,7 @@
         $("#list").html("<img src=\"assets/img/loading.gif\" alt=\"\" width=\"300\" style='position: absolute;left: 350px;'>")
         $.ajax({
             url: "nurseList",
+            timeout:5000,
             data: {
                 current: 1,
                 nurseName: $("#nurseName").val(),
@@ -299,6 +300,13 @@
             },
             success: function (data) {
                 $("#list").html(data);
+            },
+            error:function(xhr){
+                console.log(xhr);
+                if(xhr.statusText=="timeout"){
+                    alert("连接超时，请检查网路");
+                    $("#list").remove();
+                }
             }
         });
     }

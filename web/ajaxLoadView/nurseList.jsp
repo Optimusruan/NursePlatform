@@ -120,10 +120,11 @@
             $("#list").html("<img src=\"assets/img/loading.gif\" alt=\"\" width=\"300\" style='position: absolute;left: 350px;'>")
             $.ajax({
                 url: "nurseList",
+                timeout:5000,
                 data: {
                     current: temp,
                     priceCond:$("#priceCond").val(),
-                    rankCond:$("#ranlCond").val(),
+                    rankCond:$("#rankCond").val(),
                     nurseName:$("#nurseName").val()
                 },
                 success: function (data) {
@@ -142,6 +143,11 @@
                 },
                 error:function (xhr) {
                     console.log(xhr);
+                    if(xhr.statusText=="timeout"){
+                        $("#list").remove();
+                        alert("连接超时，请检查网路");
+
+                    }
                     ajaxLocker=true;
                 }
             });
