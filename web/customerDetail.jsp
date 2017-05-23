@@ -8,12 +8,35 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>客户信息</title>
+    <style>
+        .panel-heading{
+            width: auto;
+            height: auto;
+            text-align: center;
+            background: #E91E63;
+            border-radius: 10px;
+            margin: 10px;
+            padding: 10px;
+        }
+        a{
+            font-size: 2em;
+            color: white;
+        }
+        a:hover {
+            color: lightyellow;
+            text-decoration:none;
+        }
+        .fa{
+            color: white;
+        }
+    </style>
 </head>
 <body>
 <div class="panel">
     <div class="panel-heading">
         <a>客户信息</a>
+        <a href="customerHome.jsp"><i class="fa fa-reply " aria-hidden="true"></i>返回</a>
     </div>
     <div class="panel-body">
         <div class="row">
