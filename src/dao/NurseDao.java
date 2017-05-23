@@ -137,7 +137,7 @@ public class NurseDao {
             query = session.createQuery("from NurseEntity where nurName like '%"+nurseName+"%'");
         }
         else if(!cond.equals("")&&nurseName.equals("")){
-            System.out.println("2");
+            System.out.println("2"+cond);
             query = session.createQuery("from NurseEntity where "+cond);
         }
         else {

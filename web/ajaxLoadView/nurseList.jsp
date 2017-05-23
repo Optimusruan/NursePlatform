@@ -17,7 +17,7 @@
                         <img src="<c:out value="${item.nurAvt}"/>"  alt="">
                     </c:when>
                     <c:otherwise>
-                        <img src="assets/img/home1.jpg" alt="" width="150" height="200">
+                        <img src="assets/img/home1.jpg" alt="" width="155" height="200">
                     </c:otherwise>
                 </c:choose>
             </div>
@@ -33,6 +33,10 @@
                             <i class="fa fa-star"></i>
                         </c:forEach>
                     </span>
+                </div>
+                <div>
+                    <label>价格</label>
+                    <span><c:out value="${item.nurPrice}"/>/天</span>
                 </div>
             </div>
         </a>
@@ -113,12 +117,13 @@
     function load(temp) {
         if(ajaxLocker) {
             ajaxLocker = false;
-            $(".nurseList").html("<img src=\"assets/img/loading.gif\" alt=\"\" width=\"170\" height='290'>")
+            $("#list").html("<img src=\"assets/img/loading.gif\" alt=\"\" width=\"300\" style='position: absolute;left: 350px;'>")
             $.ajax({
                 url: "nurseList",
                 data: {
                     current: temp,
-                    cond:$("#cond").val(),
+                    priceCond:$("#priceCond").val(),
+                    rankCond:$("#ranlCond").val(),
                     nurseName:$("#nurseName").val()
                 },
                 success: function (data) {

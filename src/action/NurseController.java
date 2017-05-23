@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -20,8 +21,17 @@ import java.util.Map;
  */
 @Controller
 public class NurseController {
-    public static int SIZE = 20;
-    private NurseService getNurseService(HttpServletRequest request){
+    private static int SIZE = 20;
+    private static String[] CONDKEY = {"rank", "price"};
+    private static HashMap<String, String> LEVEL = new HashMap<String, String>() {{
+        put("一星", "1");
+        put("二星", "2");
+        put("三星", "3");
+        put("四星", "4");
+        put("五星", "5");
+    }};
+
+    private NurseService getNurseService(HttpServletRequest request) {
         try {
             request.setCharacterEncoding("UTF-8");
         } catch (UnsupportedEncodingException e) {
@@ -29,53 +39,83 @@ public class NurseController {
         }
         ServletContext servletContext = request.getServletContext();
         String str = servletContext.getRealPath("/");
-        ApplicationContext applicationContext = new FileSystemXmlApplicationContext(str+"WEB-INF/applicationContext.xml");
+        ApplicationContext applicationContext = new FileSystemXmlApplicationContext(str + "WEB-INF/applicationContext.xml");
         return (NurseService) applicationContext.getBean("nurseService");
     }
+
     @RequestMapping("nurseHome")
     public String nurseHome(@RequestParam("id") String id, Map model, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        if(request.getSession().getAttribute("id")!=null&&request.getSession().getAttribute("id").toString().equals(id))
-        {
+        if (request.getSession().getAttribute("id") != null && request.getSession().getAttribute("id").toString().equals(id)) {
             NurseService nurseService = getNurseService(request);
-            model.put("info",nurseService.getDetailByHome(id));
-            model.put("services",nurseService.getNurseServices(id));
+            model.put("info", nurseService.getDetailByHome(id));
+            model.put("services", nurseService.getNurseServices(id));
             return "nurseHome";
-        }
-        else{
+        } else {
             PrintWriter printWriter = response.getWriter();
             printWriter.print("<script>window.location.href='login.jsp';</script>");
             return null;
         }
     }
+
     @RequestMapping("nurseDetail")
-    public String nurseDetail(@RequestParam("id") String id,Map model,HttpServletRequest request)
-    {
-        NurseService nurseService =getNurseService(request);
-        model.put("info",nurseService.getDetail(id));
+    public String nurseDetail(@RequestParam("id") String id, Map model, HttpServletRequest request) {
+        NurseService nurseService = getNurseService(request);
+        model.put("info", nurseService.getDetail(id));
         return "nurseDetail";
     }
 
     @RequestMapping(value = "nurseList")
-    public String nurseList(Map model,HttpServletRequest request) throws UnsupportedEncodingException {
+    public String nurseList(Map model, HttpServletRequest request) throws UnsupportedEncodingException {
         NurseService nurseService = getNurseService(request);
-        String cond = request.getParameter("cond");
+        StringBuilder cond = new StringBuilder();
+        for (int i = 0; i < CONDKEY.length; i++) {
+            boolean isNum = false;
+           System.out.println(CONDKEY[i]);
+//            System.out.println(request.getParameter(CONDKEY[i] + "Cond"));
+            String temp = new String(request.getParameter(CONDKEY[i] + "Cond").getBytes("ISO-8859-1"), "utf-8");
+            model.put(CONDKEY[i] + "Cond", temp);
+            if (CONDKEY[i].equals("rank")) {
+                temp = LEVEL.get(temp);
+                isNum = true;
+            }
+            if (isNum) {
+                if (temp != null) {
+                    if (!cond.toString().equals("")) {
+                        cond.append(" and ");
+                    }
+                    cond.append("nur_").append(CONDKEY[i]).append(" like '%").append(temp).append("%'");
+                }
+            } else {
+                if (temp != null&&!temp.equals("")) {
+                    if (!cond.toString().equals("")) {
+                        cond.append(" and ");
+                    }
+                    if(CONDKEY[i].equals("price")){
+                        String str[]=temp.split("-");
+                        cond.append("nur_").append(CONDKEY[i]).append(" between ").append(str[0]).append(" and ").append(str[1]);
+                    }
+                    else
+                    cond.append("nur_").append(CONDKEY[i]).append(" like '%").append(temp).append("%'");
+                }
+            }
+        }
         String current = request.getParameter("current");
-        String nurseName = new String(request.getParameter("nurseName").getBytes("ISO-8859-1"),"utf-8");
-        model.put("info",nurseService.getNurseListByPage(Integer.parseInt(current),SIZE,cond,nurseName));
-        model.put("maxPage",nurseService.getMaxPage(SIZE,cond,nurseName));
-        model.put("cond",cond);
+        String nurseName = new String(request.getParameter("nurseName").getBytes("ISO-8859-1"), "utf-8");
+        model.put("info", nurseService.getNurseListByPage(Integer.parseInt(current), SIZE, cond.toString(), nurseName));
+        model.put("maxPage", nurseService.getMaxPage(SIZE, cond.toString(), nurseName));
         return "ajaxLoadView/nurseList";
     }
+
     @RequestMapping("excellentNurses")
-    public String excellentNurses(Map model,HttpServletRequest request){
+    public String excellentNurses(Map model, HttpServletRequest request) {
         NurseService nurseService = getNurseService(request);
-        String size =  request.getParameter("size");
-        model.put("info",nurseService.getExcellentNurses(Integer.parseInt(size)));
+        String size = request.getParameter("size");
+        model.put("info", nurseService.getExcellentNurses(Integer.parseInt(size)));
         return "ajaxLoadView/showNurse";
     }
+
     @RequestMapping("searchNurse")
-    public String searchNurse(Map model,HttpServletRequest request)
-    {
+    public String searchNurse(Map model, HttpServletRequest request) {
         return "searchNurse";
     }
 }

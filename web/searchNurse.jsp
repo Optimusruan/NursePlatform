@@ -22,9 +22,11 @@
         .itemInfo {
             padding: 10px;
         }
-        .itemImg{
+
+        .itemImg {
             margin: 10px;
         }
+
         .nurseList a:link, .nurseList a:visited {
             color: black;
             text-decoration: none;
@@ -43,24 +45,29 @@
             text-align: center;
             margin: 20px 0;
         }
-        #toPage{
+
+        #toPage {
             background: #fff;
             border-color: #ddd;
 
         }
-        #toPage:hover{
+
+        #toPage:hover {
             border-color: deeppink;
             color: deeppink;
         }
-        .morePage>span>input{
+
+        .morePage > span > input {
             border: 1px solid deeppink;
-            outline:deeppink;
+            outline: deeppink;
         }
-        .search{
+
+        .search {
             text-align: center;
             margin-top: 10px;
         }
-        .search button{
+
+        .search button {
             margin-left: -36px;
             font-size: 1.5em;
             padding: 5px;
@@ -69,80 +76,98 @@
             color: white;
             background: deeppink;
         }
-        .search button:hover{
+
+        .search button:hover {
             color: white;
         }
-        .search input{
+
+        .search input {
             height: 36px;
             width: 600px;
             border: 2px solid deeppink;
-            outline:deeppink;
+            outline: deeppink;
         }
-        .search input:focus{
+
+        .search input:focus {
             border: 2px solid deeppink;
         }
-        .pagination>.active>a{
+
+        .pagination > .active > a {
             background: deeppink;
             border-color: deeppink;
             color: white;
         }
-        .pagination>.active>a:hover{
+
+        .pagination > .active > a:hover {
             background: deeppink;
             border-color: deeppink;
         }
-        .pagination>li>a{
+
+        .pagination > li > a {
             color: deeppink;
         }
-        .pagination>li>a:focus, .pagination>li>a:hover, .pagination>li>span:focus, .pagination>li>span:hover{
+
+        .pagination > li > a:focus, .pagination > li > a:hover, .pagination > li > span:focus, .pagination > li > span:hover {
             color: deeppink;
         }
-        .condition{
-            margin:15px 0;
+
+        .condition {
+            margin: 15px 0;
         }
-        .condition-container{
+
+        .condition-container {
             border: 1px solid #ddd;
             margin-top: -1px;
         }
-        .condition-head{
+
+        .condition-head {
             background: #D3D4D3;
             font-weight: bold;
             font-size: 1.1em;
             float: left;
             padding: 8px 15px;
         }
-        .condition-info{
+
+        .condition-info {
             padding: 8px 15px;
             float: left;
         }
-        .condition-item>a:link,.condition-item>a:visited{
+
+        .condition-item > a:link, .condition-item > a:visited {
             color: deeppink;
             text-decoration: none;
         }
-        .hide{
+
+        .hide {
             display: none;
         }
-        .add>a:link,.add>a:hover,.add>a:visited{
+
+        .add > a:link, .add > a:hover, .add > a:visited {
             text-decoration: none;
             color: deeppink;
             border: 1px solid deeppink;
         }
-        .add>a{
+
+        .add > a {
             display: block;
             float: left;
             margin: 4px 10px;
         }
-        .add>a>i{
+
+        .add > a > i {
             background: deeppink;
             color: white;
             display: inline-block;
             font-size: 1.25em;
             padding: 5px;
         }
-        .add>a>span{
+
+        .add > a > span {
             padding: 3px 6px;
             display: inline-block;
         }
-        .deeppink{
+
+        .deeppink {
             background: deeppink;
             color: white;
             font-weight: normal;
@@ -151,11 +176,13 @@
 </head>
 <body>
 <div class="container" style="margin: 0 auto;width: 1000px;position: relative">
+    <%--搜索栏--%>
     <div class="search row">
         <input type="text" id="nurseName" value="" placeholder="输入月嫂名字"/>
         <button class=" btn fa fa-search" id="search" style="height: auto"></button>
     </div>
-    <div class="condition row " id="condition" >
+    <%--筛选条件栏--%>
+    <div class="condition row " id="condition">
         <div class="condition-container row">
             <div class="condition-head deeppink">筛 选 条 件</div>
             <div class="">
@@ -164,13 +191,13 @@
                 </div>
             </div>
         </div>
-        <div class="condition-container row" data-id="level" id="level">
+        <div class="condition-container row" data-id="rank" id="rank">
             <div class="condition-head">星 级</div>
             <div class="condition-info">
                 <div class="condition-item"><a href="" onclick="return false;">一星</a></div>
             </div>
             <div class="condition-info">
-                <div class="condition-item"><a href="" onclick="return false;">二星</a> </div>
+                <div class="condition-item"><a href="" onclick="return false;">二星</a></div>
             </div>
             <div class="condition-info">
                 <div class="condition-item"><a href="" onclick="return false;">三星</a></div>
@@ -185,26 +212,31 @@
         <div class="condition-container row" data-id="price" id="price">
             <div class="condition-head">价 格</div>
             <div class="condition-info">
-                <div class="condition-item"><a href="" onclick="return false;">test1</a></div>
+                <div class="condition-item"><a href="" onclick="return false;">0-100</a></div>
             </div>
             <div class="condition-info">
-                <div class="condition-item"><a href="" onclick="return false;">test2</a> </div>
+                <div class="condition-item"><a href="" onclick="return false;">101-200</a></div>
             </div>
             <div class="condition-info">
-                <div class="condition-item"><a href="" onclick="return false;">test3</a></div>
+                <div class="condition-item"><a href="" onclick="return false;">201-300</a></div>
             </div>
             <div class="condition-info">
-                <div class="condition-item"><a href="" onclick="return false;">test4</a></div>
+                <div class="condition-item"><a href="" onclick="return false;">301-400</a></div>
             </div>
             <div class="condition-info">
-                <div class="condition-item"><a href="" onclick="return false;">test5</a></div>
+                <div class="condition-item"><a href="" onclick="return false;">401-500</a></div>
             </div>
         </div>
     </div>
+    <%--结果显示--%>
     <div class="row" id="list">
         <img src="assets/img/loading.gif" alt="" style="left: 350px;position: absolute;" width="300">
     </div>
-    <input type="hidden" id="cond" value="<c:out value="${cond}"/>"/>
+    <%--条件收集区--%>
+    <input type="hidden" id="priceCond" value=""/>
+    <input type="hidden" id="rankCond" value=""/>
+
+    <%--当前页面--%>
     <input type="hidden" id="current" value="1"/>
     <%--<input type="hidden" id="maxPage" value="3"/>--%>
 </div>
@@ -212,45 +244,63 @@
 <script src="assets/js/bootstrap.min.js"></script>
 <script>
 
-    //获得第一页内容
-    $.ajax({
-        url: "nurseList",
-        data: {
-            current: 1,
-            nurseName:$("#nurseName").val(),
-            cond:""
-        },
-        success: function (data) {
-            $("#list").html(data);
-        }
-    });
-    $("#search").on("click",function(){
-        $(".nurseList").html("<img src=\"assets/img/loading.gif\" alt=\"\" width=\"170\" height='290'>")
+    //首次加载
+    $(document).ready(loadContent());
+
+    //加载内容
+    function loadContent() {
         $.ajax({
             url: "nurseList",
             data: {
                 current: 1,
-                nurseName:$("#nurseName").val(),
-                cond:""
+                nurseName: $("#nurseName").val(),
+                priceCond: $("#priceCond").val(),
+                rankCond: $("#rankCond").val()
             },
             success: function (data) {
                 $("#list").html(data);
             }
         });
+    }
+    $("#search").on("click", function () {
+       loadContent();
     })
 
     $(".condition-item>a").each(function () {
-        $(this).on("click",function () {
+        $(this).on("click", function () {
             var content = $(this).text();
             var id = $(this).parent().parent().parent().attr("data-id");
             $(this).parent().parent().parent().addClass("hide");
-            $("#allCondition").append("<a href='#' onclick='del(this);return false;' data-id="+ id +"><span>"+content+"</span><i class='fa fa-close'></i></a>");
+            $("#allCondition").append("<a href='#' onclick='del(this);return false;' data-id=" + id + "><span>" + content + "</span><i class='fa fa-close'></i></a>");
+            $("#" + id + "Cond").val(content);
+            loadContent();
         })
-    })
+    });
+
+    //删除条件
     function del(obj) {
         var id = obj.getAttribute("data-id");
-        $("#"+id).removeClass("hide");
+        $("#" + id).removeClass("hide");
+        $("#" + id + "Cond").val("");
+        loadContent();
         obj.remove();
+    }
+
+    //加载内容
+    function loadContent() {
+        $("#list").html("<img src=\"assets/img/loading.gif\" alt=\"\" width=\"300\" style='position: absolute;left: 350px;'>")
+        $.ajax({
+            url: "nurseList",
+            data: {
+                current: 1,
+                nurseName: $("#nurseName").val(),
+                priceCond: $("#priceCond").val(),
+                rankCond: $("#rankCond").val()
+            },
+            success: function (data) {
+                $("#list").html(data);
+            }
+        });
     }
 </script>
 </body>
