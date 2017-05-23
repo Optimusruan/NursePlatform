@@ -31,11 +31,14 @@
 
         .circle {
             border-radius: 40px;
-            background: #FFB6C1;
+            background: #E91E63;
             margin: 10px;
             width: 80px;
             height: 80px;
             padding: 10px;
+        }
+        .fa{
+            color: white;
         }
 
         #myCarousel {
@@ -48,7 +51,7 @@
         .item {
             width: 100%;
             height: 400px;
-            background: lightpink;
+            background: #E91E63;
         }
 
         .item img {
@@ -57,19 +60,19 @@
         }
 
         #istop {
-            background-color: lightyellow;
+            background-color: #E91E63;
             position: fixed;
             width: 50px;
             bottom: 40px;
             right: 20px;
-            border: 8px double #DCFCE9;
+            border: 8px double lightyellow;
             text-align: center;
         }
 
         hr {
             height: 10px;
             border: none;
-            border-top: 1px dashed lightpink;
+            border-top: 1px dashed #E91E63;
         }
 
         #nurselist {
@@ -87,11 +90,10 @@
 
         .rank {
             border-radius: 40px;
-            background: #FFB6C1;
-            margin: 10px;
+            background: #E91E63;
             padding: 5px;
-            width: 80px;
             height: 30px;
+            text-align: center;
         }
 
         .itemImg, .itemInfo {
@@ -115,7 +117,7 @@
     </style>
 </head>
 <body>
-<div id="istop"><a href="#top"><i class="fa  fa-chevron-up fa-2x" aria-hidden="true"></i>返回顶部</a></div>
+<div id="istop"><a href="#top"  style="color: white;text-decoration:none;"><i class="fa  fa-chevron-up fa-2x" aria-hidden="true"></i>返回顶部</a></div>
 <nav id="top" class="navbar" role="navigation" style="background: #E91E63;">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -124,9 +126,9 @@
         <div>
             <ul class="nav navbar-nav navbar-left" style="font-weight: bold">
                 <li><a href="index.jsp">首页</a></li>
-                <li><a href="#services">服务介绍</a></li>
-                <li><a href="#nurses">月嫂</a></li>
-                <li><a href="#about">关于我们</a></li>
+                <li><a href="index.jsp#services">服务介绍</a></li>
+                <li><a href="index.jsp#nurses">月嫂展示</a></li>
+                <li><a href="index.jsp#about">关于我们</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>

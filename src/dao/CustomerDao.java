@@ -36,7 +36,7 @@ public class CustomerDao {
     }
     public List getCostomerService(String id) {
         Session session = sessionFactory.openSession();
-        org.hibernate.query.Query query = session.createQuery("from ServiceEntity where svcNurid=" + id);
+        org.hibernate.query.Query query = session.createQuery("from ServiceEntity where svcCusid=" + id);
         List list = query.list();
         session.close();
         return list;
