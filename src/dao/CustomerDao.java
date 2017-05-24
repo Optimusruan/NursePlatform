@@ -34,7 +34,7 @@ public class CustomerDao {
         session.close();
         return maxId + 1;
     }
-    public List getCostomerService(String id) {
+    public List getCustomerService(String id) {
         Session session = sessionFactory.openSession();
         org.hibernate.query.Query query = session.createQuery("from ServiceEntity where svcNurid=" + id);
         List list = query.list();

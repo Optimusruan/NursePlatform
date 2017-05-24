@@ -2,9 +2,11 @@ package action;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
+import org.springframework.core.env.SystemEnvironmentPropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import service.CustomerService;
 
 import javax.servlet.ServletContext;
@@ -53,6 +55,20 @@ public class CustomerController {
         CustomerService customerService = getCustomerService(request);
         model.put("info",customerService.getDetail(id));
         return "customerDetail";
+    }
+    @RequestMapping("confirmRv")
+    @ResponseBody
+    public void confirmRv(@RequestParam("id")String id,HttpServletRequest request)
+    {
+        CustomerService customerService = getCustomerService(request);
+        customerService.confrimRv(id);
+    }
+    @RequestMapping("cancelRv")
+    @ResponseBody
+    public void cancelRv(@RequestParam("id")String id,HttpServletRequest request)
+    {
+        CustomerService customerService = getCustomerService(request);
+        customerService.cancelRv(id);
     }
 
 }

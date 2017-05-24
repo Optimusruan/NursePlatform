@@ -1,7 +1,10 @@
 package service;
 
 import dao.CustomerDao;
+import dao.ServiceDetailDao;
 import model.CustomerEntity;
+import org.springframework.context.ApplicationContext;
+import org.springframework.web.context.ContextLoader;
 
 import java.util.List;
 
@@ -26,6 +29,23 @@ public class CustomerService {
         this.customerDao = customerDao;
     }
     public List getCustomerServices(String id) {
-        return customerDao.getCostomerService(id);
+        ApplicationContext ctx = ContextLoader.getCurrentWebApplicationContext();
+        ServiceDetailDao serviceDetailDao = (ServiceDetailDao) ctx.getBean("serviceDetailDao");
+
+        return serviceDetailDao.getCustomerService(id);
+    }
+
+    public boolean confrimRv(String id) {
+        ApplicationContext ctx = ContextLoader.getCurrentWebApplicationContext();
+        ServiceDetailDao serviceDetailDao = (ServiceDetailDao) ctx.getBean("serviceDetailDao");
+
+        return serviceDetailDao.maniRv(id,4);
+    }
+
+    public boolean cancelRv(String id) {
+        ApplicationContext ctx = ContextLoader.getCurrentWebApplicationContext();
+        ServiceDetailDao serviceDetailDao = (ServiceDetailDao) ctx.getBean("serviceDetailDao");
+
+        return serviceDetailDao.maniRv(id,3);
     }
 }

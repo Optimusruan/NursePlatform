@@ -46,8 +46,6 @@
 
 </style>
 <body>
-<%=session.getAttribute("id")%>
-<c:out value="${id}"></c:out>
 <div class="container">
     <div class="panel">
         <div class="panel-heading">
@@ -89,7 +87,7 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th style="display: none">服务对象</th>
+                        <th>服务对象</th>
                         <th>开始时间</th>
                         <th>结束时间</th>
                         <th>预约状态</th>
@@ -97,56 +95,51 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach var="svc" items="${services}">
-                        <c:if test="${svc.svcPps}==0">
+                    <c:forEach items="${services}" var="svc">
+                        <c:if test="${svc.svcPps eq '0'}">
                             <tr class="status0">
-                                <td style="display: none"><c:out value="${svc.svcCusid}"></c:out></td>
+                                <td><c:out value="${svc.cusName}"></c:out></td>
                                 <td><c:out value="${svc.svcStart}"></c:out></td>
                                 <td><c:out value="${svc.svcEnd}"></c:out></td>
-                                <td><c:out value="${svc.svcStatus}"></c:out></td>
                                 <td>待处理</td>
                                 <td>
-                                    <a href="#"class="btn btn-success btn-sm" >同意服务</a>
-                                    <a href="#" class="btn btn-danger btn-sm" >拒绝服务</a>
+                                    <a href="javascript:;" data-id="${svc.svcId}" class="agreeRv btn btn-default btn-sm" >同意服务</a>
+                                    <a href="javascript:;" data-id="${svc.svcId}" class="refuseRv btn btn-danger btn-sm" >拒绝服务</a>
                                 </td>
                             </tr>
                         </c:if>
-                        <c:if test="${svc.svcPps}==1">
+                        <c:if test="${svc.svcPps eq '1'}">
                             <tr class="status1">
-                                <td style="display: none"><c:out value="${svc.svcCusid}"></c:out></td>
+                                <td><c:out value="${svc.cusName}"></c:out></td>
                                 <td><c:out value="${svc.svcStart}"></c:out></td>
                                 <td><c:out value="${svc.svcEnd}"></c:out></td>
-                                <td><c:out value="${svc.svcStatus}"></c:out></td>
                                 <td>已同意等待客户处理</td>
                                 <td></td>
                             </tr>
                         </c:if>
-                        <c:if test="${svc.svcPps}==2">
+                        <c:if test="${svc.svcPps eq '2'}">
                             <tr class="status2">
-                                <td style="display: none"><c:out value="${svc.svcCusid}"></c:out></td>
+                                <td><c:out value="${svc.cusName}"></c:out></td>
                                 <td><c:out value="${svc.svcStart}"></c:out></td>
                                 <td><c:out value="${svc.svcEnd}"></c:out></td>
-                                <td><c:out value="${svc.svcStatus}"></c:out></td>
                                 <td>已拒绝</td>
                                 <td></td>
                             </tr>
                         </c:if>
-                        <c:if test="${svc.svcPps}==3">
+                        <c:if test="${svc.svcPps eq '3'}">
                             <tr class="status3">
-                                <td style="display: none"><c:out value="${svc.svcCusid}"></c:out></td>
+                                <td><c:out value="${svc.cusName}"></c:out></td>
                                 <td><c:out value="${svc.svcStart}"></c:out></td>
                                 <td><c:out value="${svc.svcEnd}"></c:out></td>
-                                <td><c:out value="${svc.svcStatus}"></c:out></td>
                                 <td>已被客户取消</td>
                                 <td></td>
                             </tr>
                         </c:if>
-                        <c:if test="${svc.svcPps}==4">
+                        <c:if test="${svc.svcPps eq '4'} ">
                             <tr class="status4">
-                                <td style="display: none"><c:out value="${svc.svcCusid}"></c:out></td>
+                                <td><c:out value="${svc.cusName}"></c:out></td>
                                 <td><c:out value="${svc.svcStart}"></c:out></td>
                                 <td><c:out value="${svc.svcEnd}"></c:out></td>
-                                <td><c:out value="${svc.svcStatus}"></c:out></td>
                                 <td>已成交</td>
                                 <td>
                                     <a class="btn btn-success btn-sm">查看评价</a>
@@ -180,6 +173,46 @@
 
         });
 
+    });
+    $(".agreeRv").click(function () {
+        var _this = this;
+        var id = $(_this).data("id");
+
+        $.ajax({
+            url:"agreeRv",
+            data:{
+                id:id
+            },
+            success:function () {
+                alert("接受预约");
+                $(_this).parents("tr").removeClass("status0").addClass("status1");
+                $(_this).parents("tr").children().eq(3).html("月嫂同意");
+                $(_this).parents("tr").children().eq(4).html("");
+            },
+            error:function () {
+                alert("取消失败");
+            }
+        });
+    });
+    $(".refuseRv").click(function () {
+        var _this = this;
+        var id = $(_this).data("id");
+
+        $.ajax({
+            url:"cancelRv",
+            data:{
+                id:id
+            },
+            success:function () {
+                alert("取消成功");
+                $(_this).parents("tr").removeClass("status0").addClass("status2");
+                $(_this).parents("tr").children().eq(3).html("月嫂拒绝");
+                $(_this).parents("tr").children().eq(4).html("");
+            },
+            error:function () {
+                alert("取消失败");
+            }
+        });
     });
 </script>
 </html>
