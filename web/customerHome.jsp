@@ -33,8 +33,7 @@
             width: auto;
             height: auto;
             text-align: center;
-            background: #FFB6C1;
-            color:grey;
+            background: #E91E63;
             border-radius: 10px;
             margin: 10px;
             padding: 10px;
@@ -43,34 +42,47 @@
             font-size: 2em;
             color: white;
         }
+        a:hover {
+            color: lightyellow;
+            text-decoration:none;
+        }
+        .panel-heading:hover{
+            background: #EC2D6E;
+        }
     </style>
 </head>
 <body>
+<%--<%=session.getAttribute("id")%>--%>
+<%--<c:out value="${id}"></c:out>--%>
 <div class="container">
     <div class="panel">
         <div class="panel-heading">
-            <a href="">我的信息</a>
+            <a>我的信息</a>
         </div>
         <div class="panel-body">
             <div class="row">
                 <div class="col-lg-3"></div>
-                <div class="col-lg-3"><<img src="" alt=""></div>
+                <div class="col-lg-3"><img src="" alt=""></div>
                 <div class="col-lg-6">
                     <div class="row">
-                        <label class="col-lg-3">姓名</label>
+                        <div class="col-lg-3"><label>姓名:</label></div>
                         <div class="col-lg-9"><c:out value="${info.cusName}"/></div>
                     </div>
                     <div class="row">
-                        <label class="col-lg-3">身份证</label>
-                        <div class="col-lg-9"><c:out value="${info.cusIdno}"/></div>
-                    </div>
-                    <div class="row">
-                        <label class="col-lg-3">登录名</label>
+                        <label class="col-lg-3">登录名:</label>
                         <div class="col-lg-9"><c:out value="${info.cusUname}"/></div>
                     </div>
                     <div class="row">
-                        <label class="col-lg-3">联系方式</label>
+                        <label class="col-lg-3">身份证:</label>
+                        <div class="col-lg-9"><c:out value="${info.cusIdno}"/></div>
+                    </div>
+                    <div class="row">
+                        <label class="col-lg-3">联系方式:</label>
                         <div class="col-lg-9"><c:out value="${info.cusContact}"/></div>
+                    </div>
+                    <div class="row">
+                        <label class="col-lg-3">地址:</label>
+                        <div class="col-lg-9"><c:out value="${info.cusAdd}"/></div>
                     </div>
                     <div class="row">
                         <div class="col-lg-12" style="text-align: center">
@@ -161,7 +173,7 @@
     </div>
     <div class="panel">
         <div class="panel-heading">
-            <a href="">我的要求</a>
+            <a href="searchNurse.jsp">筛选月嫂</a>
         </div>
         <div class="panel-body">
         </div>
