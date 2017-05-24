@@ -173,6 +173,46 @@
             color: white;
             font-weight: normal;
         }
+
+        .order {
+            border: 1px solid #ddd;
+        }
+
+        .order > ul {
+            list-style: none;
+            background: #D3D4D3;
+            color: #aaa;
+        }
+
+        .order > ul > li {
+            float: left;
+        }
+
+        .order > ul > li > a {
+            display: block;
+            padding: 8px 15px;
+            border-right: 1px solid #D3D4D3;
+        }
+
+        .order > ul > li > a:link, .order > ul > li > a:visited {
+            text-decoration: none;
+            background: #D3D4D3;
+            color: #aaa;
+
+        }
+
+        .order > ul > .active > a:link, .order > ul > .active > a:visited {
+            color: deeppink;
+            background: white;
+            border-right: 1px solid white;
+        }
+
+        .order-head {
+            background: #D3D4D3;
+            font-weight: bold;
+            float: left;
+            padding: 8px 15px;
+        }
     </style>
 </head>
 <body>
@@ -229,15 +269,27 @@
             </div>
         </div>
     </div>
+    <div class="order row">
+        <div class="order-head">排 序</div>
+        <ul class="order-main">
+            <li data-id="price">
+                <a href="#" onclick="return false;" data-id="0">价格<i class="fa fa-sort-desc"></i></a>
+            </li>
+            <li data-id="rank">
+                <a href="#" onclick="return false;" data-id="0">星级<i class="fa fa-sort-desc"></i></a>
+            </li>
+        </ul>
+    </div>
     <%--结果显示--%>
     <div class="row" id="list">
         <img src="assets/img/loading.gif" alt="" style="left: 350px;position: absolute;" width="300">
     </div>
+
     <%--条件收集区--%>
     <input type="hidden" id="priceCond" value=""/>
     <input type="hidden" id="rankCond" value=""/>
-
-    <%--当前页面--%>
+    <input type="hidden" id="order" value=""/>
+    <%--当前页数--%>
     <input type="hidden" id="current" value="1"/>
     <%--<input type="hidden" id="maxPage" value="3"/>--%>
 </div>
@@ -248,23 +300,8 @@
     //首次加载
     $(document).ready(loadContent());
 
-    //加载内容
-    function loadContent() {
-        $.ajax({
-            url: "nurseList",
-            data: {
-                current: 1,
-                nurseName: $("#nurseName").val(),
-                priceCond: $("#priceCond").val(),
-                rankCond: $("#rankCond").val()
-            },
-            success: function (data) {
-                $("#list").html(data);
-            }
-        });
-    }
     $("#search").on("click", function () {
-       loadContent();
+        loadContent();
     })
 
     $(".condition-item>a").each(function () {
@@ -289,28 +326,42 @@
 
     //加载内容
     function loadContent() {
-        $("#list").html("<img src=\"assets/img/loading.gif\" alt=\"\" width=\"300\" style='position: absolute;left: 350px;'>")
+        $("#list").html("<img src=\"assets/img/loading.gif\" alt=\"\" width=\"300\" style='position: absolute;left: 350px;'>");
         $.ajax({
             url: "nurseList",
-            timeout:10000,
+            timeout: 15000,
             data: {
                 current: 1,
                 nurseName: $("#nurseName").val(),
                 priceCond: $("#priceCond").val(),
-                rankCond: $("#rankCond").val()
+                rankCond: $("#rankCond").val(),
+                order: $("#order").val()
             },
             success: function (data) {
                 $("#list").html(data);
             },
-            error:function(xhr){
+            error: function (xhr) {
                 console.log(xhr);
-                if(xhr.statusText=="timeout"){
+                if (xhr.statusText == "timeout") {
                     alert("连接超时，请检查网路");
-                    $("#list").remove();
+                    $("#list").children().remove();
                 }
             }
         });
     }
+
+    $(".order>ul>li").on("click", function () {
+        var orderArr = ["fa-sort-desc", "fa-sort-asc"];
+        var orderName = ["desc", "asc"]
+        var clickNum = $(this).children("a").attr("data-id");
+        $(this).children().children().removeClass(orderArr[clickNum]);
+        $(this).children().children().addClass(orderArr[(Number(clickNum) + 1) % 2]);
+        $(this).addClass("active");
+        $("#order").val($(this).attr("data-id") + "-_-" + orderName[(Number(clickNum) + 1) % 2]);
+        $(this).children("a").attr("data-id", (Number(clickNum) + 1) % 2);
+        $(this).siblings().removeClass("active");
+        loadContent();
+    })
 </script>
 </body>
 </html>

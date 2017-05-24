@@ -5,6 +5,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import dataBean.ResultAndSizeBean;
 
 import java.util.List;
 import java.util.Map;
@@ -102,14 +103,16 @@ public class NurseDao {
         return list;
     }
     //分页查询
-    public List getNurseListByPage(int current,int size){
+    public ResultAndSizeBean getNurseListByPage(int current,int size){
         Session session = sessionFactory.openSession();
         Query query= session.createQuery("from NurseEntity ");
+        List list = query.list();
+        int resultSize = list.size()/size+1;
         query.setFirstResult((current-1)*size);
         query.setMaxResults(size);
-        List list = query.list();
+        list = query.list();
         session.close();
-        return list;
+        return new ResultAndSizeBean(list,resultSize);
     }
     //优秀月嫂查询
     public List getExcellentNurses(int size){
@@ -120,28 +123,27 @@ public class NurseDao {
         session.close();
         return list;
     }
-    public List getNurseListByPageAndCond(int current,int size,String cond,String nurseName){
+    public ResultAndSizeBean getNurseListByPageAndCond(int current, int size, String cond, String nurseName){
         Session session = sessionFactory.openSession();
         Query query=checkCond(cond,nurseName,session);
+        int resultSize = query.list().size()/size+1;
         query.setFirstResult((current-1)*size);
         query.setMaxResults(size);
         List list = query.list();
         session.close();
-        return list;
+        return new ResultAndSizeBean(list,resultSize);
     }
     private Query checkCond(String cond,String nurseName,Session session){
         Query query;
         if(cond.equals("")&&!nurseName.equals(""))
         {
-            System.out.println("1");
             query = session.createQuery("from NurseEntity where nurName like '%"+nurseName+"%'");
         }
         else if(!cond.equals("")&&nurseName.equals("")){
-            System.out.println("2"+cond);
-            query = session.createQuery("from NurseEntity where "+cond);
+            System.out.println(cond);
+            query = session.createQuery("from NurseEntity "+cond);
         }
         else {
-            System.out.println("3");
             query = session.createQuery("from NurseEntity ");
         }
         return query;

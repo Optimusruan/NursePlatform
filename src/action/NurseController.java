@@ -5,6 +5,7 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import dataBean.ResultAndSizeBean;
 import service.NurseService;
 
 import javax.servlet.ServletContext;
@@ -68,9 +69,10 @@ public class NurseController {
     public String nurseList(Map model, HttpServletRequest request) throws UnsupportedEncodingException {
         NurseService nurseService = getNurseService(request);
         StringBuilder cond = new StringBuilder();
+        cond.append(" where ");
         for (int i = 0; i < CONDKEY.length; i++) {
             boolean isNum = false;
-           System.out.println(CONDKEY[i]);
+//            System.out.println(CONDKEY[i]);
 //            System.out.println(request.getParameter(CONDKEY[i] + "Cond"));
             String temp = new String(request.getParameter(CONDKEY[i] + "Cond").getBytes("ISO-8859-1"), "utf-8");
             model.put(CONDKEY[i] + "Cond", temp);
@@ -80,29 +82,37 @@ public class NurseController {
             }
             if (isNum) {
                 if (temp != null) {
-                    if (!cond.toString().equals("")) {
+                    if (!cond.toString().equals(" where ")) {
                         cond.append(" and ");
                     }
                     cond.append("nur_").append(CONDKEY[i]).append(" like '%").append(temp).append("%'");
                 }
             } else {
-                if (temp != null&&!temp.equals("")) {
-                    if (!cond.toString().equals("")) {
+                if (temp != null && !temp.equals("")) {
+                    if (!cond.toString().equals(" where ")) {
                         cond.append(" and ");
                     }
-                    if(CONDKEY[i].equals("price")){
-                        String str[]=temp.split("-");
+                    if (CONDKEY[i].equals("price")) {
+                        String str[] = temp.split("-");
                         cond.append("nur_").append(CONDKEY[i]).append(" between ").append(str[0]).append(" and ").append(str[1]);
-                    }
-                    else
-                    cond.append("nur_").append(CONDKEY[i]).append(" like '%").append(temp).append("%'");
+                    } else
+                        cond.append("nur_").append(CONDKEY[i]).append(" like '%").append(temp).append("%'");
                 }
             }
         }
+        if(cond.toString().equals(" where ")){
+            cond.delete(0,cond.length());
+        }
+        String order = request.getParameter("order");
+        if (order!=null && !order.equals("")){
+            String orderResult[] = order.split("-_-");
+            cond.append(" order by nur_").append(orderResult[0]).append(" ").append(orderResult[1]);
+        }
         String current = request.getParameter("current");
         String nurseName = new String(request.getParameter("nurseName").getBytes("ISO-8859-1"), "utf-8");
-        model.put("info", nurseService.getNurseListByPage(Integer.parseInt(current), SIZE, cond.toString(), nurseName));
-        model.put("maxPage", nurseService.getMaxPage(SIZE, cond.toString(), nurseName));
+        ResultAndSizeBean resultAndSizeBean = nurseService.getNurseListByPage(Integer.parseInt(current), SIZE, cond.toString(), nurseName);
+        model.put("info", resultAndSizeBean.list);
+        model.put("maxPage", resultAndSizeBean.size);
         return "ajaxLoadView/nurseList";
     }
 

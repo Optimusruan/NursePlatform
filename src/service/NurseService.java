@@ -2,6 +2,7 @@ package service;
 
 import dao.NurseDao;
 import model.NurseEntity;
+import dataBean.ResultAndSizeBean;
 
 import java.util.List;
 import java.util.Map;
@@ -34,7 +35,7 @@ public class NurseService {
     }
 
 
-    public List getNurseListByPage(int current, int size, String cond, String nurseName) {
+    public ResultAndSizeBean getNurseListByPage(int current, int size, String cond, String nurseName) {
         if (cond.equals("") && nurseName.equals("")) {
             return nurseDao.getNurseListByPage(current, size);
         } else {
