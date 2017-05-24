@@ -9,6 +9,8 @@
 <html>
 <head>
     <title>客户信息</title>
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="assets/font-awesome-4.7.0/css/font-awesome.min.css">
     <style>
         .panel-heading{
             width: auto;
@@ -19,24 +21,24 @@
             margin: 10px;
             padding: 10px;
         }
-        a{
+        .panel-heading a{
             font-size: 2em;
             color: white;
         }
-        a:hover {
+        .panel-heading a:hover {
             color: lightyellow;
             text-decoration:none;
         }
-        .fa{
-            color: white;
+        .panel-heading:hover{
+            background: #EC2D6E;
         }
     </style>
 </head>
 <body>
+<%@ include file="head.jsp" %>
 <div class="panel">
     <div class="panel-heading">
         <a>客户信息</a>
-        <a href="customerHome.jsp"><i class="fa fa-reply " aria-hidden="true"></i>返回</a>
     </div>
     <div class="panel-body">
         <div class="row">
@@ -68,6 +70,8 @@
         </div>
     </div>
 </div>
-<div class="panel">
+
 </body>
+<script src="assets/js/jquery-3.1.1.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
 </html>

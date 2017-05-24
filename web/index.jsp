@@ -37,10 +37,6 @@
             height: 80px;
             padding: 10px;
         }
-        .fa{
-            color: white;
-        }
-
         #myCarousel {
             height: 400px;
             width: 100%;
@@ -102,45 +98,11 @@
             padding: 5px;
             text-align: left;
         }
-
-        .navbar a:link, .navbar a:visited {
-            color: white;
-        }
-
-        .navbar span {
-            color: white;
-        }
-        .nav>li>a:focus, .nav>li>a:hover{
-            background: white;
-            color: deeppink;
-        }
     </style>
 </head>
 <body>
 <div id="istop"><a href="#top"  style="color: white;text-decoration:none;"><i class="fa  fa-chevron-up fa-2x" aria-hidden="true"></i>返回顶部</a></div>
-<nav id="top" class="navbar" role="navigation" style="background: #E91E63;">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <span class="navbar-brand">NursePlatform</span>
-        </div>
-        <div>
-            <ul class="nav navbar-nav navbar-left" style="font-weight: bold">
-                <li><a href="index.jsp">首页</a></li>
-                <li><a href="index.jsp#services">服务介绍</a></li>
-                <li><a href="index.jsp#nurses">月嫂展示</a></li>
-                <li><a href="index.jsp#about">关于我们</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                        <a href="login.jsp">登录</a>
-                </li>
-                <li>
-                        <a href="register.jsp">注册</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<%@ include file="head.jsp" %>
 <div class="bloke">
     <div id="myCarousel" class="carousel slide">
         <!-- 轮播（Carousel）指标 -->

@@ -69,7 +69,7 @@ public class ServiceDetailDao {
             map.put("svcAble",s.getSvcAble());
             map.put("svcLevel",s.getSvcLevel());
             map.put("svcComment",s.getSvcComment());
-            map.put("svcCusid",s.getSvcCusid());
+            map.put("svcNurid",s.getSvcNurid());
             map.put("svcDate",s.getSvcDate());
             map.put("svcPps",s.getSvcPps());
             map.put("svcId",s.getSvcId());
