@@ -86,6 +86,7 @@
             width: 600px;
             border: 2px solid deeppink;
             outline: deeppink;
+            padding-left: 10px;
         }
 
         .search input:focus {
@@ -291,7 +292,7 @@
         $("#list").html("<img src=\"assets/img/loading.gif\" alt=\"\" width=\"300\" style='position: absolute;left: 350px;'>")
         $.ajax({
             url: "nurseList",
-            timeout:5000,
+            timeout:10000,
             data: {
                 current: 1,
                 nurseName: $("#nurseName").val(),

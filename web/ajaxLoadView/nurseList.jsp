@@ -120,7 +120,7 @@
             $("#list").html("<img src=\"assets/img/loading.gif\" alt=\"\" width=\"300\" style='position: absolute;left: 350px;'>")
             $.ajax({
                 url: "nurseList",
-                timeout:5000,
+                timeout:10000,
                 data: {
                     current: temp,
                     priceCond:$("#priceCond").val(),
