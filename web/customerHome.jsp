@@ -14,6 +14,21 @@
     <link rel="stylesheet" href="assets/font-awesome-4.7.0/css/font-awesome.min.css">
 
     <style type="text/css">
+        .status0{
+            background-color:#f06292 ;
+        }
+        .status1{
+            background-color:#f48fb1 ;
+        }
+        .status2{
+            background-color:#f8bbd0 ;
+        }
+        .status3{
+            background-color:#ff5177 ;
+        }
+        .status4{
+            background-color:#e91e63 ;
+        }
         .panel-heading{
             width: auto;
             height: auto;
@@ -89,66 +104,65 @@
                     <th>预约对象</th>
                     <th>开始时间</th>
                     <th>结束时间</th>
-                    <%--<th>价格（/天）</th>--%>
+                    <th>价格（/天）</th>
                     <th>预约状态</th>
                     <th>操作</th>
                 </tr>
                 </thead>
                 <tbody>
                 <c:forEach var="svc" items="${services}">
-                    <c:if test="${svc.svcPps}==1">
+                    <c:if test="${svc.svcPps=='1'}">
                         <tr class="status1">
-                            <td><a href="#"><c:out value="${svc.svcNurid}"></c:out></a></td>
+                            <td><c:out value="${svc.nurName}"></c:out></td>
                             <td><c:out value="${svc.svcStart}"></c:out></td>
                             <td><c:out value="${svc.svcEnd}"></c:out></td>
-                            <%--<td><c:out value="${svc.svcEnd}"></c:out></td>--%>
-                            <td><c:out value="${svc.svcStatus}"></c:out></td>
+                            <td><c:out value="${svc.nurPrice}"></c:out></td>
                             <td>待处理</td>
                             <td>
-                                <a href="#"class="btn btn-success btn-sm" >确定预约</a>
-                                <a href="#" class="btn btn-danger btn-sm" >取消预约</a>
+                                <a href="javascript:;" data-id="${svc.svcId}" class="btn btn-default btn-sm confirmRv" >确定预约</a>
+                                <a href="javascript:;" data-id="${svc.svcId}" class="btn btn-danger btn-sm cancelRv" >取消预约</a>
                             </td>
                         </tr>
                     </c:if>
-                    <c:if test="${svc.svcPps}==0">
+                    <c:if test="${svc.svcPps=='0'}">
                         <tr class="status0">
-                            <td style="display: none"><c:out value="${svc.svcNurid}"></c:out></td>
+                            <td><c:out value="${svc.nurName}"></c:out></td>
                             <td><c:out value="${svc.svcStart}"></c:out></td>
                             <td><c:out value="${svc.svcEnd}"></c:out></td>
-                            <td><c:out value="${svc.svcStatus}"></c:out></td>
-                            <td>已同意等待月嫂处理</td>
+                            <td><c:out value="${svc.nurPrice}"></c:out></td>
+                            <td>等待月嫂处理</td>
                             <td></td>
                         </tr>
                     </c:if>
-                    <c:if test="${svc.svcPps}==2">
+                    <c:if test="${svc.svcPps=='2'}">
                         <tr class="status2">
-                            <td style="display: none"><c:out value="${svc.svcNurid}"></c:out></td>
+                            <td><c:out value="${svc.nurName}"></c:out></td>
                             <td><c:out value="${svc.svcStart}"></c:out></td>
                             <td><c:out value="${svc.svcEnd}"></c:out></td>
-                            <td><c:out value="${svc.svcStatus}"></c:out></td>
+                            <td><c:out value="${svc.nurPrice}"></c:out></td>
                             <td>已被月嫂拒绝</td>
                             <td></td>
                         </tr>
                     </c:if>
-                    <c:if test="${svc.svcPps}==3">
+                    <c:if test="${svc.svcPps=='3'}">
                         <tr class="status3">
-                            <td style="display: none"><c:out value="${svc.svcNurid}"></c:out></td>
+                            <td><c:out value="${svc.nurName}"></c:out></td>
                             <td><c:out value="${svc.svcStart}"></c:out></td>
                             <td><c:out value="${svc.svcEnd}"></c:out></td>
-                            <td><c:out value="${svc.svcStatus}"></c:out></td>
+                            <td><c:out value="${svc.nurPrice}"></c:out></td>
                             <td>已取消</td>
                             <td></td>
                         </tr>
                     </c:if>
-                    <c:if test="${svc.svcPps}==4">
+                    <c:if test="${svc.svcPps=='4'}">
                         <tr class="status4">
-                            <td style="display: none"><c:out value="${svc.svcNurid}"></c:out></td>
+                            <td><c:out value="${svc.nurName}"></c:out></td>
                             <td><c:out value="${svc.svcStart}"></c:out></td>
                             <td><c:out value="${svc.svcEnd}"></c:out></td>
-                            <td><c:out value="${svc.svcStatus}"></c:out></td>
+                            <td><c:out value="${svc.nurPrice}"></c:out></td>
                             <td>已成交</td>
                             <td>
-                                <a class="btn btn-success btn-sm">去评价</a>
+                                <a class="btn btn-warning btn-sm">去评价</a>
                             </td>
                         </tr>
                     </c:if>
@@ -186,6 +200,47 @@
 
         });
 
+    });
+
+    $(".confirmRv").click(function () {
+        var _this = this;
+        var id = $(_this).data("id");
+
+        $.ajax({
+            url:"confirmRv",
+            data:{
+                id:id
+            },
+            success:function (data) {
+                alert("确认成功");
+                $(_this).parents("tr").removeClass("status2").addClass("status4");
+                $(_this).parents("tr").children().eq(4).html("已成交");
+                $(_this).parents("tr").children().eq(5).html("<a class='btn btn-warning btn-sm'>去评价</a>");
+            },
+            error:function () {
+                alert("确认失败");
+            }
+        });
+    });
+    $(".cancelRv").click(function () {
+        var _this = this;
+        var id = $(_this).data("id");
+
+        $.ajax({
+            url:"cancelRv",
+            data:{
+                id:id
+            },
+            success:function () {
+                alert("取消成功");
+                $(_this).parents("tr").removeClass("status2").addClass("status3");
+                $(_this).parents("tr").children().eq(4).html("客户取消");
+                $(_this).parents("tr").children().eq(5).html("");
+            },
+            error:function () {
+                alert("取消失败");
+            }
+        });
     });
 </script>
 </html>

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import dataBean.ResultAndSizeBean;
+import org.springframework.web.bind.annotation.ResponseBody;
 import service.NurseService;
 
 import javax.servlet.ServletContext;
@@ -127,5 +128,20 @@ public class NurseController {
     @RequestMapping("searchNurse")
     public String searchNurse(Map model, HttpServletRequest request) {
         return "searchNurse";
+    }
+
+    @RequestMapping("agreeRv")
+    @ResponseBody
+    public void agreeRv(@RequestParam("id")String id,HttpServletRequest request)
+    {
+        NurseService nurseService = getNurseService(request);
+        nurseService.agreeRv(id);
+    }
+    @RequestMapping("refuseRv")
+    @ResponseBody
+    public void refuseRv(@RequestParam("id")String id,HttpServletRequest request)
+    {
+        NurseService nurseService = getNurseService(request);
+        nurseService.refuseRv(id);
     }
 }

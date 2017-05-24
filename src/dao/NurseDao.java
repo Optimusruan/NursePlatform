@@ -149,11 +149,5 @@ public class NurseDao {
         return query;
     }
 
-    public List getNurseService(String id) {
-        Session session = sessionFactory.openSession();
-        Query query = session.createQuery("from ServiceEntity where svcNurid=" + id);
-        List list = query.list();
-        session.close();
-        return list;
-    }
+
 }

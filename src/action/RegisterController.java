@@ -5,6 +5,7 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import service.CustomerService;
 import service.NurseService;
 import service.RegisterService;
 
@@ -35,27 +36,69 @@ public class RegisterController {
         String opt = request.getParameter("opt");
 
         if(userType == "customer" || userType.equals("customer")){
-            details.put("cusName",request.getParameter("cus_name").trim());
+            String cusName = null;
+            try {
+                cusName = new String(request.getParameter("cus_name").trim().getBytes("ISO-8859-1"),"utf-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+            details.put("cusName",cusName);
             details.put("cusIdno",request.getParameter("cus_idno").trim());
             details.put("cusContact",request.getParameter("cus_contact").trim());
-            details.put("cusAdd",request.getParameter("cus_add").trim());
+            String cusAdd = null;
+            try {
+                cusAdd = new String(request.getParameter("cus_add").trim().getBytes("ISO-8859-1"),"utf-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+            details.put("cusAdd",cusAdd);
             details.put("cusPos",request.getParameter("cus_pos").trim());
-            details.put("cusUname",request.getParameter("cus_uname").trim());
+            String cusUname = null;
+            try {
+                cusUname = new String(request.getParameter("cus_name").trim().getBytes("ISO-8859-1"),"utf-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+            details.put("cusUname",cusUname);
             details.put("cusPwd",request.getParameter("cus_pwd").trim());
          //   details.put("cusAvt",request.getParameter("cus_avt").trim());
         }else if(userType == "nurse" || userType.equals("nurse")){
-            details.put("nurName",request.getParameter("nur_name").trim());
+            String nurName = null;
+            try {
+                nurName = new String(request.getParameter("nur_name").trim().getBytes("ISO-8859-1"),"utf-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+            details.put("nurName",nurName);
             details.put("nurIdno",request.getParameter("nur_idno").trim());
             details.put("nurContact",request.getParameter("nur_contact").trim());
-            details.put("nurAdd",request.getParameter("nur_add").trim());
+            String nurAdd = null;
+            try {
+                nurAdd = new String(request.getParameter("nur_add").trim().getBytes("ISO-8859-1"),"utf-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+            details.put("nurAdd",nurAdd);
             details.put("nurPos",request.getParameter("nur_pos").trim());
-            details.put("nurUname",request.getParameter("nur_uname").trim());
+            String nurUname = null;
+            try {
+                nurUname = new String(request.getParameter("nur_uname").trim().getBytes("ISO-8859-1"),"utf-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+            details.put("nurUname",nurUname);
             details.put("nurPwd",request.getParameter("nur_pwd").trim());
 //            details.put("nurAvt",request.getParameter("nur_avt").trim());
             details.put("nurRank",request.getParameter("nur_rank").trim());
             details.put("nurAge",request.getParameter("nur_age").trim());
             details.put("nurPrice",request.getParameter("nur_price").trim());
-            details.put("nurEdu",request.getParameter("nur_edu").trim());
+            String nurEdu = null;
+            try {
+                nurEdu = new String(request.getParameter("nur_edu").trim().getBytes("ISO-8859-1"),"utf-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+            details.put("nurEdu",nurEdu);
         }
         ServletContext servletContext = request.getServletContext();
         String str = servletContext.getRealPath("/");
@@ -96,9 +139,9 @@ public class RegisterController {
                 ServletContext servletContext = request.getServletContext();
                 String str = servletContext.getRealPath("/");
                 ApplicationContext applicationContext = new FileSystemXmlApplicationContext(str+"WEB-INF/applicationContext.xml");
-                NurseService nurseService= (NurseService) applicationContext.getBean("nurseService");
+                CustomerService customerService = (CustomerService) applicationContext.getBean("customerService");
 
-                model.put("info",nurseService.getDetailByHome(id));
+                model.put("info",customerService.getDetailByHome(id));
             }
         }else if(opt == "reg" || opt.equals("reg")){
             model.put("title","Register 用户注册");

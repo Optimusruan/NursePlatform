@@ -1,8 +1,11 @@
 package service;
 
 import dao.NurseDao;
+import dao.ServiceDetailDao;
 import model.NurseEntity;
 import dataBean.ResultAndSizeBean;
+import org.springframework.context.ApplicationContext;
+import org.springframework.web.context.ContextLoader;
 
 import java.util.List;
 import java.util.Map;
@@ -59,7 +62,24 @@ public class NurseService {
 
     }
 
-    public List getNurseServices(String id) {
-        return nurseDao.getNurseService(id);
+    public List getNurseServices(String id)
+    {
+           ApplicationContext ctx = ContextLoader.getCurrentWebApplicationContext();
+           ServiceDetailDao serviceDetailDao = (ServiceDetailDao) ctx.getBean("serviceDetailDao");
+
+        return serviceDetailDao.getNurseService(id);
+    }
+
+    public boolean agreeRv(String id) {
+        ApplicationContext ctx = ContextLoader.getCurrentWebApplicationContext();
+        ServiceDetailDao serviceDetailDao = (ServiceDetailDao) ctx.getBean("serviceDetailDao");
+
+        return serviceDetailDao.maniRv(id,1);
+    }
+    public boolean refuseRv(String id) {
+        ApplicationContext ctx = ContextLoader.getCurrentWebApplicationContext();
+        ServiceDetailDao serviceDetailDao = (ServiceDetailDao) ctx.getBean("serviceDetailDao");
+
+        return serviceDetailDao.maniRv(id,2);
     }
 }
