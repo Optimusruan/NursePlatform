@@ -61,15 +61,15 @@
         </div>
         <div class="panel-body">
             <div class="row">
-                <div class="col-lg-3"></div>
-                <div class="col-lg-3"><img src="" alt=""></div>
+                <div class="col-lg-2"></div>
+                <div class="col-lg-2"><img src="" alt=""></div>
                 <div class="col-lg-6">
                     <div class="row">
-                        <div class="col-lg-3"><label>姓名:</label></div>
-                        <div class="col-lg-9"><c:out value="${info.cusName}"/></div>
+                        <div class="col-lg-2"><label>姓名:</label></div>
+                        <div class="col-lg-10"><c:out value="${info.cusName}"/></div>
                     </div>
                     <div class="row">
-                        <label class="col-lg-3">登录名:</label>
+                        <label class="col-lg-2">登录名:</label>
                         <div class="col-lg-9"><c:out value="${info.cusUname}"/></div>
                     </div>
                     <div class="row">
@@ -162,8 +162,41 @@
                             <td><c:out value="${svc.nurPrice}"></c:out></td>
                             <td>已成交</td>
                             <td>
-                                <a class="btn btn-warning btn-sm">去评价</a>
+                                <a class="btn btn-warning btn-sm" data-toggle="modal" data-target="#comment${svc.svcId}">去评价</a>
                             </td>
+                            <div class="modal fade" id="comment${svc.svcId}" tabindex="-1">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" >&times;</button>
+                                            <h4 class="modal-title">评价服务</h4>
+                                        </div>
+                                        <div class="modal-body" style="padding: 30px;">
+                                            <div class="row">
+                                                <label class="col-lg-3">专业程度：</label>
+                                                <p class="stars col-lg-9"></p>
+                                            </div>
+                                            <div class="row">
+                                                <label class="col-lg-3">服务态度：</label>
+                                                <div class="form-group col-lg-9">
+                                                    <input type="radio" value="1" name="rpt">极差
+                                                    <input type="radio" value="2" name="rpt">差评
+                                                    <input type="radio" value="3" name="rpt">一般
+                                                    <input type="radio" value="4" name="rpt">好评
+                                                    <input type="radio" value="5" name="rpt">极好
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <label class="col-lg-3">评价：</label>
+                                                <textarea class="col-lg-9 form-control comment-content" style="width: 450px;"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a href="javasript:;" data-id="${svc.svcId}"  class="btn btn-warning comment-btn">提交</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </tr>
                     </c:if>
                 </c:forEach>
@@ -181,6 +214,7 @@
 </div>
 <script src="assets/js/jquery-3.1.1.min.js"></script>
 <script src="assets/js/bootstrap.min.js"></script>
+<script src="assets/js/raty/jquery.raty.js"></script>
 </body>
 <script type="text/javascript">
     $(document).ready(function(){
@@ -199,6 +233,8 @@
             });
 
         });
+
+        $(".stars").raty({score:1});
 
     });
 
@@ -242,5 +278,25 @@
             }
         });
     });
+    $(".comment-btn").click(function () {
+        var id = $(this).data("id");
+        var ele = $(this).parents(".modal-content");
+        var rpt = $('input[name="rpt"]:checked',ele).val();
+        var score = $('.score',ele).val();
+        var comment = $(".comment-content",ele).val();
+
+        $.ajax({
+            url:"comment",
+            data:{
+                id:id,
+                score:score,
+                rpt:rpt,
+                comment:comment
+            },
+            success:function () {
+                alert("评价成功");
+            }
+        })
+    })
 </script>
 </html>
