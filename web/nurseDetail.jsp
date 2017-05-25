@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="assets/font-awesome-4.7.0/css/font-awesome.min.css">
 </head>
 <body>
+<%@ include file="head.jsp" %>
 <%--<%=session.getAttribute("id")%>--%>
 <%--<c:out value="${id}"></c:out>--%>
 <div class="container" style="font-size: 1.25em;line-height: 1.7em">
@@ -39,11 +40,13 @@
                 </div>
                 <div class="row">
                     <label class="col-lg-3">联系方式</label>
-                    <div class="col-lg-9"><button id="showContact" class="btn btn-success">点击查看</button></div>
+                    <div class="col-lg-9">
+                        <button id="showContact" class="btn btn-success">点击查看</button>
+                    </div>
                 </div>
                 <div class="row">
                     <label class="col-lg-3">住址</label>
-                    <div class="col-lg-9"><c:out value="${info.nurAdd}"/> </div>
+                    <div class="col-lg-9"><c:out value="${info.nurAdd}"/></div>
                 </div>
                 <div class="row">
                     <label class="col-lg-3">口碑</label>
@@ -57,7 +60,7 @@
             <div class="col-lg-6">
                 <div class="row"><img src="" alt=""></div>
                 <div class="row" style="text-align: center">
-                    <button id="modify" class="btn btn-warning" style="width: 50%;">我要预约</button>
+                    <button id="appoint" class="btn btn-warning" style="width: 50%;">我要预约</button>
                 </div>
             </div>
         </div>
@@ -65,5 +68,25 @@
 </div>
 <script src="assets/js/jquery-3.1.1.min.js"></script>
 <script src="assets/js/bootstrap.min.js"></script>
+<script>
+    $("#showContact").on("click", function () {
+        var obj = $(this);
+        $.ajax({
+            url: "showTel",
+            data: {
+                id: "<c:out value="${info.nurId}"/>"
+            },
+            success: function (data) {
+                if (data == "No way")
+                    alert("登陆后再试");
+                else {
+                    obj.after(data);
+                    obj.remove();
+                }
+            }
+        })
+    });
+    $("#")
+</script>
 </body>
 </html>

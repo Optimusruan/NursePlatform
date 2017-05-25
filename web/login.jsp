@@ -22,7 +22,7 @@
             background: white;
         }
         .login-container{
-            background: url("assets/img/login.jpg");
+            background: url("assets/img/login.jpg") no-repeat;
             padding-left:70%;
             padding-top: 11%;
             padding-bottom: 11%;

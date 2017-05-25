@@ -17,6 +17,7 @@
             float: left;
             margin: 15px;
             background: #ddd;
+            position: relative;
         }
 
         .itemInfo {
@@ -81,11 +82,30 @@
             color: white;
         }
 
+        .condition-container button {
+            position: absolute;
+            left: 283px;
+            top: 2px;
+            height: 71px;
+            z-index: 999;
+            font-size: 1.1em;
+            line-height: 2em;
+            background: white;
+            border-color: #ddd;
+            color: #ccc;
+        }
+
+        .condition-container button:hover {
+            border-color: deeppink;
+            color: deeppink;
+        }
+
         .search input {
             height: 36px;
             width: 600px;
             border: 2px solid deeppink;
             outline: deeppink;
+            padding-left: 10px;
         }
 
         .search input:focus {
@@ -118,6 +138,7 @@
         .condition-container {
             border: 1px solid #ddd;
             margin-top: -1px;
+            position: relative;
         }
 
         .condition-head {
@@ -133,9 +154,34 @@
             float: left;
         }
 
+        .condition-location > div > select {
+            vertical-align: middle;
+            margin: auto 0;
+        }
+
         .condition-item > a:link, .condition-item > a:visited {
             color: deeppink;
             text-decoration: none;
+        }
+
+        .address {
+            display: inline-block;
+            width: 20%;
+            height: 32px;
+            padding: 3px 12px;
+            margin: 2px 10px;
+            font-size: 13px;
+            line-height: 1.42857143;
+            color: #555;
+            background-color: #fff;
+            background-image: none;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+            -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+            -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+            transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
         }
 
         .hide {
@@ -172,9 +218,50 @@
             color: white;
             font-weight: normal;
         }
+
+        .order {
+            border: 1px solid #ddd;
+        }
+
+        .order > ul {
+            list-style: none;
+            background: #D3D4D3;
+            color: #aaa;
+        }
+
+        .order > ul > li {
+            float: left;
+        }
+
+        .order > ul > li > a {
+            display: block;
+            padding: 8px 15px;
+            border-right: 1px solid #D3D4D3;
+        }
+
+        .order > ul > li > a:link, .order > ul > li > a:visited {
+            text-decoration: none;
+            background: #D3D4D3;
+            color: #aaa;
+
+        }
+
+        .order > ul > .active > a:link, .order > ul > .active > a:visited {
+            color: deeppink;
+            background: white;
+            border-right: 1px solid white;
+        }
+
+        .order-head {
+            background: #D3D4D3;
+            font-weight: bold;
+            float: left;
+            padding: 8px 15px;
+        }
     </style>
 </head>
 <body>
+<%@ include file="head.jsp" %>
 <div class="container" style="margin: 0 auto;width: 1000px;position: relative">
     <%--搜索栏--%>
     <div class="search row">
@@ -227,89 +314,138 @@
                 <div class="condition-item"><a href="" onclick="return false;">401-500</a></div>
             </div>
         </div>
+        <div data-toggle="distpicker" id="distpicker">
+            <div class="condition-container row" data-id="addressProvince" id="addressProvince">
+                <div class="condition-head">省 份</div>
+                <div class="condition-location">
+                    <select id="province" data-province="所有省份" class="address"></select>
+                </div>
+                <button id="getAddress" class="btn">添&nbsp;&nbsp;加<br/>筛&nbsp;&nbsp;选</button>
+            </div>
+            <div class="condition-container row" data-id="addressCity" id="addressCity">
+                <div class="condition-head">城 市</div>
+                <div class="condition-location">
+                    <select id="city" data-city="所有城市" class="address"></select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="order row">
+        <div class="order-head">排 序</div>
+        <ul class="order-main">
+            <li data-id="price">
+                <a href="#" onclick="return false;" data-id="0">价格<i class="fa fa-sort-desc"></i></a>
+            </li>
+            <li data-id="rank">
+                <a href="#" onclick="return false;" data-id="0">星级<i class="fa fa-sort-desc"></i></a>
+            </li>
+        </ul>
     </div>
     <%--结果显示--%>
     <div class="row" id="list">
         <img src="assets/img/loading.gif" alt="" style="left: 350px;position: absolute;" width="300">
     </div>
+
     <%--条件收集区--%>
     <input type="hidden" id="priceCond" value=""/>
     <input type="hidden" id="rankCond" value=""/>
+    <input type="hidden" id="order" value=""/>
+    <input type="hidden" id="addCond" value=""/>
 
-    <%--当前页面--%>
+    <%--当前页数--%>
     <input type="hidden" id="current" value="1"/>
     <%--<input type="hidden" id="maxPage" value="3"/>--%>
 </div>
+<script src=""></script>
 <script src="assets/js/jquery-3.1.1.min.js"></script>
 <script src="assets/js/bootstrap.min.js"></script>
+<script src="assets/js/distpicker/distpicker.data.js"></script>
+<script src="assets/js/distpicker/distpicker.js"></script>
+<script src="assets/js/distpicker/main.js"></script>
 <script>
 
     //首次加载
     $(document).ready(loadContent());
 
-    //加载内容
-    function loadContent() {
-        $.ajax({
-            url: "nurseList",
-            data: {
-                current: 1,
-                nurseName: $("#nurseName").val(),
-                priceCond: $("#priceCond").val(),
-                rankCond: $("#rankCond").val()
-            },
-            success: function (data) {
-                $("#list").html(data);
-            }
-        });
-    }
     $("#search").on("click", function () {
-       loadContent();
-    })
-
+        loadContent();
+    });
+    //添加条件
     $(".condition-item>a").each(function () {
         $(this).on("click", function () {
             var content = $(this).text();
             var id = $(this).parent().parent().parent().attr("data-id");
             $(this).parent().parent().parent().addClass("hide");
-            $("#allCondition").append("<a href='#' onclick='del(this);return false;' data-id=" + id + "><span>" + content + "</span><i class='fa fa-close'></i></a>");
+            $("#allCondition").append("<a href='#' onclick='del(this,1);return false;' data-id=" + id + "><span>" + content + "</span><i class='fa fa-close'></i></a>");
             $("#" + id + "Cond").val(content);
             loadContent();
         })
     });
 
     //删除条件
-    function del(obj) {
-        var id = obj.getAttribute("data-id");
-        $("#" + id).removeClass("hide");
-        $("#" + id + "Cond").val("");
+    function del(obj, type) {
+        if (type == 1) {
+            var id = obj.getAttribute("data-id");
+            $("#" + id).removeClass("hide");
+            $("#" + id + "Cond").val("");
+        }
+        if (type == 2) {
+            $("#distpicker").removeClass("hide");
+            $("#addCond").val("")
+        }
         loadContent();
         obj.remove();
     }
 
     //加载内容
     function loadContent() {
-        $("#list").html("<img src=\"assets/img/loading.gif\" alt=\"\" width=\"300\" style='position: absolute;left: 350px;'>")
+        $("#list").html("<img src=\"assets/img/loading.gif\" alt=\"\" width=\"300\" style='position: absolute;left: 350px;'>");
         $.ajax({
             url: "nurseList",
-            timeout:5000,
+            timeout: 15000,
             data: {
                 current: 1,
                 nurseName: $("#nurseName").val(),
                 priceCond: $("#priceCond").val(),
-                rankCond: $("#rankCond").val()
+                rankCond: $("#rankCond").val(),
+                addCond: $("#addCond").val(),
+                order: $("#order").val()
             },
             success: function (data) {
                 $("#list").html(data);
             },
-            error:function(xhr){
+            error: function (xhr) {
                 console.log(xhr);
-                if(xhr.statusText=="timeout"){
+                if (xhr.statusText == "timeout") {
                     alert("连接超时，请检查网路");
-                    $("#list").remove();
+                    $("#list").children().remove();
                 }
             }
         });
     }
+
+    //排序
+    $(".order>ul>li").on("click", function () {
+        var orderArr = ["fa-sort-desc", "fa-sort-asc"];
+        var orderName = ["desc", "asc"]
+        var clickNum = $(this).children("a").attr("data-id");
+        $(this).children().children().removeClass(orderArr[clickNum]);
+        $(this).children().children().addClass(orderArr[(Number(clickNum) + 1) % 2]);
+        $(this).addClass("active");
+        $("#order").val($(this).attr("data-id") + "-_-" + orderName[(Number(clickNum) + 1) % 2]);
+        $(this).children("a").attr("data-id", (Number(clickNum) + 1) % 2);
+        $(this).siblings().removeClass("active");
+        loadContent();
+    });
+
+    //处理地址
+    $("#getAddress").on("click", function () {
+        var content = $("#province").val() + $("#city").val();
+        $("#addCond").val(content);
+        $("#distpicker").addClass("hide");
+        $("#allCondition").append("<a href='#' onclick='del(this,2);return false;'><span>" + content + "</span><i class='fa fa-close'></i></a>");
+        loadContent();
+    })
 </script>
 </body>
 </html>

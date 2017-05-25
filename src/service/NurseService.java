@@ -3,6 +3,7 @@ package service;
 import dao.NurseDao;
 import dao.ServiceDetailDao;
 import model.NurseEntity;
+import dataBean.ResultAndSizeBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.ContextLoader;
 
@@ -18,26 +19,33 @@ public class NurseService {
     public void setNurseDao(NurseDao nurseDao) {
         this.nurseDao = nurseDao;
     }
-    public NurseEntity getDetail(String id){
 
+    public NurseEntity getDetail(String id,int opt) {
         NurseEntity nurseEntity = nurseDao.getModel(id);
-        nurseEntity.setNurIdno("验证通过");
-        nurseEntity.setNurContact("");
+        switch (opt){
+            case 1:
+            nurseEntity.setNurIdno("验证通过");
+            nurseEntity.setNurContact("");
+            break;
+            case 2:break;
+        }
         return nurseEntity;
     }
-    public NurseEntity getDetailByHome(String id){
+
+    public NurseEntity getDetailByHome(String id) {
         return nurseDao.getModel(id);
     }
 
-    public List getNurseList(String cond,String nurseName) {
+    public List getNurseList(String cond, String nurseName) {
         return nurseDao.getNurseList(cond, nurseName);
     }
-    public boolean updateNurse(String id, Map details){
-        return nurseDao.updateNurse(id,details);
+
+    public boolean updateNurse(String id, Map details) {
+        return nurseDao.updateNurse(id, details);
     }
 
 
-    public List getNurseListByPage(int current, int size, String cond, String nurseName) {
+    public ResultAndSizeBean getNurseListByPage(int current, int size, String cond, String nurseName) {
         if (cond.equals("") && nurseName.equals("")) {
             return nurseDao.getNurseListByPage(current, size);
         } else {
@@ -61,10 +69,9 @@ public class NurseService {
 
     }
 
-    public List getNurseServices(String id)
-    {
-           ApplicationContext ctx = ContextLoader.getCurrentWebApplicationContext();
-           ServiceDetailDao serviceDetailDao = (ServiceDetailDao) ctx.getBean("serviceDetailDao");
+    public List getNurseServices(String id) {
+        ApplicationContext ctx = ContextLoader.getCurrentWebApplicationContext();
+        ServiceDetailDao serviceDetailDao = (ServiceDetailDao) ctx.getBean("serviceDetailDao");
 
         return serviceDetailDao.getNurseService(id);
     }
@@ -73,12 +80,12 @@ public class NurseService {
         ApplicationContext ctx = ContextLoader.getCurrentWebApplicationContext();
         ServiceDetailDao serviceDetailDao = (ServiceDetailDao) ctx.getBean("serviceDetailDao");
 
-        return serviceDetailDao.maniRv(id,1);
+        return serviceDetailDao.maniRv(id, 1);
     }
+
     public boolean refuseRv(String id) {
         ApplicationContext ctx = ContextLoader.getCurrentWebApplicationContext();
         ServiceDetailDao serviceDetailDao = (ServiceDetailDao) ctx.getBean("serviceDetailDao");
-
-        return serviceDetailDao.maniRv(id,2);
+        return serviceDetailDao.maniRv(id, 2);
     }
 }

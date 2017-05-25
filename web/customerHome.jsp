@@ -14,6 +14,9 @@
     <link rel="stylesheet" href="assets/font-awesome-4.7.0/css/font-awesome.min.css">
 
     <style type="text/css">
+        body {
+            text-align: center;
+        }
         .status0{
             background-color:#f06292 ;
         }
@@ -38,22 +41,27 @@
             margin: 10px;
             padding: 10px;
         }
-        a{
+        .panel-heading a{
             font-size: 2em;
             color: white;
         }
-        a:hover {
+        .panel-heading a:hover {
             color: lightyellow;
             text-decoration:none;
         }
         .panel-heading:hover{
             background: #EC2D6E;
         }
+        .container{
+            margin-top: 10%;
+        }
     </style>
 </head>
 <body>
 <%--<%=session.getAttribute("id")%>--%>
 <%--<c:out value="${id}"></c:out>--%>
+<%--<%=session.getAttribute("type")%>--%>
+<%@ include file="head.jsp" %>
 <div class="container">
     <div class="panel">
         <div class="panel-heading">
@@ -113,7 +121,7 @@
                 <c:forEach var="svc" items="${services}">
                     <c:if test="${svc.svcPps=='1'}">
                         <tr class="status1">
-                            <td><c:out value="${svc.nurName}"></c:out></td>
+                            <td><a href="nurseDetail.jsp?id=${svc.svcNurid}"><c:out value="${svc.nurName}"></c:out></a></td>
                             <td><c:out value="${svc.svcStart}"></c:out></td>
                             <td><c:out value="${svc.svcEnd}"></c:out></td>
                             <td><c:out value="${svc.nurPrice}"></c:out></td>
@@ -126,7 +134,7 @@
                     </c:if>
                     <c:if test="${svc.svcPps=='0'}">
                         <tr class="status0">
-                            <td><c:out value="${svc.nurName}"></c:out></td>
+                            <td><a href="nurseDetail.jsp?id=${svc.svcNurid}"><c:out value="${svc.nurName}"></c:out></a></td>
                             <td><c:out value="${svc.svcStart}"></c:out></td>
                             <td><c:out value="${svc.svcEnd}"></c:out></td>
                             <td><c:out value="${svc.nurPrice}"></c:out></td>
@@ -136,7 +144,7 @@
                     </c:if>
                     <c:if test="${svc.svcPps=='2'}">
                         <tr class="status2">
-                            <td><c:out value="${svc.nurName}"></c:out></td>
+                            <td><a href="nurseDetail.jsp?id=${svc.svcNurid}"><c:out value="${svc.nurName}"></c:out></a></td>
                             <td><c:out value="${svc.svcStart}"></c:out></td>
                             <td><c:out value="${svc.svcEnd}"></c:out></td>
                             <td><c:out value="${svc.nurPrice}"></c:out></td>
@@ -146,7 +154,7 @@
                     </c:if>
                     <c:if test="${svc.svcPps=='3'}">
                         <tr class="status3">
-                            <td><c:out value="${svc.nurName}"></c:out></td>
+                            <td><a href="nurseDetail.jsp?id=${svc.svcNurid}"><c:out value="${svc.nurName}"></c:out></a></td>
                             <td><c:out value="${svc.svcStart}"></c:out></td>
                             <td><c:out value="${svc.svcEnd}"></c:out></td>
                             <td><c:out value="${svc.nurPrice}"></c:out></td>
@@ -156,7 +164,7 @@
                     </c:if>
                     <c:if test="${svc.svcPps=='4'}">
                         <tr class="status4">
-                            <td><c:out value="${svc.nurName}"></c:out></td>
+                            <td><a href="nurseDetail.jsp?id=${svc.svcNurid}"><c:out value="${svc.nurName}"></c:out></a></td>
                             <td><c:out value="${svc.svcStart}"></c:out></td>
                             <td><c:out value="${svc.svcEnd}"></c:out></td>
                             <td><c:out value="${svc.nurPrice}"></c:out></td>
