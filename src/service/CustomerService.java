@@ -48,4 +48,11 @@ public class CustomerService {
 
         return serviceDetailDao.maniRv(id,3);
     }
+
+    public boolean comment(String id, String level, String attitude, String comment) {
+        ApplicationContext ctx = ContextLoader.getCurrentWebApplicationContext();
+        ServiceDetailDao serviceDetailDao = (ServiceDetailDao) ctx.getBean("serviceDetailDao");
+
+        return serviceDetailDao.comment(id,level,attitude,comment);
+    }
 }

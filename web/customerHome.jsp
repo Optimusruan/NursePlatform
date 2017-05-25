@@ -32,6 +32,9 @@
         .status4{
             background-color:#e91e63 ;
         }
+        .status5{
+            background-color:darkgrey ;
+        }
         .panel-heading{
             width: auto;
             height: auto;
@@ -186,7 +189,7 @@
                                             </div>
                                             <div class="row">
                                                 <label class="col-lg-3">服务态度：</label>
-                                                <div class="form-group col-lg-9">
+                                                <div class="form-group col-lg-6">
                                                     <input type="radio" value="1" name="rpt">极差
                                                     <input type="radio" value="2" name="rpt">差评
                                                     <input type="radio" value="3" name="rpt">一般
@@ -196,15 +199,25 @@
                                             </div>
                                             <div class="row">
                                                 <label class="col-lg-3">评价：</label>
-                                                <textarea class="col-lg-9 form-control comment-content" style="width: 450px;"></textarea>
+                                                <textarea class="col-lg-9 form-control comment-content" style="width: 400px;"></textarea>
                                             </div>
                                         </div>
                                         <div class="modal-footer">
-                                            <a href="javasript:;" data-id="${svc.svcId}"  class="btn btn-warning comment-btn">提交</a>
+                                            <a data-id="${svc.svcId}"  class="btn btn-warning comment-btn">提交</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                        </tr>
+                    </c:if>
+                    <c:if test="${svc.svcPps=='5'}">
+                        <tr class="status5">
+                            <td><a href="nurseDetail.jsp?id=${svc.svcNurid}"><c:out value="${svc.nurName}"></c:out></a></td>
+                            <td><c:out value="${svc.svcStart}"></c:out></td>
+                            <td><c:out value="${svc.svcEnd}"></c:out></td>
+                            <td><c:out value="${svc.nurPrice}"></c:out></td>
+                            <td>评价成功</td>
+                            <td></td>
                         </tr>
                     </c:if>
                 </c:forEach>
@@ -289,20 +302,25 @@
     $(".comment-btn").click(function () {
         var id = $(this).data("id");
         var ele = $(this).parents(".modal-content");
-        var rpt = $('input[name="rpt"]:checked',ele).val();
-        var score = $('.score',ele).val();
+        var tr = $(this).parents("tr");
+        var attitude = $('input[name="rpt"]:checked',ele).val();
+        var level = $('.score',ele).val();
         var comment = $(".comment-content",ele).val();
 
         $.ajax({
             url:"comment",
             data:{
                 id:id,
-                score:score,
-                rpt:rpt,
+                level:level,
+                attitude:attitude,
                 comment:comment
             },
             success:function () {
+                $(".modal").modal("hide");
                 alert("评价成功");
+                $(tr).removeClass("status4").addClass("status5");
+                $(tr).children().eq(4).html("评价成功");
+                $(tr).children().eq(5).html("");
             }
         })
     })

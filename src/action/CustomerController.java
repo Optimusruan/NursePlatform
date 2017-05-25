@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
 /**
@@ -53,6 +54,18 @@ public class CustomerController {
     {
         CustomerService customerService = (CustomerService) ServiceConstructor.newService("customerService",request);
         customerService.cancelRv(id);
+    }
+    @RequestMapping("comment")
+    @ResponseBody
+    public void comment(@RequestParam("id") String id,@RequestParam("level") String level,@RequestParam("attitude") String attitude,@RequestParam("comment") String comment,HttpServletRequest request)
+    {
+        CustomerService customerService = (CustomerService) ServiceConstructor.newService("customerService",request);
+//        try {
+//            comment = new String(comment.getBytes("ISO-8859-1"),"utf-8");
+//        } catch (UnsupportedEncodingException e) {
+//            e.printStackTrace();
+//        }
+        customerService.comment(id,level,attitude,comment);
     }
 
 }

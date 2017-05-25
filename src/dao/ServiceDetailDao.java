@@ -97,4 +97,17 @@ public class ServiceDetailDao {
             return false;
     }
 
+    public boolean comment(String id, String level, String attitude, String comment) {
+        Session session = sessionFactory.openSession();
+        Transaction tx = session.beginTransaction();
+        Query query = session.createQuery("update ServiceEntity set svcLevel = ?,svcComment=?,svcPps=? where svcId=?");
+        query.setParameter(0,Integer.parseInt(level));
+        query.setParameter(1,attitude+"|"+comment);
+        query.setParameter(2,5);
+        query.setParameter(3,Integer.parseInt(id));
+        query.executeUpdate();
+        tx.commit();
+        session.close();
+        return true;
+    }
 }
