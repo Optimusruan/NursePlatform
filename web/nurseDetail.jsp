@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="assets/font-awesome-4.7.0/css/font-awesome.min.css">
 </head>
 <body>
+<%@ include file="head.jsp" %>
 <%--<%=session.getAttribute("id")%>--%>
 <%--<c:out value="${id}"></c:out>--%>
 <div class="container" style="font-size: 1.25em;line-height: 1.7em">

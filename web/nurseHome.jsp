@@ -14,6 +14,9 @@
     <link rel="stylesheet" href="assets/font-awesome-4.7.0/css/font-awesome.min.css">
 </head>
 <style>
+    body {
+        text-align: center;
+    }
     .status0{
         background-color:#f06292 ;
     }
@@ -33,28 +36,37 @@
         width: auto;
         height: auto;
         text-align: center;
-        background: #FFB6C1;
-        color:grey;
+        background: #E91E63;
         border-radius: 10px;
         margin: 10px;
         padding: 10px;
     }
-    a{
+    .panel-heading a{
         font-size: 2em;
         color: white;
     }
-
+    .panel-heading a:hover {
+        color: lightyellow;
+        text-decoration:none;
+    }
+    .panel-heading:hover{
+        background: #EC2D6E;
+    }
+    .container{
+        margin-top: 10%;
+    }
 </style>
 <body>
+<%@ include file="head.jsp" %>
 <div class="container">
     <div class="panel">
         <div class="panel-heading">
-            <a href="">我的信息</a>
+            <a>我的信息</a>
         </div>
         <div class="panel-body">
             <div class="row">
                 <div class="col-lg-3"></div>
-                <div class="col-lg-3"><<img src="" alt=""></div>
+                <div class="col-lg-3"><img src="" alt=""></div>
                 <div class="col-lg-6">
                     <div class="row">
                         <label class="col-lg-3">姓名</label>
@@ -82,7 +94,7 @@
         </div>
     </div>
     <div class="panel">
-        <div class="panel-heading">我的服务</div>
+        <div class="panel-heading"><a>我的服务</a></div>
             <div class="panel-body">
                 <table class="table">
                     <thead>
@@ -96,9 +108,9 @@
                     </thead>
                     <tbody>
                     <c:forEach items="${services}" var="svc">
-                        <c:if test="${svc.svcPps eq '0'}">
+                        <c:if test="${svc.svcPps=='0'}">
                             <tr class="status0">
-                                <td><c:out value="${svc.cusName}"></c:out></td>
+                                <td><a href="customerDetail.jsp?id=${svc.svcCusid}"><c:out value="${svc.cusName}"></c:out></a></td>
                                 <td><c:out value="${svc.svcStart}"></c:out></td>
                                 <td><c:out value="${svc.svcEnd}"></c:out></td>
                                 <td>待处理</td>
@@ -108,36 +120,36 @@
                                 </td>
                             </tr>
                         </c:if>
-                        <c:if test="${svc.svcPps eq '1'}">
+                        <c:if test="${svc.svcPps=='1'}">
                             <tr class="status1">
-                                <td><c:out value="${svc.cusName}"></c:out></td>
+                                <td><a href="customerDetail.jsp?id=${svc.svcCusid}"><c:out value="${svc.cusName}"></c:out></a></td>
                                 <td><c:out value="${svc.svcStart}"></c:out></td>
                                 <td><c:out value="${svc.svcEnd}"></c:out></td>
                                 <td>已同意等待客户处理</td>
                                 <td></td>
                             </tr>
                         </c:if>
-                        <c:if test="${svc.svcPps eq '2'}">
+                        <c:if test="${svc.svcPps=='2'}">
                             <tr class="status2">
-                                <td><c:out value="${svc.cusName}"></c:out></td>
+                                <td><a href="customerDetail.jsp?id=${svc.svcCusid}"><c:out value="${svc.cusName}"></c:out></a></td>
                                 <td><c:out value="${svc.svcStart}"></c:out></td>
                                 <td><c:out value="${svc.svcEnd}"></c:out></td>
                                 <td>已拒绝</td>
                                 <td></td>
                             </tr>
                         </c:if>
-                        <c:if test="${svc.svcPps eq '3'}">
+                        <c:if test="${svc.svcPps=='3'}">
                             <tr class="status3">
-                                <td><c:out value="${svc.cusName}"></c:out></td>
+                                <td><a href="customerDetail.jsp?id=${svc.svcCusid}"><c:out value="${svc.cusName}"></c:out></a></td>
                                 <td><c:out value="${svc.svcStart}"></c:out></td>
                                 <td><c:out value="${svc.svcEnd}"></c:out></td>
                                 <td>已被客户取消</td>
                                 <td></td>
                             </tr>
                         </c:if>
-                        <c:if test="${svc.svcPps eq '4'} ">
+                        <c:if test="${svc.svcPps=='4'}">
                             <tr class="status4">
-                                <td><c:out value="${svc.cusName}"></c:out></td>
+                                <td><a href="customerDetail.jsp?id=${svc.svcCusid}"><c:out value="${svc.cusName}"></c:out></a></td>
                                 <td><c:out value="${svc.svcStart}"></c:out></td>
                                 <td><c:out value="${svc.svcEnd}"></c:out></td>
                                 <td>已成交</td>

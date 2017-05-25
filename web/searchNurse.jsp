@@ -216,6 +216,7 @@
     </style>
 </head>
 <body>
+<%@ include file="head.jsp" %>
 <div class="container" style="margin: 0 auto;width: 1000px;position: relative">
     <%--搜索栏--%>
     <div class="search row">

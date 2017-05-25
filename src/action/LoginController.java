@@ -36,6 +36,7 @@ public class LoginController {
         else
         {
             request.getSession().setAttribute("id", id);
+            request.getSession().setAttribute("type", userType);
             PrintWriter printWriter = response.getWriter();
             printWriter.print(id);
         }
