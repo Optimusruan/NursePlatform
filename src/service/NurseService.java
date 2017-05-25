@@ -2,10 +2,8 @@ package service;
 
 import dao.NurseDao;
 import dao.ServiceDetailDao;
-import model.NurseEntity;
 import dataBean.ResultAndSizeBean;
-import org.springframework.context.ApplicationContext;
-import org.springframework.web.context.ContextLoader;
+import model.NurseEntity;
 
 import java.util.List;
 import java.util.Map;
@@ -15,12 +13,16 @@ import java.util.Map;
  */
 public class NurseService {
     private NurseDao nurseDao;
-
+    private ServiceDetailDao serviceDetailDao;
     public void setNurseDao(NurseDao nurseDao) {
         this.nurseDao = nurseDao;
     }
 
-    public NurseEntity getDetail(String id,int opt) {
+    public void setServiceDetailDao(ServiceDetailDao serviceDetailDao) {
+        this.serviceDetailDao = serviceDetailDao;
+    }
+
+    public NurseEntity getDetail(String id, int opt) {
         NurseEntity nurseEntity = nurseDao.getModel(id);
         switch (opt){
             case 1:
@@ -70,22 +72,28 @@ public class NurseService {
     }
 
     public List getNurseServices(String id) {
-        ApplicationContext ctx = ContextLoader.getCurrentWebApplicationContext();
-        ServiceDetailDao serviceDetailDao = (ServiceDetailDao) ctx.getBean("serviceDetailDao");
-
         return serviceDetailDao.getNurseService(id);
     }
 
-    public boolean agreeRv(String id) {
-        ApplicationContext ctx = ContextLoader.getCurrentWebApplicationContext();
-        ServiceDetailDao serviceDetailDao = (ServiceDetailDao) ctx.getBean("serviceDetailDao");
 
+    //处理来自nurseDetail的AJAX请求
+    public boolean processRv(String nurseId,String customerId,String opt) {
+        if (opt.equals("1")) {
+            return serviceDetailDao.addAppointment(nurseId,customerId);
+        }
+        else if(opt.equals("0")){
+            return serviceDetailDao.cancelAppointment(nurseId,customerId);
+        }
+        else{
+            return false;
+        }
+    }
+
+    public boolean agreeRv(String id) {
         return serviceDetailDao.maniRv(id, 1);
     }
 
     public boolean refuseRv(String id) {
-        ApplicationContext ctx = ContextLoader.getCurrentWebApplicationContext();
-        ServiceDetailDao serviceDetailDao = (ServiceDetailDao) ctx.getBean("serviceDetailDao");
         return serviceDetailDao.maniRv(id, 2);
     }
 }

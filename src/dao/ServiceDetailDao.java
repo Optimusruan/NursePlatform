@@ -3,13 +3,11 @@ package dao;
 import model.CustomerEntity;
 import model.NurseEntity;
 import model.ServiceEntity;
-import model.mapModel.ServiceCustomer;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,7 +16,7 @@ import java.util.Map;
 /**
  * Created by hp on 2017/5/22.
  */
-public class ServiceDetailDao {
+public class ServiceDetailDao{
     private SessionFactory sessionFactory;
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
@@ -96,5 +94,49 @@ public class ServiceDetailDao {
         }else
             return false;
     }
-
+    //生成预约关系
+    public boolean addAppointment(String nurseId,String customerId){
+        try {
+            Session session = sessionFactory.openSession();
+            Transaction tx = session.beginTransaction();
+            ServiceEntity serviceEntity = new ServiceEntity();
+            serviceEntity.setSvcNurid(Integer.parseInt(nurseId));
+            serviceEntity.setSvcCusid(Integer.parseInt(customerId));
+            serviceEntity.setSvcPps(0);
+            serviceEntity.setSvcAble(1);
+            session.save(serviceEntity);
+            tx.commit();
+            session.close();
+            return true;
+        }
+        catch (Exception e){
+            System.out.println(e.toString());
+            return false;
+        }
+    }
+    //取消预约关系
+    public boolean cancelAppointment(String nurseId,String customerId) {
+        try {
+            Session session = sessionFactory.openSession();
+            Transaction tx = session.beginTransaction();
+            Query query =session.createQuery("from ServiceEntity where svcNurid="+nurseId+ " and svcCusid="+customerId);
+            ServiceEntity serviceEntity = (ServiceEntity) query.getSingleResult();
+            serviceEntity.setSvcPps(3);
+            serviceEntity.setSvcAble((byte) 0);
+            session.update(serviceEntity);
+            tx.commit();
+            session.close();
+            return true;
+        }
+        catch (Exception e){
+            System.out.println(e.toString());
+            return false;
+        }
+    }
+    public boolean getServiceStatusByTwoId(String nurseId,String customerId){
+        Session session = sessionFactory.openSession();
+        if (session.createQuery("from ServiceEntity where svcAble=1 svcNurid=" + nurseId + " and svcCusid=" + customerId).list().size()>0)
+            return true;
+        else return false;
+    }
 }

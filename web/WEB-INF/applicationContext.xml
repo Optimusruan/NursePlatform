@@ -66,8 +66,10 @@
     </bean>
     <bean id="nurseService" class="service.NurseService">
         <property name="nurseDao" ref="nurseDao"/>
+        <property name="serviceDetailDao" ref="serviceDetailDao"/>
     </bean>
     <bean id="customerService" class="service.CustomerService">
         <property name="customerDao" ref="customerDao"/>
+        <property name="serviceDetailDao" ref="serviceDetailDao"/>
     </bean>
 </beans>

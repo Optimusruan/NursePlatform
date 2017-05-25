@@ -263,11 +263,13 @@
 <body>
 <%@ include file="head.jsp" %>
 <div class="container" style="margin: 0 auto;width: 1000px;position: relative">
+
     <%--搜索栏--%>
     <div class="search row">
         <input type="text" id="nurseName" value="" placeholder="输入月嫂名字"/>
         <button class=" btn fa fa-search" id="search" style="height: auto"></button>
     </div>
+
     <%--筛选条件栏--%>
     <div class="condition row " id="condition">
         <div class="condition-container row">
@@ -341,6 +343,7 @@
             </li>
         </ul>
     </div>
+
     <%--结果显示--%>
     <div class="row" id="list">
         <img src="assets/img/loading.gif" alt="" style="left: 350px;position: absolute;" width="300">
@@ -370,6 +373,7 @@
     $("#search").on("click", function () {
         loadContent();
     });
+
     //添加条件
     $(".condition-item>a").each(function () {
         $(this).on("click", function () {
@@ -445,7 +449,7 @@
         $("#distpicker").addClass("hide");
         $("#allCondition").append("<a href='#' onclick='del(this,2);return false;'><span>" + content + "</span><i class='fa fa-close'></i></a>");
         loadContent();
-    })
+    });
 </script>
 </body>
 </html>

@@ -11,6 +11,7 @@ import service.NurseService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
@@ -50,6 +51,11 @@ public class NurseController {
     public String nurseDetail(@RequestParam("id") String id, Map model, HttpServletRequest request) {
         NurseService nurseService = (NurseService) ServiceConstructor.newService("nurseService",request);
         model.put("info", nurseService.getDetail(id, 1));
+        if(request.getSession().getAttribute("id")!=null&&!request.getSession().getAttribute("id").equals("")){
+
+        }else {
+            model.put("appoint",false);
+        }
         return "nurseDetail";
     }
 
@@ -147,6 +153,20 @@ public class NurseController {
             }
         } else {
             printWriter.print("No way");
+        }
+    }
+    @RequestMapping("appoint")
+    public void appoint(HttpServletResponse response, @RequestParam("opt")String opt, @RequestParam("id") String id, HttpSession session,HttpServletRequest request) throws IOException {
+        PrintWriter printWriter = response.getWriter();
+        NurseService nurseService = (NurseService) ServiceConstructor.newService("nurseService",request);
+        if(session.getAttribute("id")!=null&&!session.getAttribute("id").equals("")) {
+            if (id != null && !id.equals("")) {
+                printWriter.print(nurseService.processRv(id, (String) session.getAttribute("id"),opt)?"success":"error");
+            } else {
+                printWriter.print("error");
+            }
+        }else{
+            printWriter.print("login");
         }
     }
 }

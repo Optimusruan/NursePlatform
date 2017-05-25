@@ -27,7 +27,6 @@ public class NurseDao {
         query.setParameter(0,Integer.parseInt(id));
         NurseEntity nurseEntity = (NurseEntity) query.getSingleResult();
         session.close();
-        sessionFactory.close();
         return nurseEntity;
     }
     public int getMaxId()

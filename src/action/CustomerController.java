@@ -45,7 +45,7 @@ public class CustomerController {
     public void confirmRv(@RequestParam("id")String id,HttpServletRequest request)
     {
         CustomerService customerService = (CustomerService) ServiceConstructor.newService("customerService",request);
-        customerService.confrimRv(id);
+        customerService.confirmRv(id);
     }
     @RequestMapping("cancelRv")
     @ResponseBody
