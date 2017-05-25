@@ -1,13 +1,11 @@
 package action;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import res.ServiceConstructor;
 import service.LoginService;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -23,10 +21,7 @@ public class LoginController {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String userType = request.getParameter("userType");
-        ServletContext servletContext = request.getServletContext();
-        String str = servletContext.getRealPath("/");
-        ApplicationContext applicationContext = new FileSystemXmlApplicationContext(str+"WEB-INF/applicationContext.xml");
-        LoginService loginService = (LoginService) applicationContext.getBean("loginService");
+        LoginService loginService = (LoginService) ServiceConstructor.newService("loginService",request);
         int id = loginService.checkLogin(userType,username,password);
         if (id==-1)
         {

@@ -1,20 +1,15 @@
 package action;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import res.ServiceConstructor;
 import service.CustomerService;
 import service.NurseService;
 import service.RegisterService;
 
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
@@ -100,13 +95,9 @@ public class RegisterController {
             }
             details.put("nurEdu",nurEdu);
         }
-        ServletContext servletContext = request.getServletContext();
-        String str = servletContext.getRealPath("/");
-        ApplicationContext applicationContext = new FileSystemXmlApplicationContext(str + "WEB-INF/applicationContext.xml");
-
         //注册
         if(opt == "reg" || opt.equals("reg")) {
-            RegisterService registerService = (RegisterService) applicationContext.getBean("registerService");
+            RegisterService registerService = (RegisterService) ServiceConstructor.newService("registerService",request);
             int id = registerService.register(userType, details);
             request.getSession().setAttribute("id",id);
         }
@@ -114,7 +105,7 @@ public class RegisterController {
         else if(opt == "mod" || opt.equals("mod")){
             //月嫂信息修改
             if(userType == "nurse" || userType.equals("nurse")){
-                NurseService nurseService = (NurseService) applicationContext.getBean("nurseService");
+                NurseService nurseService = (NurseService) ServiceConstructor.newService("nurseService",request);
                 nurseService.updateNurse(request.getSession().getAttribute("id").toString(),details);
             }
 // else if(userType == "customer" || userType.equals("customer")){
@@ -136,10 +127,7 @@ public class RegisterController {
             if(request.getSession().getAttribute("id")!=null){
                 //根据id获取model修改信息
                 String id = (request.getSession().getAttribute("id").toString());
-                ServletContext servletContext = request.getServletContext();
-                String str = servletContext.getRealPath("/");
-                ApplicationContext applicationContext = new FileSystemXmlApplicationContext(str+"WEB-INF/applicationContext.xml");
-                CustomerService customerService = (CustomerService) applicationContext.getBean("customerService");
+                CustomerService customerService = (CustomerService) ServiceConstructor.newService("customerService",request);
 
                 model.put("info",customerService.getDetailByHome(id));
             }
@@ -162,11 +150,7 @@ public class RegisterController {
             if(request.getSession().getAttribute("id")!=null){
                 //根据id获取model修改信息
                 String id = (request.getSession().getAttribute("id").toString());
-                ServletContext servletContext = request.getServletContext();
-                String str = servletContext.getRealPath("/");
-                ApplicationContext applicationContext = new FileSystemXmlApplicationContext(str+"WEB-INF/applicationContext.xml");
-                NurseService nurseService= (NurseService) applicationContext.getBean("nurseService");
-
+                NurseService nurseService = (NurseService) ServiceConstructor.newService("nurseService",request);
                 model.put("info",nurseService.getDetailByHome(id));
             }
         }else if(opt == "reg" || opt.equals("reg")){

@@ -1,16 +1,14 @@
 package action;
 
+import dataBean.ResultAndSizeBean;
 import model.NurseEntity;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import dataBean.ResultAndSizeBean;
 import org.springframework.web.bind.annotation.ResponseBody;
+import res.ServiceConstructor;
 import service.NurseService;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -25,7 +23,7 @@ import java.util.Map;
 @Controller
 public class NurseController {
     private static int SIZE = 20;
-    private static String[] CONDKEY = {"rank", "price"};
+    private static String[] CONDKEY = {"rank", "price","add"};
     private static HashMap<String, String> LEVEL = new HashMap<String, String>() {{
         put("一星", "1");
         put("二星", "2");
@@ -34,22 +32,10 @@ public class NurseController {
         put("五星", "5");
     }};
 
-    private NurseService getNurseService(HttpServletRequest request) {
-        try {
-            request.setCharacterEncoding("UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        ServletContext servletContext = request.getServletContext();
-        String str = servletContext.getRealPath("/");
-        ApplicationContext applicationContext = new FileSystemXmlApplicationContext(str + "WEB-INF/applicationContext.xml");
-        return (NurseService) applicationContext.getBean("nurseService");
-    }
-
     @RequestMapping("nurseHome")
     public String nurseHome(@RequestParam("id") String id, Map model, HttpServletRequest request, HttpServletResponse response) throws IOException {
         if (request.getSession().getAttribute("id") != null && request.getSession().getAttribute("id").toString().equals(id)) {
-            NurseService nurseService = getNurseService(request);
+            NurseService nurseService = (NurseService) ServiceConstructor.newService("nurseService",request);
             model.put("info", nurseService.getDetailByHome(id));
             model.put("services", nurseService.getNurseServices(id));
             return "nurseHome";
@@ -62,14 +48,14 @@ public class NurseController {
 
     @RequestMapping("nurseDetail")
     public String nurseDetail(@RequestParam("id") String id, Map model, HttpServletRequest request) {
-        NurseService nurseService = getNurseService(request);
-        model.put("info", nurseService.getDetail(id,1));
+        NurseService nurseService = (NurseService) ServiceConstructor.newService("nurseService",request);
+        model.put("info", nurseService.getDetail(id, 1));
         return "nurseDetail";
     }
 
     @RequestMapping(value = "nurseList")
     public String nurseList(Map model, HttpServletRequest request) throws UnsupportedEncodingException {
-        NurseService nurseService = getNurseService(request);
+        NurseService nurseService = (NurseService) ServiceConstructor.newService("nurseService",request);
         StringBuilder cond = new StringBuilder();
         cond.append(" where ");
         for (int i = 0; i < CONDKEY.length; i++) {
@@ -97,16 +83,17 @@ public class NurseController {
                     if (CONDKEY[i].equals("price")) {
                         String str[] = temp.split("-");
                         cond.append("nur_").append(CONDKEY[i]).append(" between ").append(str[0]).append(" and ").append(str[1]);
-                    } else
+                    } else {
                         cond.append("nur_").append(CONDKEY[i]).append(" like '%").append(temp).append("%'");
+                    }
                 }
             }
         }
-        if(cond.toString().equals(" where ")){
-            cond.delete(0,cond.length());
+        if (cond.toString().equals(" where ")) {
+            cond.delete(0, cond.length());
         }
         String order = request.getParameter("order");
-        if (order!=null && !order.equals("")){
+        if (order != null && !order.equals("")) {
             String orderResult[] = order.split("-_-");
             cond.append(" order by nur_").append(orderResult[0]).append(" ").append(orderResult[1]);
         }
@@ -120,7 +107,7 @@ public class NurseController {
 
     @RequestMapping("excellentNurses")
     public String excellentNurses(Map model, HttpServletRequest request) {
-        NurseService nurseService = getNurseService(request);
+        NurseService nurseService = (NurseService) ServiceConstructor.newService("nurseService",request);
         String size = request.getParameter("size");
         model.put("info", nurseService.getExcellentNurses(Integer.parseInt(size)));
         return "ajaxLoadView/showNurse";
@@ -133,24 +120,33 @@ public class NurseController {
 
     @RequestMapping("agreeRv")
     @ResponseBody
-    public void agreeRv(@RequestParam("id")String id,HttpServletRequest request)
-    {
-        NurseService nurseService = getNurseService(request);
+    public void agreeRv(@RequestParam("id") String id, HttpServletRequest request) {
+        NurseService nurseService = (NurseService) ServiceConstructor.newService("nurseService",request);
         nurseService.agreeRv(id);
     }
+
     @RequestMapping("refuseRv")
     @ResponseBody
-    public void refuseRv(@RequestParam("id")String id,HttpServletRequest request)
-    {
-        NurseService nurseService = getNurseService(request);
+    public void refuseRv(@RequestParam("id") String id, HttpServletRequest request) {
+        NurseService nurseService = (NurseService) ServiceConstructor.newService("nurseService",request);
         nurseService.refuseRv(id);
     }
 
     @RequestMapping("showTel")
-    public void showTel(@RequestParam("id") String id,HttpServletResponse response,HttpServletRequest request) throws IOException {
-        NurseService nurseService = getNurseService(request);
-        NurseEntity nurseEntity = nurseService.getDetail(id,2);
+    public void showTel(@RequestParam("id") String id, HttpServletResponse response, HttpServletRequest request) throws IOException {
+        NurseService nurseService = (NurseService) ServiceConstructor.newService("nurseService",request);
+        NurseEntity nurseEntity = nurseService.getDetail(id, 2);
         PrintWriter printWriter = response.getWriter();
-        printWriter.print(nurseEntity.getNurContact());
+        System.out.println(id);
+        response.setCharacterEncoding("utf-8");
+        if (request.getSession().getAttribute("id") != null) {
+            if (nurseEntity.getNurContact() == null) {
+                printWriter.print("该月嫂未留联系方式");
+            } else {
+                printWriter.print(nurseEntity.getNurContact());
+            }
+        } else {
+            printWriter.print("No way");
+        }
     }
 }

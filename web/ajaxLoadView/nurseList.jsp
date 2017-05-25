@@ -126,6 +126,7 @@
                     priceCond:$("#priceCond").val(),
                     rankCond:$("#rankCond").val(),
                     nurseName:$("#nurseName").val(),
+                    addCond:$("#addCond").val(),
                     order: $("#order").val()
                 },
                 success: function (data) {
