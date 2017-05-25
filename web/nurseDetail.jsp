@@ -65,5 +65,20 @@
 </div>
 <script src="assets/js/jquery-3.1.1.min.js"></script>
 <script src="assets/js/bootstrap.min.js"></script>
+<script>
+    $("#showContact").on("click",function () {
+        var obj= $(this)
+       $.ajax({
+           url:"showTel",
+           data:{
+               id:"<c:out value="${info.nurId}"/>"
+           },
+           success:function (data) {
+               obj.after(data);
+               obj.remove();
+           }
+       })
+    });
+</script>
 </body>
 </html>

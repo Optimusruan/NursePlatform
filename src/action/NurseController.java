@@ -1,5 +1,6 @@
 package action;
 
+import model.NurseEntity;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -62,7 +63,7 @@ public class NurseController {
     @RequestMapping("nurseDetail")
     public String nurseDetail(@RequestParam("id") String id, Map model, HttpServletRequest request) {
         NurseService nurseService = getNurseService(request);
-        model.put("info", nurseService.getDetail(id));
+        model.put("info", nurseService.getDetail(id,1));
         return "nurseDetail";
     }
 
@@ -143,5 +144,13 @@ public class NurseController {
     {
         NurseService nurseService = getNurseService(request);
         nurseService.refuseRv(id);
+    }
+
+    @RequestMapping("showTel")
+    public void showTel(@RequestParam("id") String id,HttpServletResponse response,HttpServletRequest request) throws IOException {
+        NurseService nurseService = getNurseService(request);
+        NurseEntity nurseEntity = nurseService.getDetail(id,2);
+        PrintWriter printWriter = response.getWriter();
+        printWriter.print(nurseEntity.getNurContact());
     }
 }
