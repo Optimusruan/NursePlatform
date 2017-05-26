@@ -366,7 +366,7 @@
     </div>
 
     <%--条件收集区--%>
-    <input type="hidden" id="priceCond" value=""/>
+    <input type="hidden" id="priceCond" value="" style="display: none"/>
     <input type="hidden" id="rankCond" value=""/>
     <input type="hidden" id="order" value=""/>
     <input type="hidden" id="addCond" value=""/>
@@ -376,7 +376,6 @@
     <input type="hidden" id="current" value="1"/>
     <%--<input type="hidden" id="maxPage" value="3"/>--%>
 </div>
-<script src=""></script>
 <script src="assets/js/jquery-3.1.1.min.js"></script>
 <script src="assets/js/bootstrap.min.js"></script>
 <script src="assets/js/distpicker/distpicker.data.js"></script>
@@ -468,7 +467,7 @@
     //处理地址
     $("#getAddress").on("click", function () {
         var content = $("#province").val() + $("#city").val();
-        if(content!=null&&content!="") {
+        if (content != null && content != "") {
             $("#addCond").val(content);
             $("#distpicker").addClass("hide");
             $("#allCondition").append("<a href='#' onclick='del(this,2);return false;'><span>" + content + "</span><i class='fa fa-close'></i></a>");

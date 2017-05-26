@@ -62,7 +62,7 @@
                     <img src="" alt=""></div>
                 <div class="row" style="text-align: center">
                     <c:if test="${appoint}">
-                    <button id="appoint" class="btn btn-warning" style="width: 50%;" data-id="1">我要预约</button>
+                        <button id="appoint" class="btn btn-warning" style="width: 50%;" data-id="1">我要预约</button>
                     </c:if>
                     <c:if test="${!appoint}">
                         <button id="appoint" class="btn btn-danger" style="width: 50%;" data-id="0">取消预约</button>
@@ -95,7 +95,7 @@
             }
         })
     });
-    $("#appoint").on("click",function () {
+    $("#appoint").on("click", function () {
 //        var obj = $(this);
 //        var message = ["取消","预约"];
 //        var opt = obj.attr("data-id");
@@ -103,7 +103,7 @@
 //            url:"appoint",
 //            data:{
 //                opt:opt,
-                <%--id :"<c:out value="${info.nurId}"/>"--%>
+        <%--id :"<c:out value="${info.nurId}"/>"--%>
 //            },
 //            success:function (data) {
 //                if(data=="error")

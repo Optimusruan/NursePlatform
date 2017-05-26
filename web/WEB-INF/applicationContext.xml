@@ -6,7 +6,8 @@
     <!--hibernate-->
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://59.110.228.132:3306/NursePlatform?useUnicode=true&amp;characterEncoding=utf8&amp;zeroDateTimeBehavior=convertToNull"/>
+        <property name="url"
+                  value="jdbc:mysql://59.110.228.132:3306/NursePlatform?useUnicode=true&amp;characterEncoding=utf8&amp;zeroDateTimeBehavior=convertToNull"/>
         <property name="username" value="root"/>
         <property name="password" value="root"/>
     </bean>
@@ -33,10 +34,10 @@
     </bean>
     <!-- upload -->
     <!--<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">-->
-        <!--<property name="defaultEncoding" value="utf-8" />-->
-        <!--&lt;!&ndash; 以字节为单位的最大上传文件的大小 &ndash;&gt;-->
-        <!--<property name="maxUploadSize" value="100000" />-->
-        <!--<property name="uploadTempDir" value="assets/img" />-->
+    <!--<property name="defaultEncoding" value="utf-8" />-->
+    <!--&lt;!&ndash; 以字节为单位的最大上传文件的大小 &ndash;&gt;-->
+    <!--<property name="maxUploadSize" value="100000" />-->
+    <!--<property name="uploadTempDir" value="assets/img" />-->
     <!--</bean>-->
     <!--<mvc:annotation-driven/>-->
     <!--dao-->
@@ -56,7 +57,7 @@
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
     <bean id="serviceDetailDao" class="dao.ServiceDetailDao">
-        <property name="sessionFactory" ref="sessionFactory" />
+        <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
 

@@ -24,7 +24,7 @@
         }
 
         .bloke {
-            width:80%;
+            width: 80%;
             margin: 0 10% 0 10%;
             text-align: center;
         }
@@ -37,6 +37,7 @@
             height: 80px;
             padding: 10px;
         }
+
         #myCarousel {
             height: 400px;
             width: 100%;
@@ -101,7 +102,8 @@
     </style>
 </head>
 <body>
-<div id="istop"><a href="#top"  style="color: white;text-decoration:none;"><i class="fa  fa-chevron-up fa-2x" aria-hidden="true"></i>返回顶部</a></div>
+<div id="istop"><a href="#top" style="color: white;text-decoration:none;"><i class="fa  fa-chevron-up fa-2x"
+                                                                             aria-hidden="true"></i>返回顶部</a></div>
 <%@ include file="head.jsp" %>
 <div class="bloke">
     <div id="myCarousel" class="carousel slide">

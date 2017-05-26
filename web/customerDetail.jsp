@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="assets/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="assets/font-awesome-4.7.0/css/font-awesome.min.css">
     <style>
-        .panel-heading{
+        .panel-heading {
             width: auto;
             height: auto;
             text-align: center;
@@ -21,15 +21,18 @@
             margin: 10px;
             padding: 10px;
         }
-        .panel-heading a{
+
+        .panel-heading a {
             font-size: 2em;
             color: white;
         }
+
         .panel-heading a:hover {
             color: lightyellow;
-            text-decoration:none;
+            text-decoration: none;
         }
-        .panel-heading:hover{
+
+        .panel-heading:hover {
             background: #EC2D6E;
         }
     </style>

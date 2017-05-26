@@ -17,11 +17,12 @@ import java.io.PrintWriter;
  */
 @Controller
 public class Dispatcher {
-    private ApplicationContext getApplicationContext(HttpServletRequest request){
+    private ApplicationContext getApplicationContext(HttpServletRequest request) {
         ServletContext servletContext = request.getServletContext();
         String str = servletContext.getRealPath("/");
-        return new FileSystemXmlApplicationContext(str+"WEB-INF/applicationContext.xml");
+        return new FileSystemXmlApplicationContext(str + "WEB-INF/applicationContext.xml");
     }
+
     @RequestMapping("init")
     public void init(HttpServletRequest request, HttpServletResponse response) throws IOException {
         ApplicationContext applicationContext = getApplicationContext(request);

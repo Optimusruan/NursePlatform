@@ -21,26 +21,25 @@ public class LoginController {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String userType = request.getParameter("userType");
-        LoginService loginService = (LoginService) ServiceConstructor.newService("loginService",request);
-        int id = loginService.checkLogin(userType,username,password);
-        if (id==-1)
-        {
+        LoginService loginService = (LoginService) ServiceConstructor.newService("loginService", request);
+        int id = loginService.checkLogin(userType, username, password);
+        if (id == -1) {
             PrintWriter printWriter = response.getWriter();
             printWriter.print("error");
-        }
-        else
-        {
+        } else {
             request.getSession().setAttribute("id", id);
             request.getSession().setAttribute("type", userType);
             PrintWriter printWriter = response.getWriter();
             printWriter.print(id);
         }
     }
+
     @RequestMapping("loginSystem")
-    public String loginSystem(@RequestParam("userType") String userType,HttpServletRequest request,HttpServletResponse response){
-        request.getSession().setAttribute("userType",userType);
-        return "redirect:"+userType+"Home?id="+ request.getSession().getAttribute("id");
+    public String loginSystem(@RequestParam("userType") String userType, HttpServletRequest request, HttpServletResponse response) {
+        request.getSession().setAttribute("userType", userType);
+        return "redirect:" + userType + "Home?id=" + request.getSession().getAttribute("id");
     }
+
     @RequestMapping("test")
     public void test(HttpServletRequest request) {
         System.out.print(request.getSession().getAttribute("id"));

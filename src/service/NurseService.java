@@ -14,6 +14,7 @@ import java.util.Map;
 public class NurseService {
     private NurseDao nurseDao;
     private ServiceDetailDao serviceDetailDao;
+
     public void setNurseDao(NurseDao nurseDao) {
         this.nurseDao = nurseDao;
     }
@@ -24,12 +25,13 @@ public class NurseService {
 
     public NurseEntity getDetail(String id, int opt) {
         NurseEntity nurseEntity = nurseDao.getModel(id);
-        switch (opt){
+        switch (opt) {
             case 1:
-            nurseEntity.setNurIdno("验证通过");
-            nurseEntity.setNurContact("");
-            break;
-            case 2:break;
+                nurseEntity.setNurIdno("验证通过");
+                nurseEntity.setNurContact("");
+                break;
+            case 2:
+                break;
         }
         return nurseEntity;
     }
@@ -77,19 +79,18 @@ public class NurseService {
 
 
     //处理来自nurseDetail的AJAX请求
-    public boolean processRv(String nurseId,String customerId,String opt) {
+    public boolean processRv(String nurseId, String customerId, String opt) {
         if (opt.equals("1")) {
-            return serviceDetailDao.addAppointment(nurseId,customerId);
-        }
-        else if(opt.equals("0")){
-            return serviceDetailDao.cancelAppointment(nurseId,customerId);
-        }
-        else{
+            return serviceDetailDao.addAppointment(nurseId, customerId);
+        } else if (opt.equals("0")) {
+            return serviceDetailDao.cancelAppointment(nurseId, customerId);
+        } else {
             return false;
         }
     }
-    public boolean isAppoint(String nurseId,String customerId){
-        return serviceDetailDao.getServiceStatusByTwoId(nurseId,customerId);
+
+    public boolean isAppoint(String nurseId, String customerId) {
+        return serviceDetailDao.getServiceStatusByTwoId(nurseId, customerId);
     }
 
     public boolean agreeRv(String id) {

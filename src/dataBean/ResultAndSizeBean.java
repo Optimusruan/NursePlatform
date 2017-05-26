@@ -8,8 +8,9 @@ import java.util.List;
 public class ResultAndSizeBean {
     public List list;
     public int size;
-    public ResultAndSizeBean(List list,int size){
-        this.list=list;
-        this.size=size;
+
+    public ResultAndSizeBean(List list, int size) {
+        this.list = list;
+        this.size = size;
     }
 }

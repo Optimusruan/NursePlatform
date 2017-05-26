@@ -20,27 +20,28 @@ public class NurseDao {
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
-    public NurseEntity getModel(String id)
-    {
+
+    public NurseEntity getModel(String id) {
         Session session = sessionFactory.openSession();
         Query query = session.createQuery("from NurseEntity where nurId=?");
-        query.setParameter(0,Integer.parseInt(id));
+        query.setParameter(0, Integer.parseInt(id));
         NurseEntity nurseEntity = (NurseEntity) query.getSingleResult();
         session.close();
         return nurseEntity;
     }
-    public int getMaxId()
-    {
+
+    public int getMaxId() {
         Session session = sessionFactory.openSession();
         Query query = session.createQuery("select max(nurId) from NurseEntity");
-        int maxId = (Integer)query.uniqueResult();
+        int maxId = (Integer) query.uniqueResult();
         session.close();
         return maxId + 1;
     }
-    public boolean updateNurse(String id, Map details){
+
+    public boolean updateNurse(String id, Map details) {
         Session session = sessionFactory.openSession();
         Query query = session.createQuery("from NurseEntity where nurId=?");
-        query.setParameter(0,Integer.parseInt(id));
+        query.setParameter(0, Integer.parseInt(id));
         NurseEntity nurse = (NurseEntity) query.getSingleResult();
 
         Transaction tx = session.beginTransaction();
@@ -94,55 +95,56 @@ public class NurseDao {
     }
 
     //全部查询
-    public List getNurseList(String cond,String nurseName){
+    public List getNurseList(String cond, String nurseName) {
         Session session = sessionFactory.openSession();
-        Query query =checkCond(cond,nurseName,session);
+        Query query = checkCond(cond, nurseName, session);
         List list = query.list();
         session.close();
         return list;
     }
+
     //分页查询
-    public ResultAndSizeBean getNurseListByPage(int current,int size){
+    public ResultAndSizeBean getNurseListByPage(int current, int size) {
         Session session = sessionFactory.openSession();
-        Query query= session.createQuery("from NurseEntity ");
+        Query query = session.createQuery("from NurseEntity ");
         List list = query.list();
-        int resultSize = list.size()/size+1;
-        query.setFirstResult((current-1)*size);
+        int resultSize = list.size() / size + 1;
+        query.setFirstResult((current - 1) * size);
         query.setMaxResults(size);
         list = query.list();
         session.close();
-        return new ResultAndSizeBean(list,resultSize);
+        return new ResultAndSizeBean(list, resultSize);
     }
+
     //优秀月嫂查询
-    public List getExcellentNurses(int size){
+    public List getExcellentNurses(int size) {
         Session session = sessionFactory.openSession();
-        Query query= session.createQuery("from NurseEntity where nurRank=5");
-        query.setMaxResults(size);
-        List list  = query.list();
-        session.close();
-        return list;
-    }
-    public ResultAndSizeBean getNurseListByPageAndCond(int current, int size, String cond, String nurseName){
-        Session session = sessionFactory.openSession();
-        Query query=checkCond(cond,nurseName,session);
-        int resultSize = query.list().size()/size+1;
-        query.setFirstResult((current-1)*size);
+        Query query = session.createQuery("from NurseEntity where nurRank=5");
         query.setMaxResults(size);
         List list = query.list();
         session.close();
-        return new ResultAndSizeBean(list,resultSize);
+        return list;
     }
-    private Query checkCond(String cond,String nurseName,Session session){
+
+    public ResultAndSizeBean getNurseListByPageAndCond(int current, int size, String cond, String nurseName) {
+        Session session = sessionFactory.openSession();
+        Query query = checkCond(cond, nurseName, session);
+        int resultSize = query.list().size() / size + 1;
+        query.setFirstResult((current - 1) * size);
+        query.setMaxResults(size);
+        List list = query.list();
+        session.close();
+        return new ResultAndSizeBean(list, resultSize);
+    }
+
+    private Query checkCond(String cond, String nurseName, Session session) {
         Query query;
-        if(cond.equals("")&&!nurseName.equals(""))
-        {
-            query = session.createQuery("from NurseEntity where nurName like '%"+nurseName+"%'");
-        }
-        else if(!cond.equals("")&&nurseName.equals("")){
+        if (cond.equals("") && !nurseName.equals("")) {
+            query = session.createQuery("from NurseEntity where nurName like '%" + nurseName + "%'");
+        } else if (!cond.equals("") && nurseName.equals("")) {
             System.out.println(cond);
-            query = session.createQuery("from NurseEntity "+cond);
-        }
-        else {
+            query = session.createQuery("from NurseEntity " + cond);
+        } else {
             query = session.createQuery("from NurseEntity ");
         }
         return query;

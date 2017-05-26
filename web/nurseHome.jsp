@@ -17,22 +17,28 @@
     body {
         text-align: center;
     }
-    .status0{
-        background-color:#f06292 ;
+
+    .status0 {
+        background-color: #f06292;
     }
-    .status1{
-        background-color:#f48fb1 ;
+
+    .status1 {
+        background-color: #f48fb1;
     }
-    .status2{
-        background-color:#f8bbd0 ;
+
+    .status2 {
+        background-color: #f8bbd0;
     }
-    .status3{
-        background-color:#ff5177 ;
+
+    .status3 {
+        background-color: #ff5177;
     }
-    .status4{
-        background-color:#e91e63 ;
+
+    .status4 {
+        background-color: #e91e63;
     }
-    .panel-heading{
+
+    .panel-heading {
         width: auto;
         height: auto;
         text-align: center;
@@ -41,18 +47,22 @@
         margin: 10px;
         padding: 10px;
     }
-    .panel-heading a{
+
+    .panel-heading a {
         font-size: 2em;
         color: white;
     }
+
     .panel-heading a:hover {
         color: lightyellow;
-        text-decoration:none;
+        text-decoration: none;
     }
-    .panel-heading:hover{
+
+    .panel-heading:hover {
         background: #EC2D6E;
     }
-    .container{
+
+    .container {
         margin-top: 10%;
     }
 </style>
@@ -86,7 +96,8 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-12" style="text-align: center">
-                            <a href="nurseRegister?opt=mod" id="modify" class="btn btn-warning" style="width: 50%;">修改信息</a>
+                            <a href="nurseRegister?opt=mod" id="modify" class="btn btn-warning"
+                               style="width: 50%;">修改信息</a>
                         </div>
                     </div>
                 </div>
@@ -95,90 +106,95 @@
     </div>
     <div class="panel">
         <div class="panel-heading"><a>我的服务</a></div>
-            <div class="panel-body">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>服务对象</th>
-                        <th>开始时间</th>
-                        <th>结束时间</th>
-                        <th>预约状态</th>
-                        <th>操作</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <c:forEach items="${services}" var="svc">
-                        <c:if test="${svc.svcPps=='0'}">
-                            <tr class="status0">
-                                <td><a href="customerDetail?id=${svc.svcCusid}"><c:out value="${svc.cusName}"></c:out></a></td>
-                                <td><c:out value="${svc.svcStart}"></c:out></td>
-                                <td><c:out value="${svc.svcEnd}"></c:out></td>
-                                <td>待处理</td>
-                                <td>
-                                    <a href="javascript:;" data-id="${svc.svcId}" class="agreeRv btn btn-default btn-sm" >同意服务</a>
-                                    <a href="javascript:;" data-id="${svc.svcId}" class="refuseRv btn btn-danger btn-sm" >拒绝服务</a>
-                                </td>
-                            </tr>
-                        </c:if>
-                        <c:if test="${svc.svcPps=='1'}">
-                            <tr class="status1">
-                                <td><a href="customerDetail?id=${svc.svcCusid}"><c:out value="${svc.cusName}"></c:out></a></td>
-                                <td><c:out value="${svc.svcStart}"></c:out></td>
-                                <td><c:out value="${svc.svcEnd}"></c:out></td>
-                                <td>已同意等待客户处理</td>
-                                <td></td>
-                            </tr>
-                        </c:if>
-                        <c:if test="${svc.svcPps=='2'}">
-                            <tr class="status2">
-                                <td><a href="customerDetail?id=${svc.svcCusid}"><c:out value="${svc.cusName}"></c:out></a></td>
-                                <td><c:out value="${svc.svcStart}"></c:out></td>
-                                <td><c:out value="${svc.svcEnd}"></c:out></td>
-                                <td>已拒绝</td>
-                                <td></td>
-                            </tr>
-                        </c:if>
-                        <c:if test="${svc.svcPps=='3'}">
-                            <tr class="status3">
-                                <td><a href="customerDetail?id=${svc.svcCusid}"><c:out value="${svc.cusName}"></c:out></a></td>
-                                <td><c:out value="${svc.svcStart}"></c:out></td>
-                                <td><c:out value="${svc.svcEnd}"></c:out></td>
-                                <td>已被客户取消</td>
-                                <td></td>
-                            </tr>
-                        </c:if>
-                        <c:if test="${svc.svcPps=='4'}">
-                            <tr class="status4">
-                                <td><a href="customerDetail?id=${svc.svcCusid}"><c:out value="${svc.cusName}"></c:out></a></td>
-                                <td><c:out value="${svc.svcStart}"></c:out></td>
-                                <td><c:out value="${svc.svcEnd}"></c:out></td>
-                                <td>已成交</td>
-                                <td>
-                                    <a class="btn btn-success btn-sm">查看评价</a>
-                                </td>
-                            </tr>
-                        </c:if>
-                    </c:forEach>
-                    </tbody>
-                </table>
-            </div>
+        <div class="panel-body">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>服务对象</th>
+                    <th>开始时间</th>
+                    <th>结束时间</th>
+                    <th>预约状态</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:forEach items="${services}" var="svc">
+                    <c:if test="${svc.svcPps=='0'}">
+                        <tr class="status0">
+                            <td><a href="customerDetail?id=${svc.svcCusid}"><c:out value="${svc.cusName}"></c:out></a>
+                            </td>
+                            <td><c:out value="${svc.svcStart}"></c:out></td>
+                            <td><c:out value="${svc.svcEnd}"></c:out></td>
+                            <td>待处理</td>
+                            <td>
+                                <a href="javascript:;" data-id="${svc.svcId}" class="agreeRv btn btn-default btn-sm">同意服务</a>
+                                <a href="javascript:;" data-id="${svc.svcId}" class="refuseRv btn btn-danger btn-sm">拒绝服务</a>
+                            </td>
+                        </tr>
+                    </c:if>
+                    <c:if test="${svc.svcPps=='1'}">
+                        <tr class="status1">
+                            <td><a href="customerDetail?id=${svc.svcCusid}"><c:out value="${svc.cusName}"></c:out></a>
+                            </td>
+                            <td><c:out value="${svc.svcStart}"></c:out></td>
+                            <td><c:out value="${svc.svcEnd}"></c:out></td>
+                            <td>已同意等待客户处理</td>
+                            <td></td>
+                        </tr>
+                    </c:if>
+                    <c:if test="${svc.svcPps=='2'}">
+                        <tr class="status2">
+                            <td><a href="customerDetail?id=${svc.svcCusid}"><c:out value="${svc.cusName}"></c:out></a>
+                            </td>
+                            <td><c:out value="${svc.svcStart}"></c:out></td>
+                            <td><c:out value="${svc.svcEnd}"></c:out></td>
+                            <td>已拒绝</td>
+                            <td></td>
+                        </tr>
+                    </c:if>
+                    <c:if test="${svc.svcPps=='3'}">
+                        <tr class="status3">
+                            <td><a href="customerDetail?id=${svc.svcCusid}"><c:out value="${svc.cusName}"></c:out></a>
+                            </td>
+                            <td><c:out value="${svc.svcStart}"></c:out></td>
+                            <td><c:out value="${svc.svcEnd}"></c:out></td>
+                            <td>已被客户取消</td>
+                            <td></td>
+                        </tr>
+                    </c:if>
+                    <c:if test="${svc.svcPps=='4'}">
+                        <tr class="status4">
+                            <td><a href="customerDetail?id=${svc.svcCusid}"><c:out value="${svc.cusName}"></c:out></a>
+                            </td>
+                            <td><c:out value="${svc.svcStart}"></c:out></td>
+                            <td><c:out value="${svc.svcEnd}"></c:out></td>
+                            <td>已成交</td>
+                            <td>
+                                <a class="btn btn-success btn-sm">查看评价</a>
+                            </td>
+                        </tr>
+                    </c:if>
+                </c:forEach>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 <script src="assets/js/jquery-3.1.1.min.js"></script>
 <script src="assets/js/bootstrap.min.js"></script>
 </body>
 <script type="text/javascript">
-    $(document).ready(function(){
-        $(".panel").each(function(){
+    $(document).ready(function () {
+        $(".panel").each(function () {
             $(this).children(".panel-body").hide();
         });
 
-        $(".panel-heading").each(function(){
-            $(this).click(function(){
+        $(".panel-heading").each(function () {
+            $(this).click(function () {
 
-                if($(this).parents(".panel").children(".panel-body").css("display") != "none"){
+                if ($(this).parents(".panel").children(".panel-body").css("display") != "none") {
                     $(this).parents(".panel").children(".panel-body").slideUp();
-                }else{
+                } else {
                     $(this).parents(".panel").children(".panel-body").slideDown();
                 }
             });
@@ -191,17 +207,17 @@
         var id = $(_this).data("id");
 
         $.ajax({
-            url:"agreeRv",
-            data:{
-                id:id
+            url: "agreeRv",
+            data: {
+                id: id
             },
-            success:function () {
+            success: function () {
                 alert("接受预约");
                 $(_this).parents("tr").removeClass("status0").addClass("status1");
                 $(_this).parents("tr").children().eq(3).html("月嫂同意");
                 $(_this).parents("tr").children().eq(4).html("");
             },
-            error:function () {
+            error: function () {
                 alert("取消失败");
             }
         });
@@ -211,17 +227,17 @@
         var id = $(_this).data("id");
 
         $.ajax({
-            url:"cancelRv",
-            data:{
-                id:id
+            url: "cancelRv",
+            data: {
+                id: id
             },
-            success:function () {
+            success: function () {
                 alert("取消成功");
                 $(_this).parents("tr").removeClass("status0").addClass("status2");
                 $(_this).parents("tr").children().eq(3).html("月嫂拒绝");
                 $(_this).parents("tr").children().eq(4).html("");
             },
-            error:function () {
+            error: function () {
                 alert("取消失败");
             }
         });

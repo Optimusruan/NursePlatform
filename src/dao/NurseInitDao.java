@@ -11,12 +11,16 @@ import java.util.Random;
 /**
  * Created by Administrator on 2017/5/17.
  */
-public class NurseInitDao{
+public class NurseInitDao {
     private SessionFactory sessionFactory;
+
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
-    public NurseInitDao(){}
+
+    public NurseInitDao() {
+    }
+
     public void run() {
         Session session = sessionFactory.openSession();
 
@@ -26,7 +30,7 @@ public class NurseInitDao{
         int lengthOfNameDict = nameDict.length;
 
         //生成年龄字典
-        String[] ageDict = {"40","41","42","43","44","45","46","47","48","49","50"};
+        String[] ageDict = {"40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50"};
         int lengthOfAgeDict = ageDict.length;
 
         Random random = new Random(0);
@@ -35,31 +39,31 @@ public class NurseInitDao{
             NurseEntity nurseEntity = new NurseEntity();
             random.setSeed(i);
             //生成Id
-            nurseEntity.setNurId(i+1000);
+            nurseEntity.setNurId(i + 1000);
 
             //生成联系方式
-            nurseEntity.setNurIdno(new Integer(Math.abs(random.nextInt()%1000000000)).toString());
+            nurseEntity.setNurIdno(new Integer(Math.abs(random.nextInt() % 1000000000)).toString());
 
             //生成名字
-            int randomIndex1 = Math.abs(random.nextInt()%lengthOfNameDict);
-            int randomIndex2 = Math.abs(random.nextInt()%lengthOfNameDict);
-            int randomIndex3 = Math.abs(random.nextInt()%lengthOfNameDict);
-            nurseEntity.setNurName(nameDict[randomIndex1]+nameDict[randomIndex2]+nameDict[randomIndex3]);
+            int randomIndex1 = Math.abs(random.nextInt() % lengthOfNameDict);
+            int randomIndex2 = Math.abs(random.nextInt() % lengthOfNameDict);
+            int randomIndex3 = Math.abs(random.nextInt() % lengthOfNameDict);
+            nurseEntity.setNurName(nameDict[randomIndex1] + nameDict[randomIndex2] + nameDict[randomIndex3]);
 
             //生成年龄
-            nurseEntity.setNurAge(new Integer(ageDict[Math.abs(random.nextInt()%lengthOfAgeDict)]));
+            nurseEntity.setNurAge(new Integer(ageDict[Math.abs(random.nextInt() % lengthOfAgeDict)]));
 
             //生成等级
-            nurseEntity.setNurRank(i/500+1);
+            nurseEntity.setNurRank(i / 500 + 1);
 
             //生成用户名密码
-            nurseEntity.setNurUname("nurse"+(i+1));
-            nurseEntity.setNurPwd("nurse"+(i+1));
+            nurseEntity.setNurUname("nurse" + (i + 1));
+            nurseEntity.setNurPwd("nurse" + (i + 1));
 
             //生成住址
-            int provinceIndex = Math.abs(random.nextInt()%PlaceUtil.place.length);
-            int cityIndex = Math.abs(random.nextInt()%PlaceUtil.place[provinceIndex].length)-1;
-            String address = PlaceUtil.place[provinceIndex][0]+PlaceUtil.place[provinceIndex][1+cityIndex];
+            int provinceIndex = Math.abs(random.nextInt() % PlaceUtil.place.length);
+            int cityIndex = Math.abs(random.nextInt() % PlaceUtil.place[provinceIndex].length) - 1;
+            String address = PlaceUtil.place[provinceIndex][0] + PlaceUtil.place[provinceIndex][1 + cityIndex];
             nurseEntity.setNurAdd(address);
 
 
