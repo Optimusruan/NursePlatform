@@ -3,6 +3,8 @@ package service;
 import dao.CustomerDao;
 import dao.ServiceDetailDao;
 import model.CustomerEntity;
+import org.springframework.context.ApplicationContext;
+import org.springframework.web.context.ContextLoader;
 
 import java.util.List;
 

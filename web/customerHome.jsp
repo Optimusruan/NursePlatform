@@ -136,7 +136,7 @@
                 <c:forEach var="svc" items="${services}">
                     <c:if test="${svc.svcPps=='1'}">
                         <tr class="status1">
-                            <td><a href="nurseDetail.jsp?id=${svc.svcNurid}"><c:out value="${svc.nurName}"></c:out></a>
+                            <td><a href="nurseDetail?id=${svc.svcNurid}"><c:out value="${svc.nurName}"></c:out></a>
                             </td>
                             <td><c:out value="${svc.svcStart}"></c:out></td>
                             <td><c:out value="${svc.svcEnd}"></c:out></td>
@@ -150,7 +150,7 @@
                     </c:if>
                     <c:if test="${svc.svcPps=='0'}">
                         <tr class="status0">
-                            <td><a href="nurseDetail.jsp?id=${svc.svcNurid}"><c:out value="${svc.nurName}"></c:out></a>
+                            <td><a href="nurseDetail?id=${svc.svcNurid}"><c:out value="${svc.nurName}"></c:out></a>
                             </td>
                             <td><c:out value="${svc.svcStart}"></c:out></td>
                             <td><c:out value="${svc.svcEnd}"></c:out></td>
@@ -161,7 +161,7 @@
                     </c:if>
                     <c:if test="${svc.svcPps=='2'}">
                         <tr class="status2">
-                            <td><a href="nurseDetail.jsp?id=${svc.svcNurid}"><c:out value="${svc.nurName}"></c:out></a>
+                            <td><a href="nurseDetail?id=${svc.svcNurid}"><c:out value="${svc.nurName}"></c:out></a>
                             </td>
                             <td><c:out value="${svc.svcStart}"></c:out></td>
                             <td><c:out value="${svc.svcEnd}"></c:out></td>
@@ -172,7 +172,7 @@
                     </c:if>
                     <c:if test="${svc.svcPps=='3'}">
                         <tr class="status3">
-                            <td><a href="nurseDetail.jsp?id=${svc.svcNurid}"><c:out value="${svc.nurName}"></c:out></a>
+                            <td><a href="nurseDetail?id=${svc.svcNurid}"><c:out value="${svc.nurName}"></c:out></a>
                             </td>
                             <td><c:out value="${svc.svcStart}"></c:out></td>
                             <td><c:out value="${svc.svcEnd}"></c:out></td>
@@ -183,7 +183,7 @@
                     </c:if>
                     <c:if test="${svc.svcPps=='4'}">
                         <tr class="status4">
-                            <td><a href="nurseDetail.jsp?id=${svc.svcNurid}"><c:out value="${svc.nurName}"></c:out></a>
+                            <td><a href="nurseDetail?id=${svc.svcNurid}"><c:out value="${svc.nurName}"></c:out></a>
                             </td>
                             <td><c:out value="${svc.svcStart}"></c:out></td>
                             <td><c:out value="${svc.svcEnd}"></c:out></td>
@@ -229,7 +229,7 @@
                     </c:if>
                     <c:if test="${svc.svcPps=='5'}">
                         <tr class="status5">
-                            <td><a href="nurseDetail.jsp?id=${svc.svcNurid}"><c:out value="${svc.nurName}"></c:out></a></td>
+                            <td><a href="nurseDetail?id=${svc.svcNurid}"><c:out value="${svc.nurName}"></c:out></a></td>
                             <td><c:out value="${svc.svcStart}"></c:out></td>
                             <td><c:out value="${svc.svcEnd}"></c:out></td>
                             <td><c:out value="${svc.nurPrice}"></c:out></td>
@@ -244,7 +244,7 @@
     </div>
     <div class="panel">
         <div class="panel-heading">
-            <a href="searchNurse.jsp">筛选月嫂</a>
+            <a href="searchNurse">筛选月嫂</a>
         </div>
         <div class="panel-body">
         </div>
