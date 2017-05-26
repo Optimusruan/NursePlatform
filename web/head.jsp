@@ -34,6 +34,9 @@
         background: white;
         color: deeppink;
     }
+    .navbar-right{
+        padding-top: 0;
+    }
 </style>
 <nav id="top" class="navbar" role="navigation" style="background: #E91E63;">
     <div class="container-fluid">
@@ -64,12 +67,12 @@
                     </li>
                 </st:if>
                 <st:if test="${id!=null}">
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <li class="dropdown" >
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding: 11px">
                             <i class="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="${type}Home.jsp">我的主页</a></li>
+                            <li><a href="${type}Home?id=${id}">我的主页</a></li>
                             <li><a href="#">注销登陆</a></li>
                         </ul>
                     </li>
