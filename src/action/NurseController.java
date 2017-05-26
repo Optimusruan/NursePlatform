@@ -15,6 +15,10 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -95,6 +99,10 @@ public class NurseController {
                 }
             }
         }
+        String time = request.getParameter("startTime");
+        if(time!=null&&!time.equals("")){
+            cond.append("nur_id not in(select svc_nurid from service where svc_start<=").append(time).append(" and svc_end>=").append(time).append(" ");
+        }
         if (cond.toString().equals(" where ")) {
             cond.delete(0, cond.length());
         }
@@ -120,7 +128,10 @@ public class NurseController {
     }
 
     @RequestMapping("searchNurse")
-    public String searchNurse(Map model, HttpServletRequest request) {
+    public String searchNurse(Map model, HttpServletRequest request) throws ParseException {
+        Date date = new Date();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        model.put("nowTime",dateFormat.format(date));
         return "searchNurse";
     }
 

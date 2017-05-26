@@ -38,6 +38,7 @@ public class LoginController {
     }
     @RequestMapping("loginSystem")
     public String loginSystem(@RequestParam("userType") String userType,HttpServletRequest request,HttpServletResponse response){
+        request.getSession().setAttribute("userType",userType);
         return "redirect:"+userType+"Home?id="+ request.getSession().getAttribute("id");
     }
     @RequestMapping("test")

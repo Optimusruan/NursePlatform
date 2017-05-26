@@ -115,16 +115,6 @@
 //                }
 //            }
 //        });
-        var date = new Date();
-        var day = date.getDate();
-        var month = date.getMonth()+1;
-        var year = date.getFullYear();
-        var temp = (Number(day)+2*Number(month)+3*(Number(month)+1)/5+Number(year)+Number(year)/4-Number(year)/100+Number(year)/400)%7;
-        console.log(year);
-        console.log(month);
-        console.log(day);
-        console.log(date);
-        console.log(temp);
     });
 
 </script>

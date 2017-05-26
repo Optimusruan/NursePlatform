@@ -14,18 +14,25 @@
     <link rel="stylesheet" href="assets/font-awesome-4.7.0/css/font-awesome.min.css">
     <style>
         .block {
-            margin: 10px;
+            margin: 15% 70%;
             padding: 10px;
             height: auto;
             width: 300px;
             box-shadow: 5px 5px 5px #bbb;
             background: white;
+            z-index: 12;
+
         }
         .login-container{
-            background: url("assets/img/login.jpg") no-repeat;
-            padding-left:70%;
-            padding-top: 11%;
-            padding-bottom: 11%;
+
+            position: relative;
+            overflow: hidden;
+        }
+        .login-container>img{
+            position: absolute;
+            top:0;
+            left: 0;
+            z-index: -1;
         }
         .divideLine{
             text-align: center;
@@ -39,6 +46,7 @@
 <body>
 <div class="panel-heading" style="font-size: 2em">育婴平台</div>
 <div class="login-container">
+    <img src="assets/img/login.jpg" alt="" width="1920">
     <div class="block">
         <form action="loginSystem" class="form-horizontal" method="post" id="loginForm">
             <div class="form-group firstInput">

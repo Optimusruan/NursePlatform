@@ -127,6 +127,7 @@
                     rankCond:$("#rankCond").val(),
                     nurseName:$("#nurseName").val(),
                     addCond:$("#addCond").val(),
+                    startTime:$("#startTime").val(),
                     order: $("#order").val()
                 },
                 success: function (data) {
