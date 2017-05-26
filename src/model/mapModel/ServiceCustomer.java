@@ -1,13 +1,12 @@
 package model.mapModel;
 
-import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 
 /**
  * Created by hp on 2017/5/23.
  */
 
-@Entity(name = "servicecustomer")
+
 public class ServiceCustomer {
     private Integer svcId;
     private Integer svcCusid;
@@ -22,8 +21,24 @@ public class ServiceCustomer {
     private Byte svcAble;
     private String cusName;
 
-    @Id
-    @Column(name = "svc_id", nullable = false)
+    public ServiceCustomer(Integer svcId, Integer svcCusid, Integer svcNurid, Integer svcStatus, Integer svcPps, Date svcStart, Date svcEnd, String svcComment, Integer svcLevel, Date svcDate, Byte svcAble, String cusName) {
+        this.svcId = svcId;
+        this.svcCusid = svcCusid;
+        this.svcNurid = svcNurid;
+        this.svcStatus = svcStatus;
+        this.svcPps = svcPps;
+        this.svcStart = svcStart;
+        this.svcEnd = svcEnd;
+        this.svcComment = svcComment;
+        this.svcLevel = svcLevel;
+        this.svcDate = svcDate;
+        this.svcAble = svcAble;
+        this.cusName = cusName;
+    }
+
+    public ServiceCustomer() {
+    }
+
     public Integer getSvcId() {
         return svcId;
     }
@@ -32,8 +47,6 @@ public class ServiceCustomer {
         this.svcId = svcId;
     }
 
-    @Basic
-    @Column(name = "svc_cusid", nullable = false)
     public Integer getSvcCusid() {
         return svcCusid;
     }
@@ -42,8 +55,6 @@ public class ServiceCustomer {
         this.svcCusid = svcCusid;
     }
 
-    @Basic
-    @Column(name = "svc_nurid", nullable = false)
     public Integer getSvcNurid() {
         return svcNurid;
     }
@@ -52,18 +63,14 @@ public class ServiceCustomer {
         this.svcNurid = svcNurid;
     }
 
-    @Basic
-    @Column(name = "svc_status", nullable = false)
-    public Integer getSvcStatus(int svcStatus) {
-        return this.svcStatus;
+    public Integer getSvcStatus() {
+        return svcStatus;
     }
 
     public void setSvcStatus(Integer svcStatus) {
         this.svcStatus = svcStatus;
     }
 
-    @Basic
-    @Column(name = "svc_pps", nullable = false)
     public Integer getSvcPps() {
         return svcPps;
     }
@@ -72,8 +79,6 @@ public class ServiceCustomer {
         this.svcPps = svcPps;
     }
 
-    @Basic
-    @Column(name = "svc_start", nullable = false)
     public Date getSvcStart() {
         return svcStart;
     }
@@ -82,8 +87,6 @@ public class ServiceCustomer {
         this.svcStart = svcStart;
     }
 
-    @Basic
-    @Column(name = "svc_end", nullable = false)
     public Date getSvcEnd() {
         return svcEnd;
     }
@@ -92,8 +95,6 @@ public class ServiceCustomer {
         this.svcEnd = svcEnd;
     }
 
-    @Basic
-    @Column(name = "svc_comment", nullable = false, length = 500)
     public String getSvcComment() {
         return svcComment;
     }
@@ -102,8 +103,6 @@ public class ServiceCustomer {
         this.svcComment = svcComment;
     }
 
-    @Basic
-    @Column(name = "svc_level", nullable = false)
     public Integer getSvcLevel() {
         return svcLevel;
     }
@@ -112,8 +111,6 @@ public class ServiceCustomer {
         this.svcLevel = svcLevel;
     }
 
-    @Basic
-    @Column(name = "svc_date", nullable = false)
     public Date getSvcDate() {
         return svcDate;
     }
@@ -122,8 +119,6 @@ public class ServiceCustomer {
         this.svcDate = svcDate;
     }
 
-    @Basic
-    @Column(name = "svc_able", nullable = false)
     public Byte getSvcAble() {
         return svcAble;
     }
@@ -132,29 +127,11 @@ public class ServiceCustomer {
         this.svcAble = svcAble;
     }
 
-    @Basic
-    @Column(name = "cus_name", nullable = false, length = 20)
     public String getCusName() {
         return cusName;
     }
 
     public void setCusName(String cusName) {
         this.cusName = cusName;
-    }
-
-    public void ServiceCustomer(Integer svcStatus,Integer svcLevel,Date svcEnd,Byte svcAble,String svcComment,Integer svcCusid,Date svcDate,Integer svcId,Integer svcPps,Date svcStart,String cusName){
-           //                           s.svcStatus,  s.svcLevel,   s.svcEnd,   s.svcAble,     s.svcComment,  s.svcCusid,   s.svcDate,  s.svcId,  s.svcPps,   s.svcStart,     c.cusName
-        this.setSvcStatus(svcStatus);
-        this.setSvcStart(svcStart);
-        this.setSvcEnd(svcEnd);
-        this.setSvcCusid(svcCusid);
-        this.setSvcDate(svcDate);
-        this.setSvcPps(svcPps);
-        this.setSvcLevel(svcLevel);
-        this.setSvcComment(svcComment);
-        this.setSvcId(svcId);
-        this.setCusName(cusName);
-        this.setSvcId(svcId);
-        this.setSvcAble(svcAble);
     }
 }

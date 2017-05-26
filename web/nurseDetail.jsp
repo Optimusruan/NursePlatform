@@ -71,6 +71,9 @@
             </div>
         </div>
     </div>
+    <div class="panel select-time">
+
+    </div>
 </div>
 <script src="assets/js/jquery-3.1.1.min.js"></script>
 <script src="assets/js/bootstrap.min.js"></script>
@@ -93,26 +96,37 @@
         })
     });
     $("#appoint").on("click",function () {
-        var obj = $(this);
-        var message = ["取消","预约"];
-        var opt = obj.attr("data-id");
-        $.ajax({
-            url:"appoint",
-            data:{
-                opt:opt,
-                id :"<c:out value="${info.nurId}"/>"
-            },
-            success:function (data) {
-                if(data=="error")
-                {
-                    alert(message[opt]+"失败，请重试");
-                }
-                else if(data=="login"){
-                    alert("请先登录");
-                }
-            }
-        });
+//        var obj = $(this);
+//        var message = ["取消","预约"];
+//        var opt = obj.attr("data-id");
+//        $.ajax({
+//            url:"appoint",
+//            data:{
+//                opt:opt,
+                <%--id :"<c:out value="${info.nurId}"/>"--%>
+//            },
+//            success:function (data) {
+//                if(data=="error")
+//                {
+//                    alert(message[opt]+"失败，请重试");
+//                }
+//                else if(data=="login"){
+//                    alert("请先登录");
+//                }
+//            }
+//        });
+        var date = new Date();
+        var day = date.getDate();
+        var month = date.getMonth()+1;
+        var year = date.getFullYear();
+        var temp = (Number(day)+2*Number(month)+3*(Number(month)+1)/5+Number(year)+Number(year)/4-Number(year)/100+Number(year)/400)%7;
+        console.log(year);
+        console.log(month);
+        console.log(day);
+        console.log(date);
+        console.log(temp);
     });
+
 </script>
 </body>
 </html>

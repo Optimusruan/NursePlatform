@@ -110,7 +110,7 @@
                     <c:forEach items="${services}" var="svc">
                         <c:if test="${svc.svcPps=='0'}">
                             <tr class="status0">
-                                <td><a href="customerDetail.jsp?id=${svc.svcCusid}"><c:out value="${svc.cusName}"></c:out></a></td>
+                                <td><a href="customerDetail?id=${svc.svcCusid}"><c:out value="${svc.cusName}"></c:out></a></td>
                                 <td><c:out value="${svc.svcStart}"></c:out></td>
                                 <td><c:out value="${svc.svcEnd}"></c:out></td>
                                 <td>待处理</td>
@@ -122,7 +122,7 @@
                         </c:if>
                         <c:if test="${svc.svcPps=='1'}">
                             <tr class="status1">
-                                <td><a href="customerDetail.jsp?id=${svc.svcCusid}"><c:out value="${svc.cusName}"></c:out></a></td>
+                                <td><a href="customerDetail?id=${svc.svcCusid}"><c:out value="${svc.cusName}"></c:out></a></td>
                                 <td><c:out value="${svc.svcStart}"></c:out></td>
                                 <td><c:out value="${svc.svcEnd}"></c:out></td>
                                 <td>已同意等待客户处理</td>
@@ -131,7 +131,7 @@
                         </c:if>
                         <c:if test="${svc.svcPps=='2'}">
                             <tr class="status2">
-                                <td><a href="customerDetail.jsp?id=${svc.svcCusid}"><c:out value="${svc.cusName}"></c:out></a></td>
+                                <td><a href="customerDetail?id=${svc.svcCusid}"><c:out value="${svc.cusName}"></c:out></a></td>
                                 <td><c:out value="${svc.svcStart}"></c:out></td>
                                 <td><c:out value="${svc.svcEnd}"></c:out></td>
                                 <td>已拒绝</td>
@@ -140,7 +140,7 @@
                         </c:if>
                         <c:if test="${svc.svcPps=='3'}">
                             <tr class="status3">
-                                <td><a href="customerDetail.jsp?id=${svc.svcCusid}"><c:out value="${svc.cusName}"></c:out></a></td>
+                                <td><a href="customerDetail?id=${svc.svcCusid}"><c:out value="${svc.cusName}"></c:out></a></td>
                                 <td><c:out value="${svc.svcStart}"></c:out></td>
                                 <td><c:out value="${svc.svcEnd}"></c:out></td>
                                 <td>已被客户取消</td>
@@ -149,7 +149,7 @@
                         </c:if>
                         <c:if test="${svc.svcPps=='4'}">
                             <tr class="status4">
-                                <td><a href="customerDetail.jsp?id=${svc.svcCusid}"><c:out value="${svc.cusName}"></c:out></a></td>
+                                <td><a href="customerDetail?id=${svc.svcCusid}"><c:out value="${svc.cusName}"></c:out></a></td>
                                 <td><c:out value="${svc.svcStart}"></c:out></td>
                                 <td><c:out value="${svc.svcEnd}"></c:out></td>
                                 <td>已成交</td>

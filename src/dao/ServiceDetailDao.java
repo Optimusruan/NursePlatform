@@ -1,6 +1,5 @@
 package dao;
 
-import model.CustomerEntity;
 import model.NurseEntity;
 import model.ServiceEntity;
 import org.hibernate.Session;
@@ -24,30 +23,30 @@ public class ServiceDetailDao{
 
     public List getNurseService(String id) {
         Session session = sessionFactory.openSession();
-        Query query = session.createQuery("from  ServiceEntity s,CustomerEntity c where s.svcCusid=c.cusId and s.svcNurid=?");
+        Query query = session.createQuery("select new model.mapModel.ServiceCustomer(s.svcId,s.svcCusid,s.svcNurid, s.svcStatus, s.svcPps, s.svcStart, s.svcEnd, s.svcComment, s.svcLevel,s.svcDate,s.svcAble,c.cusName) from  ServiceEntity s,CustomerEntity c where s.svcCusid=c.cusId and s.svcNurid=?");
         query.setParameter(0,Integer.parseInt(id));
         List list = query.list();
-        //list里面生成两个对象，一个service类，一个customer类
-        for (int i=0;i<list.size();i++){
-            Object obj[] = (Object[]) list.get(i);
-            ServiceEntity s = (ServiceEntity) obj[0];
-            CustomerEntity c = (CustomerEntity) obj[1];
-            Map map = new HashMap();
-            map.put("svcStatus",s.getSvcStatus());
-            map.put("svcStart",s.getSvcStart());
-            map.put("svcEnd",s.getSvcEnd());
-            map.put("svcAble",s.getSvcAble());
-            map.put("svcLevel",s.getSvcLevel());
-            map.put("svcComment",s.getSvcComment());
-            map.put("svcCusid",s.getSvcCusid());
-            map.put("svcDate",s.getSvcDate());
-            map.put("svcPps",s.getSvcPps());
-            map.put("svcId",s.getSvcId());
-            map.put("cusName",c.getCusName());
-
-            list.set(i,map);
-        }
-
+//        //list里面生成两个对象，一个service类，一个customer类
+//        for (int i=0;i<list.size();i++){
+//            Object obj[] = (Object[]) list.get(i);
+//            ServiceEntity s = (ServiceEntity) obj[0];
+//            CustomerEntity c = (CustomerEntity) obj[1];
+//            Map map = new HashMap();
+//            map.put("svcStatus",s.getSvcStatus());
+//            map.put("svcStart",s.getSvcStart());
+//            map.put("svcEnd",s.getSvcEnd());
+//            map.put("svcAble",s.getSvcAble());
+//            map.put("svcLevel",s.getSvcLevel());
+//            map.put("svcComment",s.getSvcComment());
+//            map.put("svcCusid",s.getSvcCusid());
+//            map.put("svcDate",s.getSvcDate());
+//            map.put("svcPps",s.getSvcPps());
+//            map.put("svcId",s.getSvcId());
+//            map.put("cusName",c.getCusName());
+//
+//            list.set(i,map);
+//        }
+        System.out.println(list.size());
         session.close();
         return list;
     }
@@ -103,7 +102,7 @@ public class ServiceDetailDao{
             serviceEntity.setSvcNurid(Integer.parseInt(nurseId));
             serviceEntity.setSvcCusid(Integer.parseInt(customerId));
             serviceEntity.setSvcPps(0);
-            serviceEntity.setSvcAble(1);
+            serviceEntity.setSvcAble((byte) 1);
             session.save(serviceEntity);
             tx.commit();
             session.close();
@@ -135,8 +134,14 @@ public class ServiceDetailDao{
     }
     public boolean getServiceStatusByTwoId(String nurseId,String customerId){
         Session session = sessionFactory.openSession();
-        if (session.createQuery("from ServiceEntity where svcAble=1 svcNurid=" + nurseId + " and svcCusid=" + customerId).list().size()>0)
+        if (session.createQuery("from ServiceEntity where svcAble=1 and svcNurid=" + nurseId + " and svcCusid=" + customerId).list().size()>0)
+        {
+            session.close();
+            return false;
+        }
+        else{
+            session.close();
             return true;
-        else return false;
+        }
     }
 }

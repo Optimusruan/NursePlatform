@@ -25,6 +25,9 @@
                 <prop key="hibernate.dialect">
                     org.hibernate.dialect.MySQLDialect
                 </prop>
+                <prop key="connection.pool_size">
+                    20
+                </prop>
             </props>
         </property>
     </bean>

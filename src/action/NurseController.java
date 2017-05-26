@@ -52,9 +52,9 @@ public class NurseController {
         NurseService nurseService = (NurseService) ServiceConstructor.newService("nurseService",request);
         model.put("info", nurseService.getDetail(id, 1));
         if(request.getSession().getAttribute("id")!=null&&!request.getSession().getAttribute("id").equals("")){
-
+            model.put("appoint",nurseService.isAppoint(id,request.getSession().getAttribute("id").toString()));
         }else {
-            model.put("appoint",false);
+            model.put("appoint",true);
         }
         return "nurseDetail";
     }
@@ -161,7 +161,7 @@ public class NurseController {
         NurseService nurseService = (NurseService) ServiceConstructor.newService("nurseService",request);
         if(session.getAttribute("id")!=null&&!session.getAttribute("id").equals("")) {
             if (id != null && !id.equals("")) {
-                printWriter.print(nurseService.processRv(id, (String) session.getAttribute("id"),opt)?"success":"error");
+                printWriter.print(nurseService.processRv(id, session.getAttribute("id").toString(),opt)?"success":"error");
             } else {
                 printWriter.print("error");
             }

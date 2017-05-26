@@ -88,6 +88,9 @@ public class NurseService {
             return false;
         }
     }
+    public boolean isAppoint(String nurseId,String customerId){
+        return serviceDetailDao.getServiceStatusByTwoId(nurseId,customerId);
+    }
 
     public boolean agreeRv(String id) {
         return serviceDetailDao.maniRv(id, 1);

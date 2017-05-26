@@ -21,7 +21,7 @@
             background-size: cover;
         }
         .form-control{
-            border: 0px solid transparent;
+            border: 0 solid transparent;
             box-shadow: none;
         }
         .fa{

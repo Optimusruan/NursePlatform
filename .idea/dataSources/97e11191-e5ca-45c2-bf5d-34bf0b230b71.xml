@@ -182,6 +182,7 @@
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
     </column>
     <column id="50" parent="11" name="svc_cusid">
       <Position>2</Position>
