@@ -39,7 +39,9 @@ public class NurseController {
 
     @RequestMapping("nurseHome")
     public String nurseHome(@RequestParam("id") String id, Map model, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        if (request.getSession().getAttribute("id") != null && request.getSession().getAttribute("id").toString().equals(id)) {
+        Object loginId = request.getSession().getAttribute("id");
+        Object loginType = request.getSession().getAttribute("userType");
+        if ( loginId!= null && loginId.toString().equals(id)&loginType!=null&&loginType.toString().equals("nurse")) {
             NurseService nurseService = (NurseService) ServiceConstructor.newService("nurseService",request);
             model.put("info", nurseService.getDetailByHome(id));
             model.put("services", nurseService.getNurseServices(id));
@@ -54,6 +56,8 @@ public class NurseController {
     @RequestMapping("nurseDetail")
     public String nurseDetail(@RequestParam("id") String id, Map model, HttpServletRequest request) {
         NurseService nurseService = (NurseService) ServiceConstructor.newService("nurseService",request);
+        Object loginId = request.getSession().getAttribute("id");
+        Object loginType = request.getSession().getAttribute("userType");
         model.put("info", nurseService.getDetail(id, 1));
         if(request.getSession().getAttribute("id")!=null&&!request.getSession().getAttribute("id").equals("")){
             model.put("appoint",nurseService.isAppoint(id,request.getSession().getAttribute("id").toString()));
@@ -101,7 +105,7 @@ public class NurseController {
         }
         String time = request.getParameter("startTime");
         if(time!=null&&!time.equals("")){
-            cond.append("nur_id not in(select svc_nurid from service where svc_start<=").append(time).append(" and svc_end>=").append(time).append(" ");
+            cond.append("nur_id not in(select svcNurid from ServiceEntity where svc_start<=").append(time).append(" and svc_end>=").append(time).append(") ");
         }
         if (cond.toString().equals(" where ")) {
             cond.delete(0, cond.length());
@@ -171,9 +175,19 @@ public class NurseController {
         PrintWriter printWriter = response.getWriter();
         NurseService nurseService = (NurseService) ServiceConstructor.newService("nurseService",request);
         if(session.getAttribute("id")!=null&&!session.getAttribute("id").equals("")) {
-            if (id != null && !id.equals("")) {
-                printWriter.print(nurseService.processRv(id, session.getAttribute("id").toString(),opt)?"success":"error");
-            } else {
+            if(session.getAttribute("userType")!=null&&!session.getAttribute("userType").equals("")){
+                if(session.getAttribute("userType").equals("customer")){
+                    if (id != null && !id.equals("")) {
+                        printWriter.print(nurseService.processRv(id, session.getAttribute("id").toString(),opt)?"success":"error");
+                    } else {
+                        printWriter.print("error");
+                    }
+                }
+                else{
+                    printWriter.print("typeError");
+                }
+            }
+            else{
                 printWriter.print("error");
             }
         }else{

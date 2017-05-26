@@ -424,6 +424,7 @@
 
     //加载内容
     function loadContent() {
+        var cache = $("#list").html();
         $("#list").html("<img src=\"assets/img/loading.gif\" alt=\"\" width=\"300\" style='position: absolute;left: 350px;'>");
         $.ajax({
             url: "nurseList",
@@ -444,7 +445,7 @@
                 console.log(xhr);
                 if (xhr.statusText == "timeout") {
                     alert("连接超时，请检查网路");
-                    $("#list").children().remove();
+                    $("#list").html(cache);
                 }
             }
         });
@@ -494,6 +495,7 @@
             $("#time").addClass("hide");
             $("#allCondition").append("<a href='#' onclick='del(this,3);return false;'><span>" + $(this).val() + "</span><i class='fa fa-close'></i></a>");
             $(this).val("");
+            loadContent();
         }
     })
 </script>

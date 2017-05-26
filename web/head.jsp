@@ -20,10 +20,10 @@
         background: white;
         color: deeppink;
     }
-    .fa{
+    nav>.fa{
         color: white;
     }
-    .fa:focus,.fa:hover{
+    nav>.fa:focus,nav>.fa:hover{
         color: deeppink;
     }
     .dropdown-menu{

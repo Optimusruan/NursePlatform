@@ -20,7 +20,9 @@ import java.util.Map;
 public class CustomerController {
     @RequestMapping("customerHome")
     public String customerHome(@RequestParam("id") String id, Map model, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        if(request.getSession().getAttribute("id")!=null&&request.getSession().getAttribute("id").toString().equals(id))
+        Object loginId = request.getSession().getAttribute("id");
+        Object loginType = request.getSession().getAttribute("userType");
+        if( loginId!= null && loginId.toString().equals(id)&loginType!=null&&loginType.toString().equals("customer"))
         {
             CustomerService customerService = (CustomerService) ServiceConstructor.newService("customerService",request);
             model.put("info",customerService.getDetailByHome(id));
