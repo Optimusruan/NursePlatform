@@ -17,25 +17,33 @@
         body {
             text-align: center;
         }
-        .status0{
-            background-color:#f06292 ;
+
+        .status0 {
+            background-color: #f06292;
         }
-        .status1{
-            background-color:#f48fb1 ;
+
+        .status1 {
+            background-color: #f48fb1;
         }
-        .status2{
-            background-color:#f8bbd0 ;
+
+        .status2 {
+            background-color: #f8bbd0;
         }
-        .status3{
-            background-color:#ff5177 ;
+
+        .status3 {
+            background-color: #ff5177;
         }
-        .status4{
-            background-color:#e91e63 ;
+
+        .status4 {
+            background-color: #e91e63;
         }
+
         .status5{
             background-color:darkgrey ;
         }
         .panel-heading{
+
+        .panel-heading {
             width: auto;
             height: auto;
             text-align: center;
@@ -44,18 +52,22 @@
             margin: 10px;
             padding: 10px;
         }
-        .panel-heading a{
+
+        .panel-heading a {
             font-size: 2em;
             color: white;
         }
+
         .panel-heading a:hover {
             color: lightyellow;
-            text-decoration:none;
+            text-decoration: none;
         }
-        .panel-heading:hover{
+
+        .panel-heading:hover {
             background: #EC2D6E;
         }
-        .container{
+
+        .container {
             margin-top: 10%;
         }
     </style>
@@ -72,15 +84,15 @@
         </div>
         <div class="panel-body">
             <div class="row">
-                <div class="col-lg-2"></div>
-                <div class="col-lg-2"><img src="" alt=""></div>
+                <div class="col-lg-3"></div>
+                <div class="col-lg-3"><img src="" alt=""></div>
                 <div class="col-lg-6">
                     <div class="row">
-                        <div class="col-lg-2"><label>姓名:</label></div>
-                        <div class="col-lg-10"><c:out value="${info.cusName}"/></div>
+                        <div class="col-lg-3"><label>姓名:</label></div>
+                        <div class="col-lg-9"><c:out value="${info.cusName}"/></div>
                     </div>
                     <div class="row">
-                        <label class="col-lg-2">登录名:</label>
+                        <label class="col-lg-3">登录名:</label>
                         <div class="col-lg-9"><c:out value="${info.cusUname}"/></div>
                     </div>
                     <div class="row">
@@ -111,7 +123,7 @@
         <div class="panel-body">
             <table class="table">
                 <thead>
-                <tr >
+                <tr>
                     <th>预约对象</th>
                     <th>开始时间</th>
                     <th>结束时间</th>
@@ -124,20 +136,22 @@
                 <c:forEach var="svc" items="${services}">
                     <c:if test="${svc.svcPps=='1'}">
                         <tr class="status1">
-                            <td><a href="nurseDetail.jsp?id=${svc.svcNurid}"><c:out value="${svc.nurName}"></c:out></a></td>
+                            <td><a href="nurseDetail.jsp?id=${svc.svcNurid}"><c:out value="${svc.nurName}"></c:out></a>
+                            </td>
                             <td><c:out value="${svc.svcStart}"></c:out></td>
                             <td><c:out value="${svc.svcEnd}"></c:out></td>
                             <td><c:out value="${svc.nurPrice}"></c:out></td>
                             <td>待处理</td>
                             <td>
-                                <a href="javascript:;" data-id="${svc.svcId}" class="btn btn-default btn-sm confirmRv" >确定预约</a>
-                                <a href="javascript:;" data-id="${svc.svcId}" class="btn btn-danger btn-sm cancelRv" >取消预约</a>
+                                <a href="javascript:;" data-id="${svc.svcId}" class="btn btn-default btn-sm confirmRv">确定预约</a>
+                                <a href="javascript:;" data-id="${svc.svcId}" class="btn btn-danger btn-sm cancelRv">取消预约</a>
                             </td>
                         </tr>
                     </c:if>
                     <c:if test="${svc.svcPps=='0'}">
                         <tr class="status0">
-                            <td><a href="nurseDetail.jsp?id=${svc.svcNurid}"><c:out value="${svc.nurName}"></c:out></a></td>
+                            <td><a href="nurseDetail.jsp?id=${svc.svcNurid}"><c:out value="${svc.nurName}"></c:out></a>
+                            </td>
                             <td><c:out value="${svc.svcStart}"></c:out></td>
                             <td><c:out value="${svc.svcEnd}"></c:out></td>
                             <td><c:out value="${svc.nurPrice}"></c:out></td>
@@ -147,7 +161,8 @@
                     </c:if>
                     <c:if test="${svc.svcPps=='2'}">
                         <tr class="status2">
-                            <td><a href="nurseDetail.jsp?id=${svc.svcNurid}"><c:out value="${svc.nurName}"></c:out></a></td>
+                            <td><a href="nurseDetail.jsp?id=${svc.svcNurid}"><c:out value="${svc.nurName}"></c:out></a>
+                            </td>
                             <td><c:out value="${svc.svcStart}"></c:out></td>
                             <td><c:out value="${svc.svcEnd}"></c:out></td>
                             <td><c:out value="${svc.nurPrice}"></c:out></td>
@@ -157,7 +172,8 @@
                     </c:if>
                     <c:if test="${svc.svcPps=='3'}">
                         <tr class="status3">
-                            <td><a href="nurseDetail.jsp?id=${svc.svcNurid}"><c:out value="${svc.nurName}"></c:out></a></td>
+                            <td><a href="nurseDetail.jsp?id=${svc.svcNurid}"><c:out value="${svc.nurName}"></c:out></a>
+                            </td>
                             <td><c:out value="${svc.svcStart}"></c:out></td>
                             <td><c:out value="${svc.svcEnd}"></c:out></td>
                             <td><c:out value="${svc.nurPrice}"></c:out></td>
@@ -167,7 +183,8 @@
                     </c:if>
                     <c:if test="${svc.svcPps=='4'}">
                         <tr class="status4">
-                            <td><a href="nurseDetail.jsp?id=${svc.svcNurid}"><c:out value="${svc.nurName}"></c:out></a></td>
+                            <td><a href="nurseDetail.jsp?id=${svc.svcNurid}"><c:out value="${svc.nurName}"></c:out></a>
+                            </td>
                             <td><c:out value="${svc.svcStart}"></c:out></td>
                             <td><c:out value="${svc.svcEnd}"></c:out></td>
                             <td><c:out value="${svc.nurPrice}"></c:out></td>
@@ -264,17 +281,17 @@
         var id = $(_this).data("id");
 
         $.ajax({
-            url:"confirmRv",
-            data:{
-                id:id
+            url: "confirmRv",
+            data: {
+                id: id
             },
-            success:function (data) {
+            success: function (data) {
                 alert("确认成功");
                 $(_this).parents("tr").removeClass("status2").addClass("status4");
                 $(_this).parents("tr").children().eq(4).html("已成交");
                 $(_this).parents("tr").children().eq(5).html("<a class='btn btn-warning btn-sm'>去评价</a>");
             },
-            error:function () {
+            error: function () {
                 alert("确认失败");
             }
         });
@@ -284,17 +301,17 @@
         var id = $(_this).data("id");
 
         $.ajax({
-            url:"cancelRv",
-            data:{
-                id:id
+            url: "cancelRv",
+            data: {
+                id: id
             },
-            success:function () {
+            success: function () {
                 alert("取消成功");
                 $(_this).parents("tr").removeClass("status2").addClass("status3");
                 $(_this).parents("tr").children().eq(4).html("客户取消");
                 $(_this).parents("tr").children().eq(5).html("");
             },
-            error:function () {
+            error: function () {
                 alert("取消失败");
             }
         });

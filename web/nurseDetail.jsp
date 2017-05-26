@@ -58,12 +58,21 @@
                 </div>
             </div>
             <div class="col-lg-6">
-                <div class="row"><img src="" alt=""></div>
+                <div class="row">
+                    <img src="" alt=""></div>
                 <div class="row" style="text-align: center">
-                    <button id="appoint" class="btn btn-warning" style="width: 50%;">我要预约</button>
+                    <c:if test="${appoint}">
+                        <button id="appoint" class="btn btn-warning" style="width: 50%;" data-id="1">我要预约</button>
+                    </c:if>
+                    <c:if test="${!appoint}">
+                        <button id="appoint" class="btn btn-danger" style="width: 50%;" data-id="0">取消预约</button>
+                    </c:if>
                 </div>
             </div>
         </div>
+    </div>
+    <div class="panel select-time">
+
     </div>
 </div>
 <script src="assets/js/jquery-3.1.1.min.js"></script>
@@ -86,7 +95,28 @@
             }
         })
     });
-    $("#")
+    $("#appoint").on("click", function () {
+//        var obj = $(this);
+//        var message = ["取消","预约"];
+//        var opt = obj.attr("data-id");
+//        $.ajax({
+//            url:"appoint",
+//            data:{
+//                opt:opt,
+        <%--id :"<c:out value="${info.nurId}"/>"--%>
+//            },
+//            success:function (data) {
+//                if(data=="error")
+//                {
+//                    alert(message[opt]+"失败，请重试");
+//                }
+//                else if(data=="login"){
+//                    alert("请先登录");
+//                }
+//            }
+//        });
+    });
+
 </script>
 </body>
 </html>

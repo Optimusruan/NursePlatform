@@ -15,28 +15,34 @@
         .register-container {
             margin: 0 auto;
         }
+
         .register-icon {
             font-size: 20em;
             text-align: center;
             transition-property: font-size;
             transition-duration: 0.7s;
         }
-        .register-icon:hover{
+
+        .register-icon:hover {
             font-size: 28em;
         }
+
         .register-title {
             text-align: center;
             font-size: 2em;
         }
-        .register-type a:link,.register-type a:visited{
+
+        .register-type a:link, .register-type a:visited {
             color: #bbb;
 
         }
-        .register-type a:hover{
+
+        .register-type a:hover {
             color: deeppink;
             text-decoration: none;
         }
-        .register-type a{
+
+        .register-type a {
             display: block;
             height: auto;
         }

@@ -8,51 +8,51 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <div class="row">
-<c:forEach items="${info}" var="item">
-    <div class="itemContainer nurseList">
-        <a href="nurseDetail?id=<c:out value="${item.nurId}"/>">
-            <div class="itemImg">
-                <c:choose>
-                    <c:when test="${item.nurAvt!=null}">
-                        <img src="<c:out value="${item.nurAvt}"/>"  alt="">
-                    </c:when>
-                    <c:otherwise>
-                        <img src="assets/img/home1.jpg" alt="" width="155" height="200">
-                    </c:otherwise>
-                </c:choose>
-            </div>
-            <div class="itemInfo">
-                <div>
-                    <label>姓名</label>
-                    <span><c:out value="${item.nurName}"/></span>
+    <c:forEach items="${info}" var="item">
+        <div class="itemContainer nurseList">
+            <a href="nurseDetail?id=<c:out value="${item.nurId}"/>">
+                <div class="itemImg">
+                    <c:choose>
+                        <c:when test="${item.nurAvt!=null}">
+                            <img src="<c:out value="${item.nurAvt}"/>" alt="">
+                        </c:when>
+                        <c:otherwise>
+                            <img src="assets/img/home1.jpg" alt="" width="155" height="200">
+                        </c:otherwise>
+                    </c:choose>
                 </div>
-                <div>
-                    <label>星级</label>
-                    <span>
+                <div class="itemInfo">
+                    <div>
+                        <label>姓名</label>
+                        <span><c:out value="${item.nurName}"/></span>
+                    </div>
+                    <div>
+                        <label>星级</label>
+                        <span>
                         <c:forEach begin="1" step="1" end="${item.nurRank}">
                             <i class="fa fa-star"></i>
                         </c:forEach>
                     </span>
+                    </div>
+                    <div>
+                        <label>价格</label>
+                        <span><c:out value="${item.nurPrice}"/>/天</span>
+                    </div>
                 </div>
-                <div>
-                    <label>价格</label>
-                    <span><c:out value="${item.nurPrice}"/>/天</span>
-                </div>
-            </div>
-        </a>
-    </div>
-</c:forEach>
+            </a>
+        </div>
+    </c:forEach>
 </div>
 <div class="row pageNavi">
     <nav aria-label="Page navigation" class="pageNavi col-lg-6">
         <ul class="pagination">
-            <li class="pre">
-                <a href="#" aria-label="Previous"  onclick="return false;">
+            <li id="pre">
+                <a href="#" aria-label="Previous" onclick="return false;">
                     <span aria-hidden="true">&laquo;</span>
                 </a>
             </li>
-            <li class="post">
-                <a href="#" aria-label="Next"  onclick="return false;">
+            <li id="post">
+                <a href="#" aria-label="Next" onclick="return false;">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
             </li>
@@ -72,24 +72,24 @@
     //渲染分页按钮
     if (maxPage <= 5) {
         var str = "";
-        $(".pre").addClass("disabled");
+        $("#pre").addClass("disabled");
         if (maxPage == 1) {
-            $(".post").addClass("disabled");
+            $("#post").addClass("disabled");
         }
         str = str + "<li class=\"allNurse active\"><a href=\"#\">1</a></li>";
         for (var i = 1; i < maxPage; i++)
             str = str + "<li class=\"allNurse \"><a href=\"#\">" + (i + 1) + "</a></li>";
-        $(".pre").after(str);
+        $("#pre").after(str);
     }
     else {
-        $(".pre").addClass("disabled");
+        $("#pre").addClass("disabled");
         var str = "";
         str = str + "<li class=\"allNurse active\"><a href=\"#\">1</a></li>";
         for (var i = 1; i < 5; i++) {
             str = str + "<li class=\"allNurse\"><a href=\"#\">" + (i + 1) + "</a></li>";
         }
         str += "<li class='disabled more'><a href='#' onclick='return false;' >....</a></li>";
-        $(".pre").after(str);
+        $("#pre").after(str);
     }
 
     //点击分页按钮加载该页内容
@@ -102,75 +102,74 @@
     });
 
     //处理前后跳转
-    $(".pre").on("click", function () {
+    $("#pre").on("click", function () {
+
         if (now != 1) {
             load(now - 1);
         }
     });
-    $(".post").on("click", function () {
-        if (now < maxPage) {
+    $("#post").on("click", function () {
+        if (Number(now) < maxPage) {
             load(Number(now) + 1);
         }
     });
 
     //加载内容
     function load(temp) {
-        if(ajaxLocker) {
-            ajaxLocker = false;
-            $("#list").html("<img src=\"assets/img/loading.gif\" alt=\"\" width=\"300\" style='position: absolute;left: 350px;'>")
-            $.ajax({
-                url: "nurseList",
-                timeout:15000,
-                data: {
-                    current: temp,
-                    priceCond:$("#priceCond").val(),
-                    rankCond:$("#rankCond").val(),
-                    nurseName:$("#nurseName").val(),
-                    addCond:$("#addCond").val(),
-                    order: $("#order").val()
-                },
-                success: function (data) {
-                    $("#list").html(data);
-                    now = temp;
-                    loadPageNavigation();
-                    checkPost();
-                    checkPre();
-                    if(Number(now)<6)
-                    {
-                        $(".active").removeClass("active");
-                        $(".allNurse:eq("+(temp-1)+")").addClass("active");
-                    }
-                    ajaxLocker = true;
-
-                },
-                error:function (xhr) {
-                    console.log(xhr);
-                    if(xhr.statusText=="timeout"){
-                        $("#list").remove();
-                        alert("连接超时，请检查网路");
-
-                    }
-                    ajaxLocker=true;
+        var cache = $("#list").html();
+        $("#list").html("<img src=\"assets/img/loading.gif\" alt=\"\" width=\"300\" style='position: absolute;left: 350px;'>");
+        $.ajax({
+            url: "nurseList",
+            timeout: 15000,
+            data: {
+                current: temp,
+                priceCond: $("#priceCond").val(),
+                rankCond: $("#rankCond").val(),
+                nurseName: $("#nurseName").val(),
+                addCond: $("#addCond").val(),
+                startTime: $("#startTime").val(),
+                order: $("#order").val()
+            },
+            success: function (data) {
+                $("#list").html(data);
+                now = temp;
+                loadPageNavigation();
+                checkPost();
+                checkPre();
+                if (Number(now) < 6) {
+                    $(".active").removeClass("active");
+                    $(".allNurse:eq(" + (temp - 1) + ")").addClass("active");
                 }
-            });
-        }
+                ajaxLocker = true;
+
+            },
+            error: function (xhr) {
+                console.log(xhr);
+                if (xhr.statusText == "timeout") {
+                    $("#list").html("");
+                    alert("连接超时，请检查网络");
+                    $("#list").html(cache);
+
+                }
+            }
+        });
     }
 
     //判断是否到头
     function checkPre() {
 
         if (Number(now) == 1) {
-            $(".pre").addClass("disabled");
+            $("#pre").addClass("disabled");
         }
-        else $(".pre").removeClass("disabled");
+        else $("#pre").removeClass("disabled");
     }
     //判断是否到尾
     function checkPost() {
         if (now == $("#maxPage").val()) {
-            $(".post").addClass("disabled");
+            $("#post").addClass("disabled");
         }
         else {
-            $(".post").removeClass("disabled")
+            $("#post").removeClass("disabled")
         }
 
     }
@@ -185,25 +184,25 @@
 
     //重新加载分页的导航栏
     function loadPageNavigation() {
-        if(Number(now)>=4&&Number(now)<=5){
+        if (Number(now) >= 4 && Number(now) <= 5) {
             $(".more").remove();
             $(".allNurse").remove();
             str = "";
-            for(var i=1;i<=Number(now)+2;i++){
-                str += "<li class=\"allNurse\"><a href=\"#\">" + i+ "</a></li>";
+            for (var i = 1; i <= Number(now) + 2; i++) {
+                str += "<li class=\"allNurse\"><a href=\"#\">" + i + "</a></li>";
             }
-            $(".pre").after(str);
+            $("#pre").after(str);
             $(".allNurse:last").after("<li class='disabled more'><a href='#' onclick='return false;' >....</a></li>");
         }
-        if(Number(now)>5){
+        if (Number(now) > 5) {
             $(".more").remove();
             $(".allNurse").remove();
             str = "";
-            for(var i = 0;i<2;i++){
+            for (var i = 0; i < 2; i++) {
                 str += "<li class=\"allNurse\"><a href=\"#\">" + (i + 1) + "</a></li>";
             }
             str += "<li class='disabled more'><a href='#' onclick='return false;' >....</a></li>";
-            if(Number(now)<maxPage-2) {
+            if (Number(now) < maxPage - 2) {
                 for (var i = Number(now) - 2; i <= Number(now) + 2; i++) {
                     if (i == Number(now)) {
                         str += "<li class=\"allNurse  active\"><a href=\"#\">" + i + "</a></li>";
@@ -224,7 +223,7 @@
                     }
                 }
             }
-            $(".pre").after(str);
+            $("#pre").after(str);
         }
         //给新生成所有按钮绑定事件
         $(".allNurse").each(function () {

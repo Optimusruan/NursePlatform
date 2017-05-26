@@ -11,9 +11,14 @@ import service.NurseService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,7 +28,7 @@ import java.util.Map;
 @Controller
 public class NurseController {
     private static int SIZE = 20;
-    private static String[] CONDKEY = {"rank", "price","add"};
+    private static String[] CONDKEY = {"rank", "price", "add"};
     private static HashMap<String, String> LEVEL = new HashMap<String, String>() {{
         put("一星", "1");
         put("二星", "2");
@@ -34,8 +39,10 @@ public class NurseController {
 
     @RequestMapping("nurseHome")
     public String nurseHome(@RequestParam("id") String id, Map model, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        if (request.getSession().getAttribute("id") != null && request.getSession().getAttribute("id").toString().equals(id)) {
-            NurseService nurseService = (NurseService) ServiceConstructor.newService("nurseService",request);
+        Object loginId = request.getSession().getAttribute("id");
+        Object loginType = request.getSession().getAttribute("userType");
+        if (loginId != null && loginId.toString().equals(id) & loginType != null && loginType.toString().equals("nurse")) {
+            NurseService nurseService = (NurseService) ServiceConstructor.newService("nurseService", request);
             model.put("info", nurseService.getDetailByHome(id));
             model.put("services", nurseService.getNurseServices(id));
             return "nurseHome";
@@ -48,14 +55,21 @@ public class NurseController {
 
     @RequestMapping("nurseDetail")
     public String nurseDetail(@RequestParam("id") String id, Map model, HttpServletRequest request) {
-        NurseService nurseService = (NurseService) ServiceConstructor.newService("nurseService",request);
+        NurseService nurseService = (NurseService) ServiceConstructor.newService("nurseService", request);
+        Object loginId = request.getSession().getAttribute("id");
+        Object loginType = request.getSession().getAttribute("userType");
         model.put("info", nurseService.getDetail(id, 1));
+        if (request.getSession().getAttribute("id") != null && !request.getSession().getAttribute("id").equals("")) {
+            model.put("appoint", nurseService.isAppoint(id, request.getSession().getAttribute("id").toString()));
+        } else {
+            model.put("appoint", true);
+        }
         return "nurseDetail";
     }
 
     @RequestMapping(value = "nurseList")
     public String nurseList(Map model, HttpServletRequest request) throws UnsupportedEncodingException {
-        NurseService nurseService = (NurseService) ServiceConstructor.newService("nurseService",request);
+        NurseService nurseService = (NurseService) ServiceConstructor.newService("nurseService", request);
         StringBuilder cond = new StringBuilder();
         cond.append(" where ");
         for (int i = 0; i < CONDKEY.length; i++) {
@@ -89,6 +103,10 @@ public class NurseController {
                 }
             }
         }
+        String time = request.getParameter("startTime");
+        if (time != null && !time.equals("")) {
+            cond.append("nur_id not in(select svcNurid from ServiceEntity where svc_start<=").append(time).append(" and svc_end>=").append(time).append(") ");
+        }
         if (cond.toString().equals(" where ")) {
             cond.delete(0, cond.length());
         }
@@ -107,34 +125,37 @@ public class NurseController {
 
     @RequestMapping("excellentNurses")
     public String excellentNurses(Map model, HttpServletRequest request) {
-        NurseService nurseService = (NurseService) ServiceConstructor.newService("nurseService",request);
+        NurseService nurseService = (NurseService) ServiceConstructor.newService("nurseService", request);
         String size = request.getParameter("size");
         model.put("info", nurseService.getExcellentNurses(Integer.parseInt(size)));
         return "ajaxLoadView/showNurse";
     }
 
     @RequestMapping("searchNurse")
-    public String searchNurse(Map model, HttpServletRequest request) {
+    public String searchNurse(Map model, HttpServletRequest request) throws ParseException {
+        Date date = new Date();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        model.put("nowTime", dateFormat.format(date));
         return "searchNurse";
     }
 
     @RequestMapping("agreeRv")
     @ResponseBody
     public void agreeRv(@RequestParam("id") String id, HttpServletRequest request) {
-        NurseService nurseService = (NurseService) ServiceConstructor.newService("nurseService",request);
+        NurseService nurseService = (NurseService) ServiceConstructor.newService("nurseService", request);
         nurseService.agreeRv(id);
     }
 
     @RequestMapping("refuseRv")
     @ResponseBody
     public void refuseRv(@RequestParam("id") String id, HttpServletRequest request) {
-        NurseService nurseService = (NurseService) ServiceConstructor.newService("nurseService",request);
+        NurseService nurseService = (NurseService) ServiceConstructor.newService("nurseService", request);
         nurseService.refuseRv(id);
     }
 
     @RequestMapping("showTel")
     public void showTel(@RequestParam("id") String id, HttpServletResponse response, HttpServletRequest request) throws IOException {
-        NurseService nurseService = (NurseService) ServiceConstructor.newService("nurseService",request);
+        NurseService nurseService = (NurseService) ServiceConstructor.newService("nurseService", request);
         NurseEntity nurseEntity = nurseService.getDetail(id, 2);
         PrintWriter printWriter = response.getWriter();
         System.out.println(id);
@@ -147,6 +168,29 @@ public class NurseController {
             }
         } else {
             printWriter.print("No way");
+        }
+    }
+
+    @RequestMapping("appoint")
+    public void appoint(HttpServletResponse response, @RequestParam("opt") String opt, @RequestParam("id") String id, HttpSession session, HttpServletRequest request) throws IOException {
+        PrintWriter printWriter = response.getWriter();
+        NurseService nurseService = (NurseService) ServiceConstructor.newService("nurseService", request);
+        if (session.getAttribute("id") != null && !session.getAttribute("id").equals("")) {
+            if (session.getAttribute("userType") != null && !session.getAttribute("userType").equals("")) {
+                if (session.getAttribute("userType").equals("customer")) {
+                    if (id != null && !id.equals("")) {
+                        printWriter.print(nurseService.processRv(id, session.getAttribute("id").toString(), opt) ? "success" : "error");
+                    } else {
+                        printWriter.print("error");
+                    }
+                } else {
+                    printWriter.print("typeError");
+                }
+            } else {
+                printWriter.print("error");
+            }
+        } else {
+            printWriter.print("login");
         }
     }
 }

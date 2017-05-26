@@ -15,17 +15,19 @@ import java.util.Map;
  */
 public class RegisterDao {
     private SessionFactory sessionFactory;
+
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
-    public int nurseRegister(Map details){
+
+    public int nurseRegister(Map details) {
         int id = -1;
-        Session session=sessionFactory.openSession();
+        Session session = sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
 
         NurseEntity nurse = new NurseEntity();
         ApplicationContext ctx = ContextLoader.getCurrentWebApplicationContext();
-        NurseDao nurseDao = (NurseDao)ctx.getBean("nurseDao");
+        NurseDao nurseDao = (NurseDao) ctx.getBean("nurseDao");
         int nurId = nurseDao.getMaxId();
         if (nurId > 0) {
             nurse.setNurId(nurId);
@@ -77,19 +79,20 @@ public class RegisterDao {
 
         session.close();
         sessionFactory.close();
-        if(id==1){
+        if (id == 1) {
             id = nurId;
         }
         return nurId;
     }
-    public int customerRegister(Map details){
+
+    public int customerRegister(Map details) {
         int id = -1;
         Session session = sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
 
         CustomerEntity customer = new CustomerEntity();
         ApplicationContext ctx = ContextLoader.getCurrentWebApplicationContext();
-        CustomerDao customerDao = (CustomerDao)ctx.getBean("customerDao");
+        CustomerDao customerDao = (CustomerDao) ctx.getBean("customerDao");
         int cusId = customerDao.getMaxId();
         if (cusId > 0) {
             customer.setCusId(cusId);

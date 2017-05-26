@@ -7,6 +7,7 @@
     <class name="model.ServiceEntity" table="service" schema="nurseplatform">
         <id name="svcId">
             <column name="svc_id" sql-type="int(11)"/>
+            <generator class="identity"/>
         </id>
         <property name="svcCusid">
             <column name="svc_cusid" sql-type="int(11)"/>

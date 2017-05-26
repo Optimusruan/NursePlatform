@@ -21,38 +21,38 @@ import java.util.Map;
 public class CustomerController {
     @RequestMapping("customerHome")
     public String customerHome(@RequestParam("id") String id, Map model, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        if(request.getSession().getAttribute("id")!=null&&request.getSession().getAttribute("id").toString().equals(id))
-        {
-            CustomerService customerService = (CustomerService) ServiceConstructor.newService("customerService",request);
-            model.put("info",customerService.getDetailByHome(id));
-            model.put("services",customerService.getCustomerServices(id));
+        Object loginId = request.getSession().getAttribute("id");
+        Object loginType = request.getSession().getAttribute("userType");
+        if (loginId != null && loginId.toString().equals(id) & loginType != null && loginType.toString().equals("customer")) {
+            CustomerService customerService = (CustomerService) ServiceConstructor.newService("customerService", request);
+            model.put("info", customerService.getDetailByHome(id));
+            model.put("services", customerService.getCustomerServices(id));
             return "customerHome";
-        }
-        else{
+        } else {
             PrintWriter printWriter = response.getWriter();
             printWriter.print("<script>window.location.href='login.jsp';</script>");
             return null;
         }
     }
+
     @RequestMapping("customerDetail")
-    public String customerDetail(@RequestParam("id") String id,Map model,HttpServletRequest request)
-    {
-        CustomerService customerService = (CustomerService) ServiceConstructor.newService("customerService",request);
-        model.put("info",customerService.getDetail(id));
+    public String customerDetail(@RequestParam("id") String id, Map model, HttpServletRequest request) {
+        CustomerService customerService = (CustomerService) ServiceConstructor.newService("customerService", request);
+        model.put("info", customerService.getDetail(id));
         return "customerDetail";
     }
+
     @RequestMapping("confirmRv")
     @ResponseBody
-    public void confirmRv(@RequestParam("id")String id,HttpServletRequest request)
-    {
-        CustomerService customerService = (CustomerService) ServiceConstructor.newService("customerService",request);
-        customerService.confrimRv(id);
+    public void confirmRv(@RequestParam("id") String id, HttpServletRequest request) {
+        CustomerService customerService = (CustomerService) ServiceConstructor.newService("customerService", request);
+        customerService.confirmRv(id);
     }
+
     @RequestMapping("cancelRv")
     @ResponseBody
-    public void cancelRv(@RequestParam("id")String id,HttpServletRequest request)
-    {
-        CustomerService customerService = (CustomerService) ServiceConstructor.newService("customerService",request);
+    public void cancelRv(@RequestParam("id") String id, HttpServletRequest request) {
+        CustomerService customerService = (CustomerService) ServiceConstructor.newService("customerService", request);
         customerService.cancelRv(id);
     }
     @RequestMapping("comment")

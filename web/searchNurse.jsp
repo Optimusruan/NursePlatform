@@ -82,7 +82,7 @@
             color: white;
         }
 
-        .condition-container button {
+        #distpicker > .condition-container button {
             position: absolute;
             left: 283px;
             top: 2px;
@@ -95,7 +95,7 @@
             color: #ccc;
         }
 
-        .condition-container button:hover {
+        #distpicker > .condition-container button:hover {
             border-color: deeppink;
             color: deeppink;
         }
@@ -258,16 +258,27 @@
             float: left;
             padding: 8px 15px;
         }
+
+        .condition-time > button {
+            margin-left: 10px;
+            margin-top: 3px;
+            height: 32px;
+            background: white;
+            color: #D3D4D3;
+            border-color: #D3D4D3;
+        }
     </style>
 </head>
 <body>
 <%@ include file="head.jsp" %>
 <div class="container" style="margin: 0 auto;width: 1000px;position: relative">
+
     <%--搜索栏--%>
     <div class="search row">
         <input type="text" id="nurseName" value="" placeholder="输入月嫂名字"/>
         <button class=" btn fa fa-search" id="search" style="height: auto"></button>
     </div>
+
     <%--筛选条件栏--%>
     <div class="condition row " id="condition">
         <div class="condition-container row">
@@ -329,6 +340,13 @@
                 </div>
             </div>
         </div>
+        <div class="condition-container row" data-id="time" id="time">
+            <div class="condition-head">时 间</div>
+            <div class="condition-time">
+                <input type="text" id="selectTime" value="" class="address" placeholder="选择开始服务时间">
+                <%--<button class="btn">点击选取时间</button>--%>
+            </div>
+        </div>
     </div>
     <div class="order row">
         <div class="order-head">排 序</div>
@@ -341,22 +359,23 @@
             </li>
         </ul>
     </div>
+
     <%--结果显示--%>
     <div class="row" id="list">
         <img src="assets/img/loading.gif" alt="" style="left: 350px;position: absolute;" width="300">
     </div>
 
     <%--条件收集区--%>
-    <input type="hidden" id="priceCond" value=""/>
+    <input type="hidden" id="priceCond" value="" style="display: none"/>
     <input type="hidden" id="rankCond" value=""/>
     <input type="hidden" id="order" value=""/>
     <input type="hidden" id="addCond" value=""/>
+    <input type="hidden" id="startTime" value=""/>
 
     <%--当前页数--%>
     <input type="hidden" id="current" value="1"/>
     <%--<input type="hidden" id="maxPage" value="3"/>--%>
 </div>
-<script src=""></script>
 <script src="assets/js/jquery-3.1.1.min.js"></script>
 <script src="assets/js/bootstrap.min.js"></script>
 <script src="assets/js/distpicker/distpicker.data.js"></script>
@@ -370,6 +389,7 @@
     $("#search").on("click", function () {
         loadContent();
     });
+
     //添加条件
     $(".condition-item>a").each(function () {
         $(this).on("click", function () {
@@ -393,12 +413,17 @@
             $("#distpicker").removeClass("hide");
             $("#addCond").val("")
         }
+        if (type == 3) {
+            $("#time").removeClass("hide");
+            $("#startTime").val();
+        }
         loadContent();
         obj.remove();
     }
 
     //加载内容
     function loadContent() {
+        var cache = $("#list").html();
         $("#list").html("<img src=\"assets/img/loading.gif\" alt=\"\" width=\"300\" style='position: absolute;left: 350px;'>");
         $.ajax({
             url: "nurseList",
@@ -409,6 +434,7 @@
                 priceCond: $("#priceCond").val(),
                 rankCond: $("#rankCond").val(),
                 addCond: $("#addCond").val(),
+                startTime: $("#startTime").val(),
                 order: $("#order").val()
             },
             success: function (data) {
@@ -418,7 +444,7 @@
                 console.log(xhr);
                 if (xhr.statusText == "timeout") {
                     alert("连接超时，请检查网路");
-                    $("#list").children().remove();
+                    $("#list").html(cache);
                 }
             }
         });
@@ -427,7 +453,7 @@
     //排序
     $(".order>ul>li").on("click", function () {
         var orderArr = ["fa-sort-desc", "fa-sort-asc"];
-        var orderName = ["desc", "asc"]
+        var orderName = ["desc", "asc"];
         var clickNum = $(this).children("a").attr("data-id");
         $(this).children().children().removeClass(orderArr[clickNum]);
         $(this).children().children().addClass(orderArr[(Number(clickNum) + 1) % 2]);
@@ -441,10 +467,35 @@
     //处理地址
     $("#getAddress").on("click", function () {
         var content = $("#province").val() + $("#city").val();
-        $("#addCond").val(content);
-        $("#distpicker").addClass("hide");
-        $("#allCondition").append("<a href='#' onclick='del(this,2);return false;'><span>" + content + "</span><i class='fa fa-close'></i></a>");
-        loadContent();
+        if (content != null && content != "") {
+            $("#addCond").val(content);
+            $("#distpicker").addClass("hide");
+            $("#allCondition").append("<a href='#' onclick='del(this,2);return false;'><span>" + content + "</span><i class='fa fa-close'></i></a>");
+            loadContent();
+        }
+    });
+
+    //处理日期
+    var timeObj = $("#selectTime");
+    var nowTime = "<c:out value="${nowTime}"/>";
+    timeObj.on("focus", function () {
+        $(this).attr("type", "date");
+    });
+    timeObj.on("blur", function () {
+        $(this).attr("type", "text");
+    });
+    timeObj.on("change", function () {
+        if ($(this).val() < nowTime) {
+            $(this).val("");
+            alert("无效时间，请重新选择");
+        }
+        else {
+            $("#startTime").val($(this).val());
+            $("#time").addClass("hide");
+            $("#allCondition").append("<a href='#' onclick='del(this,3);return false;'><span>" + $(this).val() + "</span><i class='fa fa-close'></i></a>");
+            $(this).val("");
+            loadContent();
+        }
     })
 </script>
 </body>
