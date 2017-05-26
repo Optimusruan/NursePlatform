@@ -29,10 +29,9 @@
     nav > .fa:focus, nav > .fa:hover {
         color: deeppink;
     }
-
-    .dropdown-menu {
-        background: #E91E63;
-        color: white;
+    .dropdown-menu{
+        background:#E91E63;
+        color:white;
     }
 
     .dropdown-menu > li > a:focus, .dropdown-menu > li > a:hover {
@@ -58,18 +57,18 @@
             </ul>
             <ul class="nav navbar-nav navbar-right" id="status">
                 <%--<li>--%>
-                <%--<a href="login.jsp">登录</a>--%>
+                    <%--<a href="login.jsp">登录</a>--%>
                 <%--</li>--%>
                 <%--<li>--%>
-                <%--<a href="register.jsp">注册</a>--%>
+                    <%--<a href="register.jsp">注册</a>--%>
                 <%--</li>--%>
 
                 <st:if test="${id==null}">
                     <li>
-                        <a href="login.jsp">登录</a>
+                    <a href="login.jsp">登陆</a>
                     </li>
                     <li>
-                        <a href="register.jsp">注册</a>
+                    <a href="register.jsp">注册</a>
                     </li>
                 </st:if>
                 <st:if test="${id!=null}">
@@ -78,8 +77,8 @@
                             <i class="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="${type}Home?id=${id}">我的主页</a></li>
-                            <li><a href="#">注销登陆</a></li>
+                            <li><a href="${userType}Home?id=<st:out value='${id}'/>">我的主页</a></li>
+                            <li><a href="logout" id="logout">注销登陆</a></li>
                         </ul>
                     </li>
                 </st:if>

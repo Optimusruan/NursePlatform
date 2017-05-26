@@ -4,12 +4,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import res.ServiceConstructor;
+import service.CustomerService;
 import service.LoginService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2017/5/18.
@@ -28,7 +30,7 @@ public class LoginController {
             printWriter.print("error");
         } else {
             request.getSession().setAttribute("id", id);
-            request.getSession().setAttribute("type", userType);
+            request.getSession().setAttribute("userType", userType);
             PrintWriter printWriter = response.getWriter();
             printWriter.print(id);
         }
@@ -44,4 +46,14 @@ public class LoginController {
     public void test(HttpServletRequest request) {
         System.out.print(request.getSession().getAttribute("id"));
     }
+    @RequestMapping("logout")
+    public void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String outvalue = null;
+        request.getSession().setAttribute("id",outvalue );
+        request.getSession().setAttribute("userType", outvalue);
+        response.setCharacterEncoding("GBK");
+        PrintWriter printWriter = response.getWriter();
+        printWriter.print("<script type='text/javascript'>alert ('注销成功，请重新登录！');window.location.href='login.jsp';</script>");
+    }
+
 }
