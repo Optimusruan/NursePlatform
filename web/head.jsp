@@ -19,7 +19,7 @@
 
     .nav > li > a:focus, .nav > li > a:hover {
         background: white;
-        color: deeppink;
+        color: #e91e63;
     }
 
     nav > .fa {
@@ -27,7 +27,7 @@
     }
 
     nav > .fa:focus, nav > .fa:hover {
-        color: deeppink;
+        color: #e91e63;
     }
     .dropdown-menu{
         background:#E91E63;
@@ -36,7 +36,7 @@
 
     .dropdown-menu > li > a:focus, .dropdown-menu > li > a:hover {
         background: white;
-        color: deeppink;
+        color: #e91e63;
     }
 
     .navbar-right {

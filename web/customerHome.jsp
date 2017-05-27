@@ -38,10 +38,9 @@
             background-color: #e91e63;
         }
 
-        .status5{
-            background-color:darkgrey ;
+        .status5 {
+            background-color: darkgrey;
         }
-        .panel-heading{
 
         .panel-heading {
             width: auto;
@@ -190,13 +189,14 @@
                             <td><c:out value="${svc.nurPrice}"></c:out></td>
                             <td>已成交</td>
                             <td>
-                                <a class="btn btn-warning btn-sm" data-toggle="modal" data-target="#comment${svc.svcId}">去评价</a>
+                                <a class="btn btn-warning btn-sm" data-toggle="modal"
+                                   data-target="#comment${svc.svcId}">去评价</a>
                             </td>
                             <div class="modal fade" id="comment${svc.svcId}" tabindex="-1">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal" >&times;</button>
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
                                             <h4 class="modal-title">评价服务</h4>
                                         </div>
                                         <div class="modal-body" style="padding: 30px;">
@@ -216,11 +216,12 @@
                                             </div>
                                             <div class="row">
                                                 <label class="col-lg-3">评价：</label>
-                                                <textarea class="col-lg-9 form-control comment-content" style="width: 400px;"></textarea>
+                                                <textarea class="col-lg-9 form-control comment-content"
+                                                          style="width: 400px;"></textarea>
                                             </div>
                                         </div>
                                         <div class="modal-footer">
-                                            <a data-id="${svc.svcId}"  class="btn btn-warning comment-btn">提交</a>
+                                            <a data-id="${svc.svcId}" class="btn btn-warning comment-btn">提交</a>
                                         </div>
                                     </div>
                                 </div>
@@ -255,24 +256,24 @@
 <script src="assets/js/raty/jquery.raty.js"></script>
 </body>
 <script type="text/javascript">
-    $(document).ready(function(){
-        $(".panel").each(function(){
+    $(document).ready(function () {
+        $(".panel").each(function () {
             $(this).children(".panel-body").hide();
         });
 
-        $(".panel-heading").each(function(){
-            $(this).click(function(){
+        $(".panel-heading").each(function () {
+            $(this).click(function () {
 
-                if($(this).parents(".panel").children(".panel-body").css("display") != "none"){
+                if ($(this).parents(".panel").children(".panel-body").css("display") != "none") {
                     $(this).parents(".panel").children(".panel-body").slideUp();
-                }else{
+                } else {
                     $(this).parents(".panel").children(".panel-body").slideDown();
                 }
             });
 
         });
 
-        $(".stars").raty({score:1});
+        $(".stars").raty({score: 1});
 
     });
 
@@ -320,19 +321,19 @@
         var id = $(this).data("id");
         var ele = $(this).parents(".modal-content");
         var tr = $(this).parents("tr");
-        var attitude = $('input[name="rpt"]:checked',ele).val();
-        var level = $('.score',ele).val();
-        var comment = $(".comment-content",ele).val();
+        var attitude = $('input[name="rpt"]:checked', ele).val();
+        var level = $('.score', ele).val();
+        var comment = $(".comment-content", ele).val();
 
         $.ajax({
-            url:"comment",
-            data:{
-                id:id,
-                level:level,
-                attitude:attitude,
-                comment:comment
+            url: "comment",
+            data: {
+                id: id,
+                level: level,
+                attitude: attitude,
+                comment: comment
             },
-            success:function () {
+            success: function () {
                 $(".modal").modal("hide");
                 alert("评价成功");
                 $(tr).removeClass("status4").addClass("status5");

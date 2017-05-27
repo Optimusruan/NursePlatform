@@ -45,6 +45,13 @@
         .firstInput {
             margin-top: 15px;
         }
+        #sm{
+            color: white;
+            background: #e91e63;
+        }
+        #sm:hover{
+
+        }
     </style>
 </head>
 <body>
@@ -65,7 +72,7 @@
                 <div class="col-sm-10">
                     <input type="password" id="password" name="password" class="form-control" placeholder="密码"/>
                 </div>
-            </div>`
+            </div>
             <div class="divideLine">----------选择用户类型----------</div>
             <div class="form-group">
                 <label for="userType" class="control-label col-sm-2"><i class="fa fa-cog" style="font-size: 1.5em"></i></label>
@@ -77,7 +84,7 @@
                 </div>
             </div>
         </form>
-        <button id="sm" class="btn btn-success" style="width: 100%">登陆</button>
+        <button id="sm" class="btn" style="width: 100%">登陆</button>
         <%--<button id="test" class="btn btn-warning">测试</button>--%>
     </div>
 </div>

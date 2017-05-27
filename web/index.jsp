@@ -75,7 +75,9 @@
         #nurselist {
             position: relative;
         }
-
+        .circle>.fa{
+            color: white;
+        }
         .itemContainer {
             float: left;
             padding: 10px;

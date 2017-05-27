@@ -54,13 +54,13 @@
         }
 
         #toPage:hover {
-            border-color: deeppink;
-            color: deeppink;
+            border-color: #e91e63;
+            color: #e91e63;
         }
 
         .morePage > span > input {
-            border: 1px solid deeppink;
-            outline: deeppink;
+            border: 1px solid #e91e63;
+            outline: #e91e63;
         }
 
         .search {
@@ -75,7 +75,7 @@
             margin-top: -3px;
             border-radius: 0;
             color: white;
-            background: deeppink;
+            background: #e91e63;
         }
 
         .search button:hover {
@@ -96,39 +96,39 @@
         }
 
         #distpicker > .condition-container button:hover {
-            border-color: deeppink;
-            color: deeppink;
+            border-color: #e91e63;
+            color: #e91e63;
         }
 
         .search input {
             height: 36px;
             width: 600px;
-            border: 2px solid deeppink;
-            outline: deeppink;
+            border: 2px solid #e91e63;
+            outline: #e91e63;
             padding-left: 10px;
         }
 
         .search input:focus {
-            border: 2px solid deeppink;
+            border: 2px solid #e91e63;
         }
 
         .pagination > .active > a {
-            background: deeppink;
-            border-color: deeppink;
+            background: #e91e63;
+            border-color: #e91e63;
             color: white;
         }
 
         .pagination > .active > a:hover {
-            background: deeppink;
-            border-color: deeppink;
+            background: #e91e63;
+            border-color: #e91e63;
         }
 
         .pagination > li > a {
-            color: deeppink;
+            color: #e91e63;
         }
 
         .pagination > li > a:focus, .pagination > li > a:hover, .pagination > li > span:focus, .pagination > li > span:hover {
-            color: deeppink;
+            color: #e91e63;
         }
 
         .condition {
@@ -160,7 +160,7 @@
         }
 
         .condition-item > a:link, .condition-item > a:visited {
-            color: deeppink;
+            color: #e91e63;
             text-decoration: none;
         }
 
@@ -190,8 +190,8 @@
 
         .add > a:link, .add > a:hover, .add > a:visited {
             text-decoration: none;
-            color: deeppink;
-            border: 1px solid deeppink;
+            color: #e91e63;
+            border: 1px solid #e91e63;
         }
 
         .add > a {
@@ -201,7 +201,7 @@
         }
 
         .add > a > i {
-            background: deeppink;
+            background: #e91e63;
             color: white;
             display: inline-block;
             font-size: 1.25em;
@@ -214,7 +214,7 @@
         }
 
         .deeppink {
-            background: deeppink;
+            background: #e91e63;
             color: white;
             font-weight: normal;
         }
@@ -247,7 +247,7 @@
         }
 
         .order > ul > .active > a:link, .order > ul > .active > a:visited {
-            color: deeppink;
+            color: #e91e63;
             background: white;
             border-right: 1px solid white;
         }
