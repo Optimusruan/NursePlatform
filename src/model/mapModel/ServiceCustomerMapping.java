@@ -7,7 +7,7 @@ import java.util.Date;
  */
 
 
-public class ServiceCustomer {
+public class ServiceCustomerMapping {
     private Integer svcId;
     private Integer svcCusid;
     private Integer svcNurid;
@@ -21,7 +21,7 @@ public class ServiceCustomer {
     private Byte svcAble;
     private String cusName;
 
-    public ServiceCustomer(Integer svcId, Integer svcCusid, Integer svcNurid, Integer svcStatus, Integer svcPps, Date svcStart, Date svcEnd, String svcComment, Integer svcLevel, Date svcDate, Byte svcAble, String cusName) {
+    public ServiceCustomerMapping(Integer svcId, Integer svcCusid, Integer svcNurid, Integer svcStatus, Integer svcPps, Date svcStart, Date svcEnd, String svcComment, Integer svcLevel, Date svcDate, Byte svcAble, String cusName) {
         this.svcId = svcId;
         this.svcCusid = svcCusid;
         this.svcNurid = svcNurid;
@@ -36,7 +36,7 @@ public class ServiceCustomer {
         this.cusName = cusName;
     }
 
-    public ServiceCustomer() {
+    public ServiceCustomerMapping() {
     }
 
     public Integer getSvcId() {

@@ -24,7 +24,7 @@ public class ServiceDetailDao {
 
     public List getNurseService(String id) {
         Session session = sessionFactory.openSession();
-        Query query = session.createQuery("select new model.mapModel.ServiceCustomer(s.svcId,s.svcCusid,s.svcNurid, s.svcStatus, s.svcPps, s.svcStart, s.svcEnd, s.svcComment, s.svcLevel,s.svcDate,s.svcAble,c.cusName) from  ServiceEntity s,CustomerEntity c where s.svcCusid=c.cusId and s.svcNurid=?");
+        Query query = session.createQuery("select new model.mapModel.ServiceCustomerMapping(s.svcId,s.svcCusid,s.svcNurid, s.svcStatus, s.svcPps, s.svcStart, s.svcEnd, s.svcComment, s.svcLevel,s.svcDate,s.svcAble,c.cusName) from  ServiceEntity s,CustomerEntity c where s.svcCusid=c.cusId and s.svcNurid=? order by s.svcStart desc ");
         query.setParameter(0, Integer.parseInt(id));
         List list = query.list();
 //        //list里面生成两个对象，一个service类，一个customer类

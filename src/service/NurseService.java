@@ -4,7 +4,10 @@ import dao.NurseDao;
 import dao.ServiceDetailDao;
 import dataBean.ResultAndSizeBean;
 import model.NurseEntity;
+import model.mapModel.ServiceCustomerMapping;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -77,6 +80,20 @@ public class NurseService {
         return serviceDetailDao.getNurseService(id);
     }
 
+    public String getNurseServicesByString(String id) {
+        List list = serviceDetailDao.getNurseService(id);
+        StringBuffer stringBuffer = new StringBuffer();
+        for (int i = 0; i < list.size(); i++) {
+            if (i != 0) {
+                stringBuffer.append("-_-");
+            }
+            ServiceCustomerMapping serviceCustomerMapping = (ServiceCustomerMapping) list.get(i);
+            Date svcStart = serviceCustomerMapping.getSvcStart();
+            Date svcEnd = serviceCustomerMapping.getSvcEnd();
+            stringBuffer.append(new SimpleDateFormat("yyyyMMdd").format(svcStart)).append("|").append(new SimpleDateFormat("yyyyMMdd").format(svcEnd));
+        }
+        return stringBuffer.toString();
+    }
 
     //处理来自nurseDetail的AJAX请求
     public boolean processRv(String nurseId, String customerId, String opt) {
