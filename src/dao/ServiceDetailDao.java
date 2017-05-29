@@ -7,6 +7,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -97,7 +98,9 @@ public class ServiceDetailDao {
     }
 
     //生成预约关系
-    public boolean addAppointment(String nurseId, String customerId) {
+    public boolean addAppointment(String nurseId, String customerId,Date svcStart,Date svcEnd) {
+        System.out.println(svcStart.toString());
+        System.out.println(svcEnd.toString());
         try {
             Session session = sessionFactory.openSession();
             Transaction tx = session.beginTransaction();
@@ -105,7 +108,10 @@ public class ServiceDetailDao {
             serviceEntity.setSvcNurid(Integer.parseInt(nurseId));
             serviceEntity.setSvcCusid(Integer.parseInt(customerId));
             serviceEntity.setSvcPps(0);
+            serviceEntity.setSvcStatus(1);
             serviceEntity.setSvcAble((byte) 1);
+            serviceEntity.setSvcStart(new java.sql.Date(svcStart.getTime()));
+            serviceEntity.setSvcEnd(new java.sql.Date(svcEnd.getTime()));
             session.save(serviceEntity);
             tx.commit();
             session.close();

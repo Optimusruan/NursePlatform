@@ -8,90 +8,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Title</title>
-    <style>
-
-        .calendar > table {
-            background: #dff0d8;
-            opacity: 0.9;
-            position: relative;
-        }
-
-        .calendar-head > th, .calendar-main > td {
-            width: 40px;
-            height: 40px;
-            text-align: center;
-            font-size: 1.3em;
-            margin: 0;
-            position: relative;
-        }
-
-        .calendar-main > .open > a {
-            display: inline-block;
-            width: 100%;
-            height: 100%;
-            padding-top: 5px;
-
-        }
-
-        .calendar a:link, .calendar a:visited {
-            text-decoration: none;
-            color: black;
-        }
-
-        .calendar-main > .open > a:hover {
-            background: #e91e63;
-            color: white;
-            opacity: 1;
-        }
-
-        .thisMonth {
-            position: absolute;
-            font-size: 10em;
-            text-align: center;
-            left: 0;
-            top: 42px;
-            z-index: -1;
-            color: pink;
-        }
-
-        .thisMonth > td {
-            width: 300px;
-        }
-
-        .year-month {
-            text-align: center;
-        }
-
-        .year-month > .to {
-            display: inline-block;
-            font-size: 1.2em;
-            padding: 0 10px 0 10px;
-        }
-
-        .year-month > .content {
-            font-size: 1.2em;
-        }
-
-        .close {
-            background: #D3D4D3;
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .calendar .active {
-            background: #e91e63;
-            color: white;
-            opacity: 1;
-        }
-
-    </style>
-</head>
-<body>
-<div class="calendar">
-    <table>
+<div class="calendar row">
+    <table class="col-lg-3 col-lg-offset-3">
         <tr class="thisMonth">
             <td colspan="7"></td>
         </tr>
@@ -111,11 +29,14 @@
         </tr>
     </table>
     <input type="hidden" id="yearMonth" value="">
-    开始时间：<input type="text" id="start" value="">
-    结束时间：<input type="text" id="end" value="">
-    服务天数：<input type="text" id="showSum" value="">
+    <div class="calendar-info col-lg-3">
+        开始时间：<input type="text" id="start" value="" class="showInfo" disabled>
+        结束时间：<input type="text" id="end" value="" class="showInfo" disabled>
+        服务天数：<input type="text" id="showSum" value="" class="showInfo" disabled>
+        <button id="smAppointment" class="btn hidden">提交申请</button>
+    </div>
+    <div class="col-lg-3"></div>
 </div>
-<script src="assets/js/jquery-3.1.1.min.js"></script>
 <script>
     var timeStr = "<c:out value="${time}"/>";
     var date = new Date();
@@ -210,6 +131,7 @@
             month -= 12;
         }
     }
+
     //下个月
     function nextMonth() {
         month++;
@@ -217,6 +139,7 @@
         date.setFullYear(year, month, 1);
         loadCalendar();
     }
+
     //上个月
     function preMonth() {
         month--;
@@ -224,6 +147,7 @@
         date.setFullYear(year, month, 1);
         loadCalendar();
     }
+
     //检查时间是否被占用
     function checkBusy() {
         var allPeriod = timeStr.split("-_-");
@@ -269,6 +193,7 @@
         } else if (dataId == 2) {
             obj.removeClass("active");
             obj.attr("data-id", 1);
+            $("#showSum").val("");
             if (id == $("#end").val()) {
                 $("#end").val("");
                 periodContent[1] = "";
@@ -280,6 +205,13 @@
         }
         checkEmpty();
         checkCorrectTime();
+        if (periodContent[2] == 1) {
+            compute();
+            $("#smAppointment").removeClass("hidden");
+        }
+        else {
+            $("#smAppointment").addClass("hidden");
+        }
     }
 
     //检查是否填完
@@ -296,7 +228,6 @@
         }
         else {
             periodContent[2] = 1;
-            compute();
         }
     }
 
@@ -314,6 +245,7 @@
             }
         }
     }
+
     //计算天数
     function compute() {
         var start = periodContent[0];
@@ -329,17 +261,35 @@
                 endArr[1]--;
                 if (endArr[1] == 0) {
                     endArr[0]--;
-                    endArr[1] = Number(startArr[1]) + 12;
+                    endArr[1] = Number(endArr[1]) + 12;
                 }
-                endArr[2] = Number(startArr[2]) + maxDay[startArr[1] - 1];
+                endArr[2] = Number(endArr[2]) + maxDay[endArr[1] - 1];
             }
-            console.log(endArr[0]+"-"+endArr[1]+"-"+endArr[2]);
             if (startArr[0] == endArr[0] && startArr[1] == endArr[1] && startArr[2] == endArr[2]) {
                 flag = false;
             }
         }
         $("#showSum").val(sum);
     }
+
+    $("#smAppointment").on("click", function () {
+        var obj = $(this);
+        $.ajax({
+            url: "appoint",
+            data: {
+                opt: 1,
+                id: "<c:out value="${id}"/>",
+                startTime:$("#start").val(),
+                endTime:$("#end").val()
+            },
+            success: function (data) {
+                if (data == "error") {
+                    alert("预约失败，请重试");
+                }
+                else if (data == "login") {
+                    alert("请先登录");
+                }
+            }
+        });
+    })
 </script>
-</body>
-</html>

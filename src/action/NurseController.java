@@ -174,12 +174,14 @@ public class NurseController {
     @RequestMapping("appoint")
     public void appoint(HttpServletResponse response, @RequestParam("opt") String opt, @RequestParam("id") String id, HttpSession session, HttpServletRequest request) throws IOException {
         PrintWriter printWriter = response.getWriter();
+        String startTime = request.getParameter("startTime");
+        String endTime = request.getParameter("endTime");
         NurseService nurseService = (NurseService) ServiceConstructor.newService("nurseService", request);
         if (session.getAttribute("id") != null && !session.getAttribute("id").equals("")) {
             if (session.getAttribute("userType") != null && !session.getAttribute("userType").equals("")) {
                 if (session.getAttribute("userType").equals("customer")) {
                     if (id != null && !id.equals("")) {
-                        printWriter.print(nurseService.processRv(id, session.getAttribute("id").toString(), opt) ? "success" : "error");
+                        printWriter.print(nurseService.processRv(id, session.getAttribute("id").toString(), opt,startTime,endTime) ? "success" : "error");
                     } else {
                         printWriter.print("error");
                     }

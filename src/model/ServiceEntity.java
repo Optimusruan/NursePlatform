@@ -92,7 +92,7 @@ public class ServiceEntity {
     }
 
     @Basic
-    @Column(name = "svc_comment", nullable = false, length = 500)
+    @Column(name = "svc_comment", nullable = true, length = 500)
     public String getSvcComment() {
         return svcComment;
     }
@@ -112,7 +112,7 @@ public class ServiceEntity {
     }
 
     @Basic
-    @Column(name = "svc_date", nullable = false)
+    @Column(name = "svc_date", nullable = true)
     public Date getSvcDate() {
         return svcDate;
     }

@@ -7,6 +7,7 @@ import model.NurseEntity;
 import model.mapModel.ServiceCustomerMapping;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -96,9 +97,15 @@ public class NurseService {
     }
 
     //处理来自nurseDetail的AJAX请求
-    public boolean processRv(String nurseId, String customerId, String opt) {
+    public boolean processRv(String nurseId, String customerId, String opt,String startTime,String endTime) {
+        String[] start = startTime.split("-");
+        String[] end = endTime.split("-");
+        Calendar svcStart = Calendar.getInstance();
+        svcStart.set(Integer.parseInt(start[0]),Integer.parseInt(start[1]),Integer.parseInt(start[2]),0,0,0);
+        Calendar svcEnd = Calendar.getInstance();
+        svcEnd.set(Integer.parseInt(end[0]),Integer.parseInt(end[1]),Integer.parseInt(end[2]),0,0,0);
         if (opt.equals("1")) {
-            return serviceDetailDao.addAppointment(nurseId, customerId);
+            return serviceDetailDao.addAppointment(nurseId, customerId,svcStart.getTime(),svcEnd.getTime());
         } else if (opt.equals("0")) {
             return serviceDetailDao.cancelAppointment(nurseId, customerId);
         } else {

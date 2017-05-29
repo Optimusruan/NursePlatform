@@ -12,11 +12,123 @@
     <title>月嫂信息</title>
     <link rel="stylesheet" href="assets/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="assets/font-awesome-4.7.0/css/font-awesome.min.css">
+    <style>
+        .calendar {
+            font-family: sans-serif;
+        }
+
+        .calendar > table {
+            background: #dff0d8;
+            opacity: 0.9;
+            position: relative;
+            display: inline-block;
+            padding: 10px;
+        }
+
+        .calendar-head > th, .calendar-main > td {
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            font-size: 1.3em;
+            margin: 0;
+            position: relative;
+        }
+
+        .calendar-main > .open > a {
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+            padding-top: 5px;
+
+        }
+
+        .calendar a:link, .calendar a:visited {
+            text-decoration: none;
+            color: black;
+        }
+
+        .calendar-main > .open > a:hover {
+            background: #e91e63;
+            color: white;
+            opacity: 1;
+        }
+
+        .calendar-info {
+            display: inline-block;
+            position: relative;
+        }
+
+        .thisMonth {
+            position: absolute;
+            font-size: 10em;
+            text-align: center;
+            left: 0;
+            top: 42px;
+            z-index: -1;
+            color: pink;
+        }
+
+        .thisMonth > td {
+            width: 300px;
+        }
+
+        .year-month {
+            text-align: center;
+        }
+
+        .year-month > .to {
+            display: inline-block;
+            font-size: 1.2em;
+            padding: 0 10px 0 10px;
+        }
+
+        .year-month > .content {
+            font-size: 1.2em;
+        }
+
+        .close {
+            background: #D3D4D3;
+            opacity: 0.5;
+            float: none;
+            font-weight: normal;
+        }
+
+        .close:hover {
+            cursor: not-allowed;
+        }
+
+        .calendar .active {
+            background: #e91e63;
+            color: white;
+            opacity: 1;
+        }
+
+        .showInfo {
+            display: block;
+            width: 100%;
+            text-align: center;
+            font-size: 1.5em;
+        }
+
+        .calendar-info > button,.calendar-info>button:visited {
+            margin-top: 15px;
+            text-align: center;
+            font-size: 1.1em;
+            background: white;
+            border-color: #ddd;
+            color: #ccc;
+            width: 100%;
+        }
+
+        .calendar-info > button:hover {
+            border-color: #e91e63;
+            color: #e91e63;
+        }
+    </style>
 </head>
 <body>
 <%@ include file="head.jsp" %>
-<%--<%=session.getAttribute("id")%>--%>
-<%--<c:out value="${id}"></c:out>--%>
+
 <div class="container" style="font-size: 1.25em;line-height: 1.7em">
     <div class="panel">
         <div class="panel-heading">月嫂信息</div>
@@ -75,6 +187,7 @@
 
     </div>
 </div>
+
 <script src="assets/js/jquery-3.1.1.min.js"></script>
 <script src="assets/js/bootstrap.min.js"></script>
 <script>
@@ -96,25 +209,44 @@
         })
     });
     $("#appoint").on("click", function () {
-//        var obj = $(this);
-//        var message = ["取消","预约"];
-//        var opt = obj.attr("data-id");
-//        $.ajax({
-//            url:"appoint",
-//            data:{
-//                opt:opt,
-        <%--id :"<c:out value="${info.nurId}"/>"--%>
-//            },
-//            success:function (data) {
-//                if(data=="error")
-//                {
-//                    alert(message[opt]+"失败，请重试");
-//                }
-//                else if(data=="login"){
-//                    alert("请先登录");
-//                }
-//            }
-//        });
+        var obj = $(this);
+        var temp = obj.text();
+        if (obj.attr("data-id") == 1) {
+            obj.toggleClass("disabled");
+            obj.text("请选择时间");
+            $.ajax({
+                url: "dateService",
+                data: {
+                    id: "<c:out value="${info.nurId}"/>"
+                },
+                success: function (data) {
+                    $(".select-time").html(data);
+                },
+                error: function () {
+                    obj.toggleClass("disabled");
+                    obj.text(temp);
+                }
+            });
+        }
+        else if(obj.attr("data-id")==0){
+            $.ajax({
+                url: "appoint",
+                data: {
+                    opt: 0,
+                    id: "<c:out value="${info.nurId}"/>",
+                    startTime:$("#start").val(),
+                    endTime:$("#end").val()
+                },
+                success: function (data) {
+                    if (data == "error") {
+                        alert("取消失败，请重试");
+                    }
+                    else if (data == "login") {
+                        alert("请先登录");
+                    }
+                }
+            });
+        }
     });
 
 </script>

@@ -20,7 +20,7 @@ public class ExpandServiceController {
     public String dateService(@RequestParam("id") String id, HttpServletRequest request, Map model, HttpServletResponse response) throws IOException {
         NurseService nurseService = (NurseService) ServiceConstructor.newService("nurseService", request);
         String str = nurseService.getNurseServicesByString(id);
-        model.put("time", str);
+        model.put("id", id);
         return "ajaxLoadView/showDate";
     }
 }
