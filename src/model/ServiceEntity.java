@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Date;
 
 /**
- * Created by Administrator on 2017/5/16.
+ * Created by Administrator on 2017/5/29.
  */
 @Entity
 @Table(name = "service", schema = "nurseplatform", catalog = "")
@@ -102,7 +102,7 @@ public class ServiceEntity {
     }
 
     @Basic
-    @Column(name = "svc_level", nullable = false)
+    @Column(name = "svc_level", nullable = true)
     public Integer getSvcLevel() {
         return svcLevel;
     }

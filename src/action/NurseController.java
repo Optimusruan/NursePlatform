@@ -105,7 +105,7 @@ public class NurseController {
         }
         String time = request.getParameter("startTime");
         if (time != null && !time.equals("")) {
-            cond.append("nur_id not in(select svcNurid from ServiceEntity where svc_start<=").append(time).append(" and svc_end>=").append(time).append(") ");
+            cond.append("nurId not in(select svcNurid from ServiceEntity where svc_start<='").append(time).append("' and svc_end>='").append(time).append("') ");
         }
         if (cond.toString().equals(" where ")) {
             cond.delete(0, cond.length());
@@ -143,14 +143,14 @@ public class NurseController {
     @ResponseBody
     public void agreeRv(@RequestParam("id") String id, HttpServletRequest request) {
         NurseService nurseService = (NurseService) ServiceConstructor.newService("nurseService", request);
-        nurseService.agreeRv(id);
+        nurseService.agreeRv(id,request.getSession().getAttribute("id").toString());
     }
 
     @RequestMapping("refuseRv")
     @ResponseBody
     public void refuseRv(@RequestParam("id") String id, HttpServletRequest request) {
         NurseService nurseService = (NurseService) ServiceConstructor.newService("nurseService", request);
-        nurseService.refuseRv(id);
+        nurseService.refuseRv(id,request.getSession().getAttribute("id").toString());
     }
 
     @RequestMapping("showTel")

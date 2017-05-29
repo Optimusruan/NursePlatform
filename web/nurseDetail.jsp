@@ -244,6 +244,10 @@
                     else if (data == "login") {
                         alert("请先登录");
                     }
+                    else if(data=="success"){
+                        alert("取消成功");
+                        window.location.href="nurseDetail?id=<c:out value="${info.nurId}"/>";
+                    }
                 }
             });
         }

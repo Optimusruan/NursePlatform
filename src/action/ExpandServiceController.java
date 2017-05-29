@@ -21,6 +21,7 @@ public class ExpandServiceController {
         NurseService nurseService = (NurseService) ServiceConstructor.newService("nurseService", request);
         String str = nurseService.getNurseServicesByString(id);
         model.put("id", id);
+        model.put("time",str);
         return "ajaxLoadView/showDate";
     }
 }

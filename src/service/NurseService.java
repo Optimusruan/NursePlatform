@@ -98,18 +98,20 @@ public class NurseService {
 
     //处理来自nurseDetail的AJAX请求
     public boolean processRv(String nurseId, String customerId, String opt,String startTime,String endTime) {
-        String[] start = startTime.split("-");
-        String[] end = endTime.split("-");
-        Calendar svcStart = Calendar.getInstance();
-        svcStart.set(Integer.parseInt(start[0]),Integer.parseInt(start[1]),Integer.parseInt(start[2]),0,0,0);
-        Calendar svcEnd = Calendar.getInstance();
-        svcEnd.set(Integer.parseInt(end[0]),Integer.parseInt(end[1]),Integer.parseInt(end[2]),0,0,0);
-        if (opt.equals("1")) {
-            return serviceDetailDao.addAppointment(nurseId, customerId,svcStart.getTime(),svcEnd.getTime());
-        } else if (opt.equals("0")) {
-            return serviceDetailDao.cancelAppointment(nurseId, customerId);
-        } else {
-            return false;
+
+        switch (opt) {
+            case "1":
+                String[] start = startTime.split("-");
+                String[] end = endTime.split("-");
+                Calendar svcStart = Calendar.getInstance();
+                svcStart.set(Integer.parseInt(start[0]),Integer.parseInt(start[1])-1,Integer.parseInt(start[2]),0,0,0);
+                Calendar svcEnd = Calendar.getInstance();
+                svcEnd.set(Integer.parseInt(end[0]),Integer.parseInt(end[1])-1,Integer.parseInt(end[2]),0,0,0);
+                return serviceDetailDao.addAppointment(nurseId, customerId, svcStart.getTime(), svcEnd.getTime());
+            case "0":
+                return serviceDetailDao.cancelAppointment(nurseId, customerId);
+            default:
+                return false;
         }
     }
 
@@ -117,11 +119,11 @@ public class NurseService {
         return serviceDetailDao.getServiceStatusByTwoId(nurseId, customerId);
     }
 
-    public boolean agreeRv(String id) {
-        return serviceDetailDao.maniRv(id, 1);
+    public boolean agreeRv(String id,String nurseId) {
+        return serviceDetailDao.maniRv(id, 1,nurseId);
     }
 
-    public boolean refuseRv(String id) {
-        return serviceDetailDao.maniRv(id, 2);
+    public boolean refuseRv(String id,String nurseId) {
+        return serviceDetailDao.maniRv(id, 2,nurseId);
     }
 }

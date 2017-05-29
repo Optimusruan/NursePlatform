@@ -117,7 +117,7 @@
         $(".year-month>.content").text(year + "年" + (date.getMonth() + 1) + "月");
         var strMonth = month <= 8 ? "0" + (Number(month) + 1) : (Number(month) + 1);
         $("#yearMonth").val(year + "" + strMonth);
-        checkBusy();
+//        checkBusy();
     }
 
     //处理日期进位和退位
@@ -204,8 +204,8 @@
             }
         }
         checkEmpty();
-        checkCorrectTime();
         if (periodContent[2] == 1) {
+            checkCorrectTime();
             compute();
             $("#smAppointment").removeClass("hidden");
         }
@@ -236,6 +236,8 @@
         var start = $("#start").val();
         var end = $("#end").val();
         if (start != "" && end != "") {
+            start = dateToString(start);
+            end = dateToString(end);
             if (start > end) {
                 $("#start").val(end);
                 $("#end").val(start);
@@ -244,6 +246,23 @@
                 periodContent[1] = temp;
             }
         }
+    }
+
+    //转换为标准格式字符串
+    function dateToString(temp) {
+        var arr = temp.split("-");
+        if (Number(arr[0]) < 1000) {
+            for (var i = 0; i < arr[0].length; i++) {
+                arr[0] = "0" + arr[0];
+            }
+        }
+        if (Number(arr[1]) < 10) {
+            arr[1] = "0" + arr[1];
+        }
+        if (Number(arr[2]) < 10) {
+            arr[2] = "0" + arr[2];
+        }
+        return arr[0] + "-" + arr[1] + "-" + arr[2];
     }
 
     //计算天数
@@ -265,10 +284,13 @@
                 }
                 endArr[2] = Number(endArr[2]) + maxDay[endArr[1] - 1];
             }
-            if (startArr[0] == endArr[0] && startArr[1] == endArr[1] && startArr[2] == endArr[2]) {
+            if (Number(startArr[0]) == Number(endArr[0]) && Number(startArr[1]) == Number(endArr[1]) && Number(startArr[2]) == Number(endArr[2])) {
                 flag = false;
             }
+//            console.log(startArr[0] + "-" + startArr[1] + "-" + startArr[2])
+//            console.log(endArr[0] + "-" + endArr[1] + "-" + endArr[2]);
         }
+        sum++;
         $("#showSum").val(sum);
     }
 
@@ -279,8 +301,8 @@
             data: {
                 opt: 1,
                 id: "<c:out value="${id}"/>",
-                startTime:$("#start").val(),
-                endTime:$("#end").val()
+                startTime: $("#start").val(),
+                endTime: $("#end").val()
             },
             success: function (data) {
                 if (data == "error") {
@@ -288,6 +310,11 @@
                 }
                 else if (data == "login") {
                     alert("请先登录");
+                }
+                else if (data == "success") {
+                    alert("预约成功");
+                    window.location.href = "nurseDetail?id=<c:out value="${id}"/>";
+
                 }
             }
         });

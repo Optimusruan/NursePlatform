@@ -28,10 +28,10 @@
             <column name="svc_end" sql-type="date"/>
         </property>
         <property name="svcComment">
-            <column name="svc_comment" sql-type="varchar(500)" length="500"/>
+            <column name="svc_comment" sql-type="varchar(500)" length="500" />
         </property>
         <property name="svcLevel">
-            <column name="svc_level" sql-type="int(11)"/>
+            <column name="svc_level" sql-type="int(11)" />
         </property>
         <property name="svcDate">
             <column name="svc_date" sql-type="date"/>

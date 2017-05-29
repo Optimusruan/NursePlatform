@@ -203,24 +203,27 @@
 
     });
     $(".agreeRv").click(function () {
-        var _this = this;
-        var id = $(_this).data("id");
+        if(confirm("接受意味着同时拒绝有时间冲突的预约，确定吗？"))
+        {
+            var _this = this;
+            var id = $(_this).data("id");
 
-        $.ajax({
-            url: "agreeRv",
-            data: {
-                id: id
-            },
-            success: function () {
-                alert("接受预约");
-                $(_this).parents("tr").removeClass("status0").addClass("status1");
-                $(_this).parents("tr").children().eq(3).html("月嫂同意");
-                $(_this).parents("tr").children().eq(4).html("");
-            },
-            error: function () {
-                alert("取消失败");
-            }
-        });
+            $.ajax({
+                url: "agreeRv",
+                data: {
+                    id: id
+                },
+                success: function () {
+                    alert("接受预约");
+                    $(_this).parents("tr").removeClass("status0").addClass("status1");
+                    $(_this).parents("tr").children().eq(3).html("月嫂同意");
+                    $(_this).parents("tr").children().eq(4).html("");
+                },
+                error: function () {
+                    alert("取消失败");
+                }
+            });
+        }
     });
     $(".refuseRv").click(function () {
         var _this = this;

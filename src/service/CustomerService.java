@@ -40,12 +40,12 @@ public class CustomerService {
         return serviceDetailDao.getCustomerService(id);
     }
 
-    public boolean confirmRv(String id) {
-        return serviceDetailDao.maniRv(id, 4);
+    public boolean confirmRv(String id,String customerId) {
+        return serviceDetailDao.maniRv(id, 4,customerId);
     }
 
-    public boolean cancelRv(String id) {
-        return serviceDetailDao.maniRv(id, 3);
+    public boolean cancelRv(String id,String customerId) {
+        return serviceDetailDao.maniRv(id, 3,customerId);
     }
 
     public boolean comment(String id, String level, String attitude, String comment) {

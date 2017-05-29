@@ -82,23 +82,60 @@ public class ServiceDetailDao {
         return list;
     }
 
-    public boolean maniRv(String id, int pps) {
+    public boolean maniRv(String id, int pps, String homeId) {
+
         Session session = sessionFactory.openSession();
-        Transaction tx = session.beginTransaction();
-        Query query = session.createQuery("update ServiceEntity set svcPps = ? where svcId=?");
-        query.setParameter(0, pps);
-        query.setParameter(1, Integer.parseInt(id));
-        int res = query.executeUpdate();
-        tx.commit();
-        session.close();
-        if (res > 0) {
+        List list = null;
+        if (pps == 1 || pps == 4) {
+            Transaction tx = session.beginTransaction();
+            if (pps == 1) {
+                list = session.createQuery("from ServiceEntity where svcAble=1 and svcNurid=" + homeId).list();
+            } else {
+                list = session.createQuery("from ServiceEntity  where svcAble=1 and svcCusid=" + homeId).list();
+            }
+            try {
+                ServiceEntity currentObject = session.get(ServiceEntity.class, new Integer(id));
+                long currentStart = currentObject.getSvcStart().getTime();
+                long currentEnd = currentObject.getSvcEnd().getTime();
+                for (Object aList : list) {
+                    ServiceEntity serviceEntity = (ServiceEntity) aList;
+                    long tempStart = serviceEntity.getSvcStart().getTime();
+                    long tempEnd = serviceEntity.getSvcEnd().getTime();
+                    if (serviceEntity.getSvcId() == Integer.parseInt(id)) {
+                        serviceEntity.setSvcPps(pps);
+                        session.update(serviceEntity);
+                        continue;
+                    }
+                    if ((tempStart <= currentEnd && tempStart >=currentStart)|| (tempEnd <= currentEnd && tempEnd>=currentStart)) {
+                        serviceEntity.setSvcPps(2);
+                        serviceEntity.setSvcAble((byte) 0);
+                        session.update(serviceEntity);
+                    }
+                }
+                tx.commit();
+                return true;
+            } catch (Exception e) {
+                tx.rollback();
+                return false;
+            }
+        } else if (pps == 2 || pps == 3) {
+            Transaction tx = session.beginTransaction();
+            ServiceEntity currentObject = session.get(ServiceEntity.class, new Integer(id));
+            if (currentObject != null) {
+                currentObject.setSvcPps(pps);
+                session.update(currentObject);
+            } else {
+                return false;
+            }
+            tx.commit();
+            session.close();
             return true;
-        } else
-            return false;
+        }
+        return false;
     }
 
     //生成预约关系
-    public boolean addAppointment(String nurseId, String customerId,Date svcStart,Date svcEnd) {
+    public boolean addAppointment(String nurseId, String customerId, Date svcStart, Date svcEnd) {
         System.out.println(svcStart.toString());
         System.out.println(svcEnd.toString());
         try {
@@ -127,7 +164,7 @@ public class ServiceDetailDao {
         try {
             Session session = sessionFactory.openSession();
             Transaction tx = session.beginTransaction();
-            Query query = session.createQuery("from ServiceEntity where svcNurid=" + nurseId + " and svcCusid=" + customerId);
+            Query query = session.createQuery("from ServiceEntity where svcNurid=" + nurseId + " and svcCusid=" + customerId + " and svcAble=1");
             ServiceEntity serviceEntity = (ServiceEntity) query.getSingleResult();
             serviceEntity.setSvcPps(3);
             serviceEntity.setSvcAble((byte) 0);
@@ -151,14 +188,15 @@ public class ServiceDetailDao {
             return true;
         }
     }
+
     public boolean comment(String id, String level, String attitude, String comment) {
         Session session = sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
         Query query = session.createQuery("update ServiceEntity set svcLevel = ?,svcComment=?,svcPps=? where svcId=?");
-        query.setParameter(0,Integer.parseInt(level));
-        query.setParameter(1,attitude+"|"+comment);
-        query.setParameter(2,5);
-        query.setParameter(3,Integer.parseInt(id));
+        query.setParameter(0, Integer.parseInt(level));
+        query.setParameter(1, attitude + "|" + comment);
+        query.setParameter(2, 5);
+        query.setParameter(3, Integer.parseInt(id));
         query.executeUpdate();
         tx.commit();
         session.close();

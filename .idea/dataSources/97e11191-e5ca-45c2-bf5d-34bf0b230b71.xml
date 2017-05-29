@@ -218,22 +218,20 @@
     <column id="56" parent="11" name="svc_comment">
       <Position>8</Position>
       <DataType>varchar(500)|0</DataType>
-      <NotNull>1</NotNull>
     </column>
     <column id="57" parent="11" name="svc_level">
       <Position>9</Position>
       <DataType>int(11)|0</DataType>
-      <NotNull>1</NotNull>
     </column>
     <column id="58" parent="11" name="svc_date">
       <Position>10</Position>
       <DataType>date|0</DataType>
-      <NotNull>1</NotNull>
     </column>
     <column id="59" parent="11" name="svc_able">
       <Position>11</Position>
       <DataType>tinyint(1)|0</DataType>
       <NotNull>1</NotNull>
+      <DefaultExpression>&apos;1&apos;</DefaultExpression>
     </column>
     <index id="60" parent="11" name="svc_id">
       <ColNames>svc_id</ColNames>

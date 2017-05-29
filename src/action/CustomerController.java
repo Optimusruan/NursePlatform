@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
 /**
@@ -46,14 +45,14 @@ public class CustomerController {
     @ResponseBody
     public void confirmRv(@RequestParam("id") String id, HttpServletRequest request) {
         CustomerService customerService = (CustomerService) ServiceConstructor.newService("customerService", request);
-        customerService.confirmRv(id);
+        customerService.confirmRv(id,request.getSession().getAttribute("id").toString());
     }
 
     @RequestMapping("cancelRv")
     @ResponseBody
     public void cancelRv(@RequestParam("id") String id, HttpServletRequest request) {
         CustomerService customerService = (CustomerService) ServiceConstructor.newService("customerService", request);
-        customerService.cancelRv(id);
+        customerService.cancelRv(id,request.getSession().getAttribute("id").toString());
     }
     @RequestMapping("comment")
     @ResponseBody

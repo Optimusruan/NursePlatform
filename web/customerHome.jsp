@@ -280,22 +280,23 @@
     $(".confirmRv").click(function () {
         var _this = this;
         var id = $(_this).data("id");
-
-        $.ajax({
-            url: "confirmRv",
-            data: {
-                id: id
-            },
-            success: function (data) {
-                alert("确认成功");
-                $(_this).parents("tr").removeClass("status2").addClass("status4");
-                $(_this).parents("tr").children().eq(4).html("已成交");
-                $(_this).parents("tr").children().eq(5).html("<a class='btn btn-warning btn-sm'>去评价</a>");
-            },
-            error: function () {
-                alert("确认失败");
-            }
-        });
+        if (confirm("确认预约会取消其余时间冲突的预约，继续吗")) {
+            $.ajax({
+                url: "confirmRv",
+                data: {
+                    id: id
+                },
+                success: function (data) {
+                    alert("确认成功");
+                    $(_this).parents("tr").removeClass("status2").addClass("status4");
+                    $(_this).parents("tr").children().eq(4).html("已成交");
+                    $(_this).parents("tr").children().eq(5).html("<a class='btn btn-warning btn-sm'>去评价</a>");
+                },
+                error: function () {
+                    alert("确认失败");
+                }
+            });
+        }
     });
     $(".cancelRv").click(function () {
         var _this = this;

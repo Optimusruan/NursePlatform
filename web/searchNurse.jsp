@@ -415,7 +415,7 @@
         }
         if (type == 3) {
             $("#time").removeClass("hide");
-            $("#startTime").val();
+            $("#startTime").val("");
         }
         loadContent();
         obj.remove();
