@@ -60,10 +60,10 @@
 
         .thisMonth {
             position: absolute;
-            font-size: 10em;
+            font-size: 11em;
             text-align: center;
             left: 0;
-            top: 42px;
+            top: 64px;
             z-index: -1;
             color: pink;
         }
@@ -201,6 +201,9 @@
             success: function (data) {
                 if (data == "No way")
                     alert("登陆后再试");
+                else if( data =="typeError"){
+                    alert("只有用户能查看");
+                }
                 else {
                     obj.after(data);
                     obj.remove();

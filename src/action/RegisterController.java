@@ -120,7 +120,7 @@ public class RegisterController {
     @RequestMapping("customerRegister")
     public String customerRegister(@RequestParam("opt") String opt, Map model, HttpServletRequest request, HttpServletResponse response) {
         if (opt == "mod" || opt.equals("mod")) {
-            model.put("title", "Modify 客户信息修改");
+            model.put("title", "客户信息修改");
             model.put("opt", "mod");
             model.put("act", "修改");
             model.put("display", " style=display:none ");
@@ -133,7 +133,7 @@ public class RegisterController {
                 model.put("info", customerService.getDetailByHome(id));
             }
         } else if (opt == "reg" || opt.equals("reg")) {
-            model.put("title", "Register 用户注册");
+            model.put("title", "用户注册");
             model.put("opt", "reg");
             model.put("act", "注册");
         }

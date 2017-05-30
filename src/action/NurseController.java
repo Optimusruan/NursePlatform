@@ -143,28 +143,32 @@ public class NurseController {
     @ResponseBody
     public void agreeRv(@RequestParam("id") String id, HttpServletRequest request) {
         NurseService nurseService = (NurseService) ServiceConstructor.newService("nurseService", request);
-        nurseService.agreeRv(id,request.getSession().getAttribute("id").toString());
+        nurseService.agreeRv(id, request.getSession().getAttribute("id").toString());
     }
 
     @RequestMapping("refuseRv")
     @ResponseBody
     public void refuseRv(@RequestParam("id") String id, HttpServletRequest request) {
         NurseService nurseService = (NurseService) ServiceConstructor.newService("nurseService", request);
-        nurseService.refuseRv(id,request.getSession().getAttribute("id").toString());
+        nurseService.refuseRv(id, request.getSession().getAttribute("id").toString());
     }
 
     @RequestMapping("showTel")
     public void showTel(@RequestParam("id") String id, HttpServletResponse response, HttpServletRequest request) throws IOException {
         NurseService nurseService = (NurseService) ServiceConstructor.newService("nurseService", request);
         NurseEntity nurseEntity = nurseService.getDetail(id, 2);
+        response.setCharacterEncoding("utf-8");
         PrintWriter printWriter = response.getWriter();
         System.out.println(id);
-        response.setCharacterEncoding("utf-8");
-        if (request.getSession().getAttribute("id") != null) {
-            if (nurseEntity.getNurContact() == null) {
-                printWriter.print("该月嫂未留联系方式");
+        if (request.getSession().getAttribute("id") != null && request.getSession().getAttribute("userType") != null) {
+            if (request.getSession().getAttribute("userType").equals("customer")) {
+                if (nurseEntity.getNurContact() == null || nurseEntity.getNurContact().equals("")) {
+                    printWriter.print("该月嫂未留联系方式");
+                } else {
+                    printWriter.print(nurseEntity.getNurContact());
+                }
             } else {
-                printWriter.print(nurseEntity.getNurContact());
+                printWriter.print("typeError");
             }
         } else {
             printWriter.print("No way");
@@ -181,7 +185,7 @@ public class NurseController {
             if (session.getAttribute("userType") != null && !session.getAttribute("userType").equals("")) {
                 if (session.getAttribute("userType").equals("customer")) {
                     if (id != null && !id.equals("")) {
-                        printWriter.print(nurseService.processRv(id, session.getAttribute("id").toString(), opt,startTime,endTime) ? "success" : "error");
+                        printWriter.print(nurseService.processRv(id, session.getAttribute("id").toString(), opt, startTime, endTime) ? "success" : "error");
                     } else {
                         printWriter.print("error");
                     }

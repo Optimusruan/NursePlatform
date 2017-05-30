@@ -309,6 +309,7 @@
             },
             success: function () {
                 alert("取消成功");
+                window.location.reload();
                 $(_this).parents("tr").removeClass("status2").addClass("status3");
                 $(_this).parents("tr").children().eq(4).html("客户取消");
                 $(_this).parents("tr").children().eq(5).html("");

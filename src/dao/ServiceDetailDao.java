@@ -81,7 +81,13 @@ public class ServiceDetailDao {
         session.close();
         return list;
     }
-
+    public List getNurseStatus(String id){
+        Session session = sessionFactory.openSession();
+        Query query = session.createQuery("select new model.mapModel.ServiceCustomerMapping(s.svcId,s.svcCusid,s.svcNurid, s.svcStatus, s.svcPps, s.svcStart, s.svcEnd, s.svcComment, s.svcLevel,s.svcDate,s.svcAble,c.cusName) from  ServiceEntity s,CustomerEntity c where s.svcPps>3 and s.svcCusid=c.cusId and s.svcNurid=? order by s.svcStart desc ");
+        query.setParameter(0, Integer.parseInt(id));
+        List list = query.list();
+        return list;
+    }
     public boolean maniRv(String id, int pps, String homeId) {
 
         Session session = sessionFactory.openSession();
@@ -89,9 +95,9 @@ public class ServiceDetailDao {
         if (pps == 1 || pps == 4) {
             Transaction tx = session.beginTransaction();
             if (pps == 1) {
-                list = session.createQuery("from ServiceEntity where svcAble=1 and svcNurid=" + homeId).list();
+                list = session.createQuery("from ServiceEntity where  svcAble=1 and svcNurid=" + homeId).list();
             } else {
-                list = session.createQuery("from ServiceEntity  where svcAble=1 and svcCusid=" + homeId).list();
+                list = session.createQuery("from ServiceEntity  where svcPps<4 and svcAble=1 and svcCusid=" + homeId).list();
             }
             try {
                 ServiceEntity currentObject = session.get(ServiceEntity.class, new Integer(id));
@@ -106,8 +112,12 @@ public class ServiceDetailDao {
                         session.update(serviceEntity);
                         continue;
                     }
-                    if ((tempStart <= currentEnd && tempStart >=currentStart)|| (tempEnd <= currentEnd && tempEnd>=currentStart)) {
-                        serviceEntity.setSvcPps(2);
+                    if ((tempStart <= currentEnd && tempStart >= currentStart) || (tempEnd <= currentEnd && tempEnd >= currentStart)) {
+                        if(pps==1)
+                        {
+                            serviceEntity.setSvcPps(2);
+                        }
+                        else  serviceEntity.setSvcPps(3);
                         serviceEntity.setSvcAble((byte) 0);
                         session.update(serviceEntity);
                     }
@@ -178,9 +188,9 @@ public class ServiceDetailDao {
         }
     }
 
-    public boolean getServiceStatusByTwoId(String nurseId, String customerId) {
+    public boolean getServiceStatusByTwoId(String nurseId, String customerId, String now) {
         Session session = sessionFactory.openSession();
-        if (session.createQuery("from ServiceEntity where svcAble=1 and svcNurid=" + nurseId + " and svcCusid=" + customerId).list().size() > 0) {
+        if (session.createQuery("from ServiceEntity where svcAble=1 and svcEnd>'" + now + "' and svcNurid=" + nurseId + " and svcCusid=" + customerId).list().size() > 0) {
             session.close();
             return false;
         } else {

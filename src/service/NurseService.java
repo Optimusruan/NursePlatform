@@ -82,7 +82,7 @@ public class NurseService {
     }
 
     public String getNurseServicesByString(String id) {
-        List list = serviceDetailDao.getNurseService(id);
+        List list = serviceDetailDao.getNurseStatus(id);
         StringBuffer stringBuffer = new StringBuffer();
         for (int i = 0; i < list.size(); i++) {
             if (i != 0) {
@@ -116,7 +116,10 @@ public class NurseService {
     }
 
     public boolean isAppoint(String nurseId, String customerId) {
-        return serviceDetailDao.getServiceStatusByTwoId(nurseId, customerId);
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String now = simpleDateFormat.format(calendar.getTime());
+        return serviceDetailDao.getServiceStatusByTwoId(nurseId, customerId,now);
     }
 
     public boolean agreeRv(String id,String nurseId) {

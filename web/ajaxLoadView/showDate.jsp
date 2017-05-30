@@ -117,7 +117,7 @@
         $(".year-month>.content").text(year + "年" + (date.getMonth() + 1) + "月");
         var strMonth = month <= 8 ? "0" + (Number(month) + 1) : (Number(month) + 1);
         $("#yearMonth").val(year + "" + strMonth);
-//        checkBusy();
+        checkBusy();
     }
 
     //处理日期进位和退位
@@ -315,6 +315,9 @@
                     alert("预约成功");
                     window.location.href = "nurseDetail?id=<c:out value="${id}"/>";
 
+                }
+                else if(data == "typeError"){
+                    alert("月嫂不能使用预约");
                 }
             }
         });
