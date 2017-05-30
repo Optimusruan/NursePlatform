@@ -67,7 +67,7 @@
         }
 
         if (this.opt.width !== false) {
-          that.css('width', width);
+          that.css('width', "150px");
         }
 
         methods._target.call(this, this.opt.score);
@@ -460,7 +460,7 @@
     size          : 16,
     space         : true,
     starHalf      : 'star-half.png',
-    starOff       : 'assets/img/star/star-off.png',
+    starOff       : 'assets/js/raty/img/star-off.png',
     starOn        : 'assets/js/raty/img/star-on.png',
     target        : undefined,
     targetFormat  : '{score}',
