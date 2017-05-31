@@ -8,7 +8,24 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
+<script>
+    //地图加载
+    var map = new AMap.Map('map',{
+        resizeEnable: true,
+        zoom: 7
+    });
 
+    //    var customMarker = new AMap.Marker({
+    //        offset: new AMap.Pixel(-14, -34),//相对于基点的位置
+    //        icon: new AMap.Icon({  //复杂图标
+    //            size: new AMap.Size(27, 36),//图标大小
+    //            image: "assets/img/location.png"
+    //        }),
+    //        position: map.getCenter(),
+    //        map:map
+    //    });
+
+</script>
 <div class="row">
     <c:forEach items="${info}" var="item">
         <div class="itemContainer nurseList" id="nurse${item.nurId}">

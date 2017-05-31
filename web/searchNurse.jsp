@@ -269,8 +269,12 @@
         }
 
         #map{
-            height: 300px;
+            height: 285px;
         }
+
+        .map{
+            padding-top: 15px;
+         }
     </style>
 </head>
 <body>
@@ -367,7 +371,7 @@
     </div>
 
     <%--地图--%>
-    <div class="col-lg-5">
+    <div class="col-lg-5 map">
         <div id="map"></div>
 
     </div>
@@ -395,20 +399,6 @@
 <script src="assets/js/distpicker/main.js"></script>
 <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=354bcf086459b742f330894fc091b5bd"></script>
 <script>
-    //地图加载
-    var map = new AMap.Map('map',{
-        resizeEnable: true,
-        zoom: 7
-    });
-
-    var customMarker = new AMap.Marker({
-        offset: new AMap.Pixel(-14, -34),//相对于基点的位置
-        icon: new AMap.Icon({  //复杂图标
-            size: new AMap.Size(27, 36),//图标大小
-            image: "assets/img/location.png"
-        }),
-        map:map
-    });
 
     //首次加载
     $(document).ready(loadContent());
