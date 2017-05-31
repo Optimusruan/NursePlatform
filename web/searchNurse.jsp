@@ -166,7 +166,7 @@
 
         .address {
             display: inline-block;
-            width: 20%;
+            width: 200px;
             height: 32px;
             padding: 3px 12px;
             margin: 2px 10px;
@@ -441,7 +441,7 @@
     //加载内容
     function loadContent() {
         var cache = $("#list").html();
-        $("#list").html("<img src=\"assets/img/loading.gif\" alt=\"\" width=\"300\" style='position: absolute;left: 350px;'>");
+        $("#list").html("<img src=\"assets/img/loading.gif\" alt=\"\" width=\"300\" style='position: absolute;left: 350px;top: 300px'>");
         $.ajax({
             url: "nurseList",
             timeout: 15000,
