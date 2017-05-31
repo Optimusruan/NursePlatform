@@ -209,6 +209,22 @@ public class ServiceDetailDao {
         query.setParameter(3, Integer.parseInt(id));
         query.executeUpdate();
         tx.commit();
+
+        query = session.createQuery("select svcNurid from ServiceEntity where svcId=?");
+        query.setParameter(0, Integer.parseInt(id));
+        int nurid = (int)query.getSingleResult();
+
+        query = session.createQuery("select avg(svcLevel) from ServiceEntity where svcNurid = ? and svcLevel is not null ");
+        query.setParameter(0, nurid);
+        Double avgLevel = (Double) query.getSingleResult();
+
+        tx.begin();
+        query = session.createQuery("update NurseEntity set nurRpt = ? where nurId = ?");
+        query.setParameter(0, avgLevel);
+        query.setParameter(1, nurid);
+        query.executeUpdate();
+        tx.commit();
+
         session.close();
         return true;
     }

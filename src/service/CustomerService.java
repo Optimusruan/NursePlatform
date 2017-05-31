@@ -49,8 +49,6 @@ public class CustomerService {
     }
 
     public boolean comment(String id, String level, String attitude, String comment) {
-        ApplicationContext ctx = ContextLoader.getCurrentWebApplicationContext();
-        ServiceDetailDao serviceDetailDao = (ServiceDetailDao) ctx.getBean("serviceDetailDao");
 
         return serviceDetailDao.comment(id,level,attitude,comment);
     }

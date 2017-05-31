@@ -327,22 +327,26 @@
         var level = $('.score', ele).val();
         var comment = $(".comment-content", ele).val();
 
-        $.ajax({
-            url: "comment",
-            data: {
-                id: id,
-                level: level,
-                attitude: attitude,
-                comment: comment
-            },
-            success: function () {
-                $(".modal").modal("hide");
-                alert("评价成功");
-                $(tr).removeClass("status4").addClass("status5");
-                $(tr).children().eq(4).html("评价成功");
-                $(tr).children().eq(5).html("");
-            }
-        })
+        if(attitude==null||comment==null){
+            alert("清完整评价再提交");
+        }else {
+            $.ajax({
+                url: "comment",
+                data: {
+                    id: id,
+                    level: level,
+                    attitude: attitude,
+                    comment: comment
+                },
+                success: function () {
+                    $(".modal").modal("hide");
+                    alert("评价成功");
+                    $(tr).removeClass("status4").addClass("status5");
+                    $(tr).children().eq(4).html("评价成功");
+                    $(tr).children().eq(5).html("");
+                }
+            })
+        }
     })
 </script>
 </html>

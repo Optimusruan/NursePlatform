@@ -7,9 +7,11 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+
 <div class="row">
     <c:forEach items="${info}" var="item">
-        <div class="itemContainer nurseList">
+        <div class="itemContainer nurseList" id="nurse${item.nurId}">
             <a href="nurseDetail?id=<c:out value="${item.nurId}"/>">
                 <div class="itemImg">
                     <c:choose>
@@ -41,6 +43,30 @@
                 </div>
             </a>
         </div>
+        <c:if test="${item.nurPos!=null}">
+            <script>
+                var marker${item.nurId} = new AMap.Marker({
+                    position: ${item.nurPos},
+                    map:map,
+                    label: {
+                        content: '${item.nurName}',
+                        offset: new AMap.Pixel(27, 25)
+                    },
+                    clickable:true
+                });
+
+                marker${item.nurId}.on("click",function () {
+                    $("html, body").animate({
+                        scrollTop: $("#nurse${item.nurId}").offset().top + "px"
+                    }, {
+                        duration: 500,
+                        easing: "swing"
+                    });
+                    return false;
+                });
+            </script>
+        </c:if>
+
     </c:forEach>
 </div>
 <div class="row pageNavi">

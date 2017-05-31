@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html>
 <head>
     <title>月嫂主页</title>
@@ -170,8 +171,41 @@
                             <td><c:out value="${svc.svcEnd}"></c:out></td>
                             <td>已成交</td>
                             <td>
-                                <a class="btn btn-success btn-sm">查看评价</a>
+                                <a class="btn btn-warning btn-sm" data-toggle="modal"
+                                   data-target="#comment${svc.svcId}">查看评价</a>
                             </td>
+                            <%--<div class="modal fade" id="comment${svc.svcId}" tabindex="-1">--%>
+                                <%--<div class="modal-dialog">--%>
+                                    <%--<div class="modal-content">--%>
+                                        <%--<div class="modal-header">--%>
+                                            <%--<button type="button" class="close" data-dismiss="modal">&times;</button>--%>
+                                            <%--<h4 class="modal-title">服务评价</h4>--%>
+                                        <%--</div>--%>
+                                        <%--<div class="modal-body" style="padding: 30px;">--%>
+                                            <%--<div class="row">--%>
+                                                <%--<label class="col-lg-3">专业程度：</label>--%>
+                                                <%--<p class="stars col-lg-9">${svc.svcLevel}</p>--%>
+                                            <%--</div>--%>
+                                            <%--<div class="row">--%>
+                                                <%--<label class="col-lg-3">服务态度：</label>--%>
+                                                <%--<div class="form-group col-lg-6">--%>
+                                                    <%--<c:if test="${fn:split(svc.svcComment,'|')[0]=='1'}">极差</c:if>--%>
+                                                    <%--<c:if test="${fn:split(svc.svcComment,'|')[0]=='2'}">差评</c:if>--%>
+                                                    <%--<c:if test="${fn:split(svc.svcComment,'|')[0]=='3'}">一般</c:if>--%>
+                                                    <%--<c:if test="${fn:split(svc.svcComment,'|')[0]=='4'}">好评</c:if>--%>
+                                                    <%--<c:if test="${fn:split(svc.svcComment,'|')[0]=='5'}">极好</c:if>--%>
+                                                <%--</div>--%>
+                                            <%--</div>--%>
+                                            <%--<div class="row">--%>
+                                                <%--<label class="col-lg-3">评价：</label>--%>
+                                                <%--<p class="col-lg-9 form-control comment-content" style="width: 400px;">--%>
+                                                    <%--${fn:split(svc.svcCommnet,'|')[1]}--%>
+                                                <%--</p>--%>
+                                            <%--</div>--%>
+                                        <%--</div>--%>
+                                    <%--</div>--%>
+                                <%--</div>--%>
+                            <%--</div>--%>
                         </tr>
                     </c:if>
                 </c:forEach>

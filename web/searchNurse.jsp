@@ -267,6 +267,10 @@
             color: #D3D4D3;
             border-color: #D3D4D3;
         }
+
+        #map{
+            height: 300px;
+        }
     </style>
 </head>
 <body>
@@ -279,6 +283,7 @@
         <button class=" btn fa fa-search" id="search" style="height: auto"></button>
     </div>
 
+    <div class="col-lg-7">
     <%--筛选条件栏--%>
     <div class="condition row " id="condition">
         <div class="condition-container row">
@@ -359,6 +364,13 @@
             </li>
         </ul>
     </div>
+    </div>
+
+    <%--地图--%>
+    <div class="col-lg-5">
+        <div id="map"></div>
+
+    </div>
 
     <%--结果显示--%>
     <div class="row" id="list">
@@ -381,7 +393,22 @@
 <script src="assets/js/distpicker/distpicker.data.js"></script>
 <script src="assets/js/distpicker/distpicker.js"></script>
 <script src="assets/js/distpicker/main.js"></script>
+<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=354bcf086459b742f330894fc091b5bd"></script>
 <script>
+    //地图加载
+    var map = new AMap.Map('map',{
+        resizeEnable: true,
+        zoom: 7
+    });
+
+    var customMarker = new AMap.Marker({
+        offset: new AMap.Pixel(-14, -34),//相对于基点的位置
+        icon: new AMap.Icon({  //复杂图标
+            size: new AMap.Size(27, 36),//图标大小
+            image: "assets/img/location.png"
+        }),
+        map:map
+    });
 
     //首次加载
     $(document).ready(loadContent());
