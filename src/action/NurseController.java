@@ -105,7 +105,7 @@ public class NurseController {
         }
         String time = request.getParameter("startTime");
         if (time != null && !time.equals("")) {
-            cond.append("nurId not in(select svcNurid from ServiceEntity where svc_start<='").append(time).append("' and svc_end>='").append(time).append("') ");
+            cond.append(" nur_id not in(select svcNurid from ServiceEntity where svc_start<='").append(time).append("' and svc_end>='").append(time).append("') ");
         }
         if (cond.toString().equals(" where ")) {
             cond.delete(0, cond.length());
