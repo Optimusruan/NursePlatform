@@ -72,8 +72,10 @@ public class NurseController {
         NurseService nurseService = (NurseService) ServiceConstructor.newService("nurseService", request);
         StringBuilder cond = new StringBuilder();
         cond.append(" where ");
+        boolean flag = true;
         for (int i = 0; i < CONDKEY.length; i++) {
             boolean isNum = false;
+
 //            System.out.println(CONDKEY[i]);
 //            System.out.println(request.getParameter(CONDKEY[i] + "Cond"));
             String temp = new String(request.getParameter(CONDKEY[i] + "Cond").getBytes("ISO-8859-1"), "utf-8");
@@ -84,6 +86,7 @@ public class NurseController {
             }
             if (isNum) {
                 if (temp != null) {
+                    flag = false;
                     if (!cond.toString().equals(" where ")) {
                         cond.append(" and ");
                     }
@@ -91,6 +94,7 @@ public class NurseController {
                 }
             } else {
                 if (temp != null && !temp.equals("")) {
+                    flag= false;
                     if (!cond.toString().equals(" where ")) {
                         cond.append(" and ");
                     }
@@ -105,6 +109,9 @@ public class NurseController {
         }
         String time = request.getParameter("startTime");
         if (time != null && !time.equals("")) {
+            if (!flag){
+                cond.append(" and");
+            }
             cond.append(" nur_id not in(select svcNurid from ServiceEntity where svc_start<='").append(time).append("' and svc_end>='").append(time).append("') ");
         }
         if (cond.toString().equals(" where ")) {
