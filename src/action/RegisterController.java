@@ -94,6 +94,7 @@ public class RegisterController {
                 e.printStackTrace();
             }
             details.put("nurEdu", nurEdu);
+            details.put("nurStatus", request.getParameter("nur_status").trim());
         }
         //注册
         if (opt == "reg" || opt.equals("reg")) {

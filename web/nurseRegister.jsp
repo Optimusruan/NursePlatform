@@ -158,6 +158,13 @@
                     </div>
                     <div id="password-error" class="error"></div>
                 </div>
+                <div class="row form-group margin">
+                    <i class="col-lg-1 fa fa-tags prefix"></i>
+                    <div class="col-lg-11">
+                        <input id="nur_status1" name="nur_status" type="radio" value="1">求职
+                        <input id="nur_status0" name="nur_status" type="radio" value="0">不求职
+                    </div>
+                </div>
                 <div class="row">
                     <div class="input-field col" id="bt">
                         <input name="opt" value="<c:out value="${opt}"></c:out>" type="hidden">
