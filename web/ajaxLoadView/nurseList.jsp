@@ -160,7 +160,7 @@
     //加载内容
     function load(temp) {
         var cache = $("#list").html();
-        $("#list").html("<img src=\"assets/img/loading.gif\" alt=\"\" width=\"300\" style='position: absolute;left: 350px;'>");
+        $("#list").html("<img src=\"assets/img/loading.gif\" alt=\"\" width=\"300\" style='position: absolute;left: 350px;top: 300px;'>");
         $.ajax({
             url: "nurseList",
             timeout: 15000,
