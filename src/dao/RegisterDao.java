@@ -50,6 +50,9 @@ public class RegisterDao {
         if (details.get("nurIdno") != null) {
             nurse.setNurIdno((String) details.get("nurIdno"));
         }
+        if (details.get("nurStatus") != null) {
+            nurse.setNurStatus(Integer.parseInt(details.get("nurStatus").toString()));
+        }
         if (details.get("nurName") != null) {
             nurse.setNurName((String) details.get("nurName"));
         }

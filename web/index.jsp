@@ -81,7 +81,7 @@
         .itemContainer {
             float: left;
             padding: 10px;
-            margin: 10px;
+            margin: 20px;
             width: 364px;
             height: 280px;
             /*background: pink;*/
@@ -100,6 +100,10 @@
             height: 240px;
             padding: 5px;
             text-align: left;
+        }
+        .itemImg img{
+            width: 160px;
+            height: 240px;
         }
     </style>
 </head>
@@ -207,7 +211,7 @@
             <h2>优秀月嫂展示</h2>
             <div style="float: right;"><a href="searchNurse">查看更多 ></a></div>
             <hr>
-            <div id="nurselist">
+            <div id="nurselist"  style="padding-left: 100px;">
 
             </div>
         </div>
@@ -229,7 +233,7 @@
     $.ajax({
         url: "excellentNurses",
         data: {
-            size: 8
+            size: 6
             //偶数
         },
         success: function (data) {
