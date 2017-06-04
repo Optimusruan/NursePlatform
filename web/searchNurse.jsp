@@ -18,6 +18,7 @@
             margin: 15px;
             background: #ddd;
             position: relative;
+            border-radius: 5px;
         }
 
         .itemInfo {
@@ -192,6 +193,7 @@
             text-decoration: none;
             color: #e91e63;
             border: 1px solid #e91e63;
+            border-radius: 5px;
         }
 
         .add > a {

@@ -77,7 +77,15 @@
         <div class="panel-body">
             <div class="row">
                 <div class="col-lg-3"></div>
-                <div class="col-lg-3"><img src="" alt=""></div>
+                <div class="col-lg-3">
+                    <c:choose>
+                        <c:when test="${info.nurAvt!=null}">
+                            <img src="<c:out value="${info.nurAvt}"/>" alt="">
+                        </c:when>
+                        <c:otherwise>
+                            <img src="assets/img/home1.jpg" alt="" width="155" height="200">
+                        </c:otherwise>
+                    </c:choose>                </div>
                 <div class="col-lg-6">
                     <div class="row">
                         <label class="col-lg-3">姓名</label>
