@@ -85,10 +85,10 @@
                         <div>
                             <select id="nur_edu" class="form-control distp" name="nur_edu"
                                     value="<c:out value="${info.nurEdu}"></c:out>"/>
+                            <option value="本科">本科</option>
                             <option value="高中">高中</option>
                             <option value="初中">初中</option>
                             <option value="小学">小学</option>
-                            <option value="本科">本科</option>
                             <option value="其他">其他</option>
                             </select>
                         </div>
@@ -104,9 +104,6 @@
                             <select id="oprovince" class="form-control distp" data-province="---- 选择省 ----"></select>
                             <select id="ocity" class="form-control distp" data-city="---- 选择市 ----"></select>
                         </div>
-                        <script type="text/javascript">
-                            $("#odistpicker").distpicker();
-                        </script>
                     </div>
                 </div>
                 <div class="row form-group margin">
@@ -118,9 +115,6 @@
                             <select id="city" class="form-control distp" data-city="---- 选择市 ----"></select>
                             <select id="district" class="form-control distp" data-district="---- 选择区 ----"></select>
                         </div>
-                        <script type="text/javascript">
-                            $("#distpicker").distpicker();
-                        </script>
                     </div>
                     <div class="col-lg-11 col-lg-offset-1">
                         <input id="nur_add" class="form-control" name="nur_add" placeholder="详细地址" type="text"

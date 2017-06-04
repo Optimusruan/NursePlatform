@@ -4,8 +4,15 @@ import model.NurseEntity;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import res.PlaceUtil;
 
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.Random;
 
 /**
@@ -33,16 +40,23 @@ public class NurseInitDao {
         String[] ageDict = {"40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50"};
         int lengthOfAgeDict = ageDict.length;
 
+        //高德api请求的key
+        String[] apiKey ={"33e7cb2c4d9cc1ef957ef1b57126f38a","57c3e72ed823eac92657900d511d8a1f"};
+
+        //生成学历字典
+        String[] edu = {"本科","高中","初中","小学"};
         Random random = new Random(0);
         for (int i = 0; i < 2500; i++) {
-            Transaction transaction = session.beginTransaction();
             NurseEntity nurseEntity = new NurseEntity();
             random.setSeed(i);
             //生成Id
             nurseEntity.setNurId(i + 1000);
 
             //生成联系方式
-            nurseEntity.setNurIdno(new Integer(Math.abs(random.nextInt() % 1000000000)).toString());
+            nurseEntity.setNurContact("18966668888");
+
+            //生成身份证号
+            nurseEntity.setNurIdno(Integer.toString(Math.abs(random.nextInt() % 1000000000)));
 
             //生成名字
             int randomIndex1 = Math.abs(random.nextInt() % lengthOfNameDict);
@@ -66,13 +80,48 @@ public class NurseInitDao {
             String address = PlaceUtil.place[provinceIndex][0] + PlaceUtil.place[provinceIndex][1 + cityIndex];
             nurseEntity.setNurAdd(address);
 
+            //生成坐标
+            try {
+                String addr = PlaceUtil.place[provinceIndex][0] + PlaceUtil.place[provinceIndex][1 + cityIndex];
+                String addrTemp = URLEncoder.encode(addr,"utf-8");
+                String urlStr = "http://restapi.amap.com/v3/geocode/geo?key="+apiKey[i/1500]+"&address=" + addrTemp;
+                URL url = new URL(urlStr);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                httpURLConnection.setRequestMethod("GET");
+                httpURLConnection.setDoInput(true);
+                httpURLConnection.connect();
+                InputStream inputStream = httpURLConnection.getInputStream();
+                ByteArrayOutputStream out = new ByteArrayOutputStream();
+                int bytesRead;
+                byte[] buffer = new byte[10240];
+                while ((bytesRead = inputStream.read(buffer)) > 0) {
+                    out.write(buffer, 0, bytesRead);//把读取的字节流写入out流
+                }
+                JSONObject jsonObjectAll = new JSONObject(new String(out.toByteArray()));
+                JSONArray jsonArray = jsonObjectAll.getJSONArray("geocodes");
+                String location = new String(jsonArray.getJSONObject(0).getString("location").getBytes("ISO-8859-1"),"utf-8");
+                StringBuilder stringBuffer = new StringBuilder();
+                nurseEntity.setNurPos(stringBuffer.append("[").append(location).append("]").toString());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
+            //生成求职状态
+            nurseEntity.setNurStatus(1);
+
+            //生成学历
+            nurseEntity.setNurEdu(edu[Math.abs(random.nextInt() % edu.length)]);
+
+            //生成口碑
+            nurseEntity.setNurRpt(0.0);
+
+            Transaction transaction = session.beginTransaction();
             session.save(nurseEntity);
             transaction.commit();
         }
         session.close();
 //        System.out.println(randomIndex1+","+randomIndex2+","+randomIndex3);
-        System.out.println("size:" + lengthOfNameDict);
+
 
     }
 

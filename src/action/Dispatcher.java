@@ -27,9 +27,11 @@ public class Dispatcher {
     public void init(HttpServletRequest request, HttpServletResponse response) throws IOException {
         ApplicationContext applicationContext = getApplicationContext(request);
         NurseInitDao nurseInitDao = (NurseInitDao) applicationContext.getBean("nurseInitDao");
-        nurseInitDao.run();
         PrintWriter printWriter = response.getWriter();
+        printWriter.print("start");
+        nurseInitDao.run();
         printWriter.print("finish");
+
     }
 
 }

@@ -135,7 +135,7 @@
         <div class="row">
             <div class="col-lg-6">
                 <div class="row">
-                    <label class="col-lg-3 label-info">姓名</label>
+                    <label class="col-lg-3">姓名</label>
                     <div class="col-lg-9"><c:out value="${info.nurName}"/></div>
                 </div>
                 <div class="row">
@@ -161,17 +161,28 @@
                     <div class="col-lg-9"><c:out value="${info.nurAdd}"/></div>
                 </div>
                 <div class="row">
+                    <label class="col-lg-3">星级</label>
+                    <div class="col-lg-9"><c:out value="${info.nurRank}"/></div>
+                </div>
+                <div class="row">
                     <label class="col-lg-3">口碑</label>
-                    <div class="col-lg-9"></div>
+                    <div class="col-lg-9"><c:out value="${info.nurRpt}"/></div>
                 </div>
                 <div class="row">
                     <label class="col-lg-3">价格</label>
                     <div class="col-lg-9"><c:out value="${info.nurPrice}"/></div>
                 </div>
             </div>
-            <div class="col-lg-6">
-                <div class="row">
-                    <img src="" alt=""></div>
+            <div class="col-lg-6" style="text-align: center;">
+                <div class="row" >
+                    <c:choose>
+                        <c:when test="${info.nurAvt!=null}">
+                            <img src="<c:out value="${info.nurAvt}"/>" alt="">
+                        </c:when>
+                        <c:otherwise>
+                            <img src="assets/img/home1.jpg" alt="" class="col-lg-8" c style="margin: 5px">
+                        </c:otherwise>
+                    </c:choose>
                 <div class="row" style="text-align: center">
                     <c:if test="${appoint}">
                         <button id="appoint" class="btn btn-warning" style="width: 50%;" data-id="1">我要预约</button>

@@ -392,12 +392,13 @@
     <input type="hidden" id="current" value="1"/>
     <%--<input type="hidden" id="maxPage" value="3"/>--%>
 </div>
+<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=354bcf086459b742f330894fc091b5bd"></script>
 <script src="assets/js/jquery-3.1.1.min.js"></script>
 <script src="assets/js/bootstrap.min.js"></script>
 <script src="assets/js/distpicker/distpicker.data.js"></script>
 <script src="assets/js/distpicker/distpicker.js"></script>
 <script src="assets/js/distpicker/main.js"></script>
-<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=354bcf086459b742f330894fc091b5bd"></script>
+
 <script>
 
     //首次加载
