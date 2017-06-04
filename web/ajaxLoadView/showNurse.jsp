@@ -22,6 +22,7 @@
             <div>年龄：<c:out value="${item.nurAge}"/></div>
             <div>籍贯：<c:out value="${item.nurAdd}"/></div>
             <div>学历：<c:out value="${item.nurEdu}"/></div>
+            <div>价格：<c:out value="${item.nurPrice}"/></div>
             <div class="rank"><a href="nurseDetail?id=${item.nurId}" style="color: white;text-decoration:none;">查看详情</a>
             </div>
         </div>

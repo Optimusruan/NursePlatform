@@ -33,13 +33,12 @@
         </property>
     </bean>
     <!-- upload -->
-    <!--<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">-->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
     <!--<property name="defaultEncoding" value="utf-8" />-->
-    <!--&lt;!&ndash; 以字节为单位的最大上传文件的大小 &ndash;&gt;-->
+    <!-- 以字节为单位的最大上传文件的大小 -->
     <!--<property name="maxUploadSize" value="100000" />-->
-    <!--<property name="uploadTempDir" value="assets/img" />-->
-    <!--</bean>-->
-    <!--<mvc:annotation-driven/>-->
+    <!--<property name="uploadTempDir" value="/assets/img" />-->
+    </bean>
     <!--dao-->
     <bean id="nurseInitDao" class="dao.NurseInitDao">
         <property name="sessionFactory" ref="sessionFactory"/>
