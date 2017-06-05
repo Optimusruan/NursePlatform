@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="ExtendPackage">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/mysql-connector-java-5.1.39-bin.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/servlet-api.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/org.json.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/src" />
+      <root url="jar://$PROJECT_DIR$/lib/org.json.jar!/" />
+    </SOURCES>
+  </library>
+</component>

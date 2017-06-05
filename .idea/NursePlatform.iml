@@ -35,7 +35,7 @@
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager" inherit-compiler-output="false">
+  <component name="NewModuleRootManager">
     <output url="file:///production/NursePlatform" />
     <output-test url="file:///test/NursePlatform" />
     <exclude-output />
@@ -47,6 +47,6 @@
     <orderEntry type="library" exported="" name="Spring-4.3.8.RELEASE" level="project" />
     <orderEntry type="library" exported="" name="Spring MVC-4.3.8.RELEASE" level="project" />
     <orderEntry type="library" exported="" name="Hibernate 5.2.9-5.2.9" level="project" />
-    <orderEntry type="library" exported="" name="mysql-connector-java-5.1.39-bin" level="project" />
+    <orderEntry type="library" exported="" name="ExtendPackage" level="project" />
   </component>
 </module>
